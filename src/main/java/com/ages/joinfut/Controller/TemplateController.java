@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/example")
-public class TemplateController {
+public class    TemplateController {
 
     private static final String URL_PLURAL = "/templates";
     private static final String URL_SINGULAR = "/template/{id}";
