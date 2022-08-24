@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +27,8 @@ public class Template {
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
+    @NotNull
+    @NotEmpty
     @Column(name = "nome")
     private String nome;
 
@@ -46,6 +50,14 @@ public class Template {
 
     public static List<Template> desconvertList(List<TemplateDTO> templateDTOS) {
         return templateDTOS.stream().map(Template::new).collect(Collectors.toList());
+    }
+
+    public Long getId() {
+        return getiTemplate();
+    }
+
+    public static Template desconvertId(TemplateDTO templateDTO) {
+        return new Template(templateDTO);
     }
 
     public Long getiTemplate() {

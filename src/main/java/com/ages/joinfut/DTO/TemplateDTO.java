@@ -38,6 +38,10 @@ public class TemplateDTO {
         return new TemplateDTO(template);
     }
 
+    public Long getId() {
+        return getiTemplate();
+    }
+
     public Long getiTemplate() {
         return iTemplate;
     }
