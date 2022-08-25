@@ -4,9 +4,6 @@ import com.ages.joinfut.Enums.TemplateEnum;
 import com.ages.joinfut.Model.Template;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class TemplateDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificação única do Template")
@@ -28,14 +25,6 @@ public class TemplateDTO {
         this.nome = template.getNome();
         this.templateEnum = template.getTemplateEnum();
         this.flagAtivo = template.getFlagAtivo();
-    }
-
-    public static List<TemplateDTO> convertList(List<Template> templates) {
-        return templates.stream().map(TemplateDTO::new).collect(Collectors.toList());
-    }
-
-    public static TemplateDTO convertId(Template template) {
-        return new TemplateDTO(template);
     }
 
     public Long getId() {

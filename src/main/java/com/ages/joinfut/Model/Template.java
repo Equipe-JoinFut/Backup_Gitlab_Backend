@@ -14,8 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Template {
@@ -27,8 +26,9 @@ public class Template {
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "O nome do Template não pode ser nulo!")
+    @NotEmpty(message = "O nome do Template não pode ser vazio!")
+    @Size(min = 5, max = 255, message = "O tamanho do nome deve ser maior que 5 e menor que 255 caracteres!")
     @Column(name = "nome")
     private String nome;
 
@@ -48,16 +48,8 @@ public class Template {
         this.flagAtivo = templateDTO.getFlagAtivo();
     }
 
-    public static List<Template> desconvertList(List<TemplateDTO> templateDTOS) {
-        return templateDTOS.stream().map(Template::new).collect(Collectors.toList());
-    }
-
     public Long getId() {
         return getiTemplate();
-    }
-
-    public static Template desconvertId(TemplateDTO templateDTO) {
-        return new Template(templateDTO);
     }
 
     public Long getiTemplate() {
