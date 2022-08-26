@@ -1,13 +1,19 @@
-package com.ages.joinfut.Model;
+package com.ages.joinfut.model;
 
-import com.ages.joinfut.DTO.TemplateDTO;
-import com.ages.joinfut.Enums.TemplateEnum;
+import com.ages.joinfut.dto.TemplateDTO;
+import com.ages.joinfut.Enum.TemplateEnum;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "templates", schema = "examples")
@@ -20,9 +26,6 @@ public class Template {
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
-    @NotNull(message = "O nome do Template não pode ser nulo!")
-    @NotEmpty(message = "O nome do Template não pode ser vazio!")
-    @Size(min = 5, max = 255, message = "O tamanho do nome deve ser maior que 5 e menor que 255 caracteres!")
     @Column(name = "nome")
     private String nome;
 
@@ -48,10 +51,6 @@ public class Template {
 
     public Long getiTemplate() {
         return iTemplate;
-    }
-
-    public void setiTemplate(Long iTemplate) {
-        this.iTemplate = iTemplate;
     }
 
     public String getNome() {

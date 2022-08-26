@@ -1,8 +1,8 @@
-package com.ages.joinfut.Service;
+package com.ages.joinfut.service;
 
-import com.ages.joinfut.DTO.TemplateDTO;
-import com.ages.joinfut.Model.Template;
-import com.ages.joinfut.Repository.TemplateRepository;
+import com.ages.joinfut.dto.TemplateDTO;
+import com.ages.joinfut.model.Template;
+import com.ages.joinfut.repository.TemplateRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

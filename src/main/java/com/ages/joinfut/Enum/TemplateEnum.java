@@ -1,4 +1,4 @@
-package com.ages.joinfut.Enums;
+package com.ages.joinfut.Enum;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

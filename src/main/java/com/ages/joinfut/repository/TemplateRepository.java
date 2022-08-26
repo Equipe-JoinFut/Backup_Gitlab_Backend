@@ -1,6 +1,6 @@
-package com.ages.joinfut.Repository;
+package com.ages.joinfut.repository;
 
-import com.ages.joinfut.Model.Template;
+import com.ages.joinfut.model.Template;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

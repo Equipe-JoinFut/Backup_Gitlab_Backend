@@ -1,8 +1,12 @@
-package com.ages.joinfut.DTO;
+package com.ages.joinfut.dto;
 
-import com.ages.joinfut.Enums.TemplateEnum;
-import com.ages.joinfut.Model.Template;
+import com.ages.joinfut.Enum.TemplateEnum;
+import com.ages.joinfut.model.Template;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class TemplateDTO {
 
@@ -10,6 +14,9 @@ public class TemplateDTO {
     private Long iTemplate;
 
     @ApiModelProperty(position = 2, notes = "Nome do template")
+    @NotNull(message = "O nome do Template não pode ser nulo!")
+    @NotEmpty(message = "O nome do Template não pode ser vazio!")
+    @Size(min = 5, max = 255, message = "O tamanho do nome deve ser maior que 5 e menor que 255 caracteres!")
     private String nome;
 
     @ApiModelProperty(position = 3, notes = "Enum do template")
@@ -33,10 +40,6 @@ public class TemplateDTO {
 
     public Long getiTemplate() {
         return iTemplate;
-    }
-
-    public void setiTemplate(Long iTemplate) {
-        this.iTemplate = iTemplate;
     }
 
     public String getNome() {
