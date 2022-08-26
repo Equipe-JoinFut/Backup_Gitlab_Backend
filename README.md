@@ -110,7 +110,7 @@ Todos os commits devem começar com o **código da Issue** e uma mensagem direta
 
 Exemplo de Issue:
 
-<img src="resources\images\processo\Codigo_Issue.png">
+<img src="https://tools.ages.pucrs.br/Joinfut/joinfut-wiki/-/wikis/resources%5Cimages%5Cprocesso%5CCodigo_Issue.png">
 
 Esse código marcado é o que deve vir antes da mensagem em português do que foi feito:
 
