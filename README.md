@@ -1,27 +1,86 @@
 # Backend do projeto JoinFut
 
+![](https://badgen.net/badge/Java/11/orange) 
+![](https://badgen.net/badge/maven/3.6.3/green) 
+![](https://badgen.net/badge/spring/2.7.3/black)
+![](https://badgen.net/badge/portgresql/12/blue)
+
+
+* Tipo de Backend
+
+![](https://img.shields.io/badge/api%20rest-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+
+* Tipo de Banco de dados
+
+![](https://img.shields.io/badge/SQL%20relacional-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
+
 ---
 
 ## Glossário
 
-|Ordem| Informação                                                            |
-|---|-----------------------------------------------------------------------|
-|1| [Git Workflow](https://tools.ages.pucrs.br/Joinfut/joinfut-wiki/-/wikis/processo#git-workflow)                                         
-|2| [Versões dos programas utilizados](#Versões-dos-programas-utilizados) |
-|3| [Como rodar o projeto no Intellij](#Como-rodar-o-projeto-no-Intellij) |
-|4| [Entendendo o projeto](#Entendendo-o-projeto)                         |
-|5| [Configurações iniciais](#Configurações-iniciais)                     |
-
-## Versões dos programas utilizados
-
-* **Java 8** : [Como instalar o Java 8]() `Em construção`
-* **Postman** : [Download do postman mais recente](https://www.postman.com/downloads/)
-* **Apache Maven 3.6.3** : [Como instalar o Maven]() `Em construção`
-* **PostgreSQL 12**: [Como instalar o PostgreSQL 12](https://tools.ages.pucrs.br/Joinfut/joinfut-wiki/-/wikis/instalação#postgresql)
-* **Intellij 2022 ou mais recente** : [Download do intellij](https://www.jetbrains.com/pt-br/idea/download/)
+| Ordem | Informação                               |
+|-------|------------------------------------------|
+| 1     | [Git Workflow](#workflow)                |
+| 2     | [Como rodar o projeto no Intellij](#run) |
+| 3     | [Entendendo o projeto](#projeto)         |
+| 4     | [Configurações iniciais](#inicial)       |
 
 ---
 
+<a name="workflow"></a>
+## Git Workflow
+
+* Todas as informações se encontram na [**Página Oficial do Processo**](https://tools.ages.pucrs.br/Joinfut/joinfut-wiki/-/wikis/processo#git-workflow)
+* Resumo:
+
+#### Branches
+
+Como padrão para nomes de branches, foi decidido o seguinte:
+
+```
+<nomeColega>/<tipoDemanda>/<codigoDemanda>
+```
+
+Exemplo de branchs:
+
+```
+fanto/feature/#1
+fanto/bugFix/#346
+fanto/architecture/#1230
+```
+
+#### Padrão de Commits
+
+Todos os commits devem começar com o **código da Issue** e uma mensagem direta do que foi feito naquele commit:
+
+Esse código marcado é o que deve vir antes da mensagem em português do que foi feito:
+
+```
+git commit -m "#1 Atualizando os nomes dos colegas"
+```
+
+Com isso, vai vincular automaticamente a Issue ao commit, facilitando o trabalho dos revisores e colegas para saber de onde veio as alterações e o que foi feito
+
+**ATENÇÃO** se o commit não estiver nessa estrutura, o commit vai ser invalidado e deverá ser feito um SQUASH de commits com a estrutura correta.
+
+Não hesite em realizar vários commits, assim podemos ter documentado e salvo vários estados do desenvolvimento
+
+#### Nomenclaturas de Métodos e Funções
+
+* Não tenha medo de colocar nomes grandes, mas devem fazer sentido com a funcionalidade que está sendo feito:
+
+```java
+public int decodeDtoInformationIntoModel(){...}
+```
+
+#### Comentários
+
+* Utilize comentários somente se for necessário, os nomes das variáveis e métodos devem dizer por si só o que ele faz, comentários somente são permitidos no **Template** de exemplo.
+
+---
+
+<a name="run"></a>
 ## Como rodar o projeto no Intellij
 
 1. Abra o repositório pelo Intellij
@@ -33,6 +92,7 @@
 
 ---
 
+<a name="projeto"></a>
 ## Entendendo o projeto
 
 * O projeto é uma [**API REST**](https://rockcontent.com/br/blog/rest-api/) utilizando [**Spring Data**](https://spring.io/projects/spring-data) e [**Hibernate**](https://hibernate.org)
@@ -60,7 +120,22 @@
 
 ---
 
+<a name="inicial"></a>
 ## Configurações iniciais
+
+### Configurando o JDK/SDK
+
+* Após instalado os programas necessários, devemos configurar o JDK na nossa IDE.
+* Vá em **File** > **Project Structure** > **Project**
+* Selecione o JDK do Java, sendo o da versão 11 que foi instalada no [Tutorial](https://tools.ages.pucrs.br/Joinfut/joinfut-wiki/-/wikis/backend/java_instalacao)
+
+### Build do projeto
+
+* Após configurado o JDK, deixe o intellij terminar a configuração e clique no martelo verde bem acima no canto direito do intellij
+* Deixe buildar, depois vá ao arquivo **pom.xml** e clique com o botão do mouse direito dentro desse arquivo
+* vá até a opção **Maven** e depois clique em **Reload project**
+* Assim que terminar de buildar, verifique se apareceu no canto acima direito ao lado do martelo verde o texto **JoinfutApplication**
+* Se estiver aparecendo, o projeto está pronto para rodar.
 
 ### Evitar que os imports sejam simplificados
 * Após baixado o Intellij, vá na ponta esquerda da IDE e clique em **File**
