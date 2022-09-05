@@ -29,6 +29,7 @@
 ---
 
 <a name="workflow"></a>
+
 ## Git Workflow
 
 * Todas as informações se encontram na [**Página Oficial do Processo**](https://tools.ages.pucrs.br/Joinfut/joinfut-wiki/-/wikis/processo#git-workflow)
@@ -81,6 +82,7 @@ public int decodeDtoInformationIntoModel(){...}
 ---
 
 <a name="run"></a>
+
 ## Como rodar o projeto no Intellij
 
 1. Abra o repositório pelo Intellij
@@ -92,35 +94,8 @@ public int decodeDtoInformationIntoModel(){...}
 
 ---
 
-<a name="projeto"></a>
-## Entendendo o projeto
-
-* O projeto é uma [**API REST**](https://rockcontent.com/br/blog/rest-api/) utilizando [**Spring Data**](https://spring.io/projects/spring-data) e [**Hibernate**](https://hibernate.org)
-* O Projeto possui a seguinte estrutura:
-  * **src.main.java** = caminho para os diretórios do projeto.
-      * **com.ages.joinfut** = caminho para os arquivos oficiais da arquitetura
-          * **config** = diretório onde ficam as configurações globais
-              * **generic** = diretório onde ficam os arquivos genéricos utilizados no projeto.
-              * **validation** = diretório onde ficam o tratamento de erros e validações globais.
-          * **controller** = diretório onde ficam os arquivos de controle das requisições a API REST.
-          * **dto** = diretório onde ficam o tratamento de dados e suas validações das requisições para o banco.
-          * **Enum** = diretório onde ficam os objetos enumerados (que possuem valores padrões) que podem ser utilizados.
-          * **model** = diretório onde ficam as entidades (a estrutura de informações que vão ser salvos no banco).
-          * **repository** = diretório onde ficam os arquivos de tratamento das camadas de persistência do JPA.
-          * **service** = diretório onde ficam validações mais complexas e funções utilizadas pelas requisições.
-      * **resources** = diretório onde fica o `application.properties` com as configurações do spring
-      * **test** = diretório onde ficam os testes do projeto
-* O projeto deve ser implementado seguindo o seguinte caminho:
-  * [**Model**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/model/Template.java)
-  * [**DTO**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/dto/TemplateDTO.java)
-  * [**Repository**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/repository/TemplateRepository.java)
-  * [**Service**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/service/TemplateService.java)
-  * [**Controller**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/controller/TemplateController.java)
-  * [**Enum(Opcional)**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/Enum/TemplateEnum.java)
-
----
-
 <a name="inicial"></a>
+
 ## Configurações iniciais
 
 ### Configurando o JDK/SDK
@@ -147,4 +122,35 @@ public int decodeDtoInformationIntoModel(){...}
 * Desmarque as opções abaixo:
   * import java.awt.*
   * import javax.swing.*
+
+  ---
+
+<a name="projeto"></a>
+
+## Entendendo o projeto
+
+* O projeto é uma [**API REST**](https://rockcontent.com/br/blog/rest-api/) utilizando [**Spring Data**](https://spring.io/projects/spring-data) e [**Hibernate**](https://hibernate.org)
+* O Projeto possui a seguinte estrutura:
+  * **src.main.java** = caminho para os diretórios do projeto.
+      * **com.ages.joinfut** = caminho para os arquivos oficiais da arquitetura
+          * **config** = diretório onde ficam as configurações globais
+              * **generic** = diretório onde ficam os arquivos genéricos utilizados no projeto.
+              * **validation** = diretório onde ficam o tratamento de erros e validações globais.
+          * **controller** = diretório onde ficam os arquivos de controle das requisições a API REST.
+          * **dto** = diretório onde ficam o tratamento de dados e suas validações das requisições para o banco.
+          * **Enum** = diretório onde ficam os objetos enumerados (que possuem valores padrões) que podem ser utilizados.
+          * **model** = diretório onde ficam as entidades (a estrutura de informações que vão ser salvos no banco).
+          * **repository** = diretório onde ficam os arquivos de tratamento das camadas de persistência do JPA.
+          * **service** = diretório onde ficam validações mais complexas e funções utilizadas pelas requisições.
+      * **resources** = diretório onde fica o `application.properties` com as configurações do spring
+      * **test** = diretório onde ficam os testes do projeto
+* O projeto deve ser implementado seguindo o seguinte caminho:
+  * [**Model**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/model/Template.java)
+  * [**DTO**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/dto/TemplateDTO.java)
+  * [**Repository**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/repository/TemplateRepository.java)
+  * [**Service**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/service/TemplateService.java)
+  * [**Controller**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/controller/TemplateController.java)
+  * [**Enum(Opcional)**](https://tools.ages.pucrs.br/Joinfut/joinfut-backend/-/blob/main/src/main/java/com/ages/joinfut/Enum/TemplateEnum.java)
+
+---
 
