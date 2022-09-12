@@ -3,13 +3,17 @@ package com.ages.joinfut.model;
 import com.ages.joinfut.dto.AtleteDTO;
 import org.hibernate.annotations.Type;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "atletes", schema = "users")
@@ -34,6 +38,10 @@ public class Atlete {
         this.idAtlete = atleteDTO.getIdAtlete();
         this.atleteName = atleteDTO.getAtleteName();
         this.atleteAge = atleteDTO.getAtleteAge();
+    }
+
+    public Long getId() {
+        return getIdAtlete();
     }
 
     public Long getIdAtlete() {

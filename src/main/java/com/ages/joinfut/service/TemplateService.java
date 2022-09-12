@@ -28,7 +28,7 @@ public class TemplateService {
     }
 
     public Template updateObject(Long id, Template updated, TemplateRepository templateRepository) {
-        Template saved = templateRepository.findByiTemplate(id);
+        Template saved = templateRepository.findByidTemplate(id);
         if (updated.getNome() != null && !updated.getNome().equals(saved.getNome())) {
             saved.setNome(updated.getNome());
         }
