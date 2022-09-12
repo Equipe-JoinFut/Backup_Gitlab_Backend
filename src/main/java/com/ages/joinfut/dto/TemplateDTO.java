@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 public class TemplateDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificação única do Template")
-    private Long iTemplate;
+    private Long idTemplate;
 
     @ApiModelProperty(position = 2, notes = "Nome do template")
     @NotNull(message = "O nome do Template não pode ser nulo!")
@@ -28,18 +28,18 @@ public class TemplateDTO {
     public TemplateDTO() {}
 
     public TemplateDTO(Template template) {
-        this.iTemplate = template.getiTemplate();
+        this.idTemplate = template.getidTemplate();
         this.nome = template.getNome();
         this.templateEnum = template.getTemplateEnum();
         this.flagAtivo = template.getFlagAtivo();
     }
 
     public Long getId() {
-        return getiTemplate();
+        return getidTemplate();
     }
 
-    public Long getiTemplate() {
-        return iTemplate;
+    public Long getidTemplate() {
+        return idTemplate;
     }
 
     public String getNome() {

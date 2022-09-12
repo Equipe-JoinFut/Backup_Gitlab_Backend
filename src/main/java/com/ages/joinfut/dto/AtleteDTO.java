@@ -3,6 +3,8 @@ package com.ages.joinfut.dto;
 import com.ages.joinfut.model.Atlete;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.List;
+
 public class AtleteDTO {
 
        @ApiModelProperty(position = 1, notes = "Identificação única do Atleta")
