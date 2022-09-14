@@ -1,6 +1,8 @@
 package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.Atlete;
+import com.ages.joinfut.model.AtleteClub;
+import com.ages.joinfut.model.AtleteDecease;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
@@ -29,10 +31,10 @@ public class AtleteDTO {
     private String atleteBid;
 
     @ApiModelProperty(position = 8, notes = "Histórico de Clubes do Atleta")
-    private List<String> atleteClubstory;
+    private List<AtleteClub> atleteClubStory;
 
     @ApiModelProperty(position = 9, notes = "Doenças pŕe-existentes do Atleta")
-    private List<String> atleteDeceases;
+    private List<AtleteDecease> atleteDeceases;
 
     public AtleteDTO () {}
 
@@ -44,7 +46,7 @@ public class AtleteDTO {
         this.atleteWeight = atlete.getAtleteWeight();
         this.atleteImc = atlete.getAtleteImc();
         this.atleteBid = atlete.getAtleteBid();
-        this.atleteClubstory = atlete.getAtleteClubStory();
+        this.atleteClubStory = atlete.getAtleteClubStory();
         this.atleteDeceases = atlete.getAtleteDeaceases();
     }
 
@@ -68,7 +70,7 @@ public class AtleteDTO {
 
     public String getAtleteBid() { return atleteBid; }
 
-    public List<String> getAtleteClubStory() { return atleteClubstory; }
+    public List<AtleteClub> getAtleteClubStory() { return atleteClubStory; }
 
-    public List<String> getAtleteDeaceases() { return atleteDeceases; }
+    public List<AtleteDecease> getAtleteDeaceases() { return atleteDeceases; }
 }

@@ -35,10 +35,10 @@ public class AtleteService {
         if (updated.getAtleteAge() != null && !updated.getAtleteAge().equals(saved.getAtleteAge())) {
             saved.setAtleteAge(updated.getAtleteAge());
         }
-        if (updated.getAtleteHeight() != null && updated.getAtleteHeight() != saved.getAtleteHeight()) {
+        if (updated.getAtleteHeight() != null && updated.getAtleteHeight().equals(saved.getAtleteHeight())) {
             saved.setAtleteHeight(updated.getAtleteHeight());
         }
-        if (updated.getAtleteWeight() != null && updated.getAtleteWeight() != saved.getAtleteWeight()) {
+        if (updated.getAtleteWeight() != null && updated.getAtleteWeight().equals(saved.getAtleteWeight())) {
             saved.setAtleteWeight(updated.getAtleteWeight());
         }
         if (updated.getAtleteImc() != null && updated.getAtleteImc() != saved.getAtleteImc()) {
