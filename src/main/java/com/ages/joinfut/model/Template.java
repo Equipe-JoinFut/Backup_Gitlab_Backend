@@ -21,8 +21,8 @@ public class Template {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "i_template")
-    private Long iTemplate;
+    @Column(name = "id_template")
+    private Long idTemplate;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
@@ -39,18 +39,18 @@ public class Template {
     public Template() {}
 
     public Template(TemplateDTO templateDTO) {
-        this.iTemplate = templateDTO.getiTemplate();
+        this.idTemplate = templateDTO.getidTemplate();
         this.nome = templateDTO.getNome();
         this.templateEnum = templateDTO.getTemplateEnum();
         this.flagAtivo = templateDTO.getFlagAtivo();
     }
 
     public Long getId() {
-        return getiTemplate();
+        return getidTemplate();
     }
 
-    public Long getiTemplate() {
-        return iTemplate;
+    public Long getidTemplate() {
+        return idTemplate;
     }
 
     public String getNome() {
