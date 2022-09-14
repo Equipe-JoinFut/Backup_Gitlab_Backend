@@ -1,11 +1,8 @@
 package com.ages.joinfut.service;
 
 import com.ages.joinfut.dto.AtleteDTO;
-import com.ages.joinfut.dto.TemplateDTO;
 import com.ages.joinfut.model.Atlete;
-import com.ages.joinfut.model.Template;
 import com.ages.joinfut.repository.AtleteRepository;
-import com.ages.joinfut.repository.TemplateRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,6 +34,18 @@ public class AtleteService {
         }
         if (updated.getAtleteAge() != null && !updated.getAtleteAge().equals(saved.getAtleteAge())) {
             saved.setAtleteAge(updated.getAtleteAge());
+        }
+        if (updated.getAtleteHeight() != null && updated.getAtleteHeight() != saved.getAtleteHeight()) {
+            saved.setAtleteHeight(updated.getAtleteHeight());
+        }
+        if (updated.getAtleteWeight() != null && updated.getAtleteWeight() != saved.getAtleteWeight()) {
+            saved.setAtleteWeight(updated.getAtleteWeight());
+        }
+        if (updated.getAtleteImc() != null && updated.getAtleteImc() != saved.getAtleteImc()) {
+            saved.setAtleteImc(updated.getAtleteImc());
+        }
+        if (updated.getAtleteBid() != null && updated.getAtleteBid() != saved.getAtleteBid()) {
+            saved.setAtleteBid(updated.getAtleteBid());
         }
         return saved;
     }
