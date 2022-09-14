@@ -3,11 +3,12 @@ package com.ages.joinfut.service;
 import com.ages.joinfut.dto.AtleteClubDTO;
 import com.ages.joinfut.model.AtleteClub;
 import com.ages.joinfut.repository.AtleteClubRepository;
-import com.ages.joinfut.repository.AtleteRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class AtleteClubService {
     public List<AtleteClubDTO> convertList(List<AtleteClub> atleteClubs) {
         return atleteClubs.stream().map(AtleteClubDTO::new).collect(Collectors.toList());
@@ -29,6 +30,15 @@ public class AtleteClubService {
         AtleteClub saved = atleteClubRepository.findByidAtleteClub(id);
         if (updated.getAtlete() != null && !updated.getAtlete().equals(saved.getAtlete())) {
             saved.setAtlete(updated.getAtlete());
+        }
+        if (updated.getAtleteClubName() != null && !updated.getAtleteClubName().equals(saved.getAtleteClubName())) {
+            saved.setAtleteClubName(updated.getAtleteClubName());
+        }
+        if (updated.getBeginDate() != null && !updated.getBeginDate().equals(saved.getBeginDate())) {
+            saved.setBeginDate(updated.getBeginDate());
+        }
+        if (updated.getEndDate() != null && !updated.getEndDate().equals(saved.getEndDate())) {
+            saved.setEndDate(updated.getEndDate());
         }
         return saved;
     }
