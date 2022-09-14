@@ -11,7 +11,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "adresses", schema = "users")
+@Table(name = "adresses", schema = "informations")
 public class Adress {
 
     @Id
