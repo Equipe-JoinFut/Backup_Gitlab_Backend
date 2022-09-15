@@ -19,8 +19,8 @@ public class ContactDTO {
     @ApiModelProperty(position = 4, notes = "Telephone")
     private String telephone;
 
-    @ApiModelProperty(position = 4, notes = "Respostas")
-    private List<String> responses;
+    @ApiModelProperty(position = 4, notes = "Responsáveis")
+    private List<Contact> responsibles;
     
     public ContactDTO() {}
 
@@ -29,7 +29,7 @@ public class ContactDTO {
         this.contactName = contact.getContactName();
         this.email = contact.getEmail();
         this.telephone = contact.getTelephone();
-        this.responses = contact.getResponses();
+        this.responsibles = contact.getResponsibles();
     }
 
     public Long getIdContact() {
@@ -48,7 +48,7 @@ public class ContactDTO {
         return telephone;
     }
 
-    public List<String> getResponses() {
-        return responses;
+    public List<Contact> getResponsibles() {
+        return responsibles;
     }
 }

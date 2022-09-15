@@ -41,6 +41,7 @@ public class Adress {
         this.city = adressDTO.getCity();
     }
 
+    public Long getId() {return getIdAdress();}
     public Long getIdAdress() { return idAdress; }
 
     public void setIdAdress(Long idAdress) { this.idAdress = idAdress; }

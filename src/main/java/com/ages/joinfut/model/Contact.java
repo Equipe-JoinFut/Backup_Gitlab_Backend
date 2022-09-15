@@ -38,8 +38,8 @@ public class Contact {
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "responses")
-    private List<String> responses;
+    @Column(name = "responsibles")
+    private List<Contact> responsibles;
 
     public Contact() {}
 
@@ -48,9 +48,10 @@ public class Contact {
         this.contactName = contactDTO.getContactName();
         this.email = contactDTO.getEmail();
         this.telephone = contactDTO.getTelephone();
-        this.responses = contactDTO.getResponses();
+        this.responsibles = contactDTO.getResponsibles();
     }
 
+    public Long getId() {return getIdContact();}
     public Long getIdContact() {
         return idContact; 
     }
@@ -83,11 +84,11 @@ public class Contact {
         this.telephone = telephone;
     }
 
-    public List<String> getResponses() {
-        return responses;
+    public List<Contact> getResponsibles() {
+        return responsibles;
     }
 
-    public void setResponses(List<String> responses) {
-        this.responses = responses;
+    public void setResponsibles(List<Contact> responsibles) {
+        this.responsibles = responsibles;
     }
 }

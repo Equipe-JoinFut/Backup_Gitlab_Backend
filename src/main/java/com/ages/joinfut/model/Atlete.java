@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,10 +47,10 @@ public class Atlete {
     @Column(name = "atlete_bid")
     private String atleteBid;
 
-    @OneToMany(mappedBy = "id_atlete", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
     private List<AtleteClub> atleteClubStory;
 
-    @OneToMany(mappedBy = "id_atlete", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
     private List<AtleteDecease> atleteDeaceases;
 
     public Atlete() {}
