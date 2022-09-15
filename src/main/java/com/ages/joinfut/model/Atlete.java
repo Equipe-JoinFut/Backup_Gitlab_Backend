@@ -1,9 +1,31 @@
 package com.ages.joinfut.model;
 
+import com.ages.joinfut.Enum.DominantLeg;
+import com.ages.joinfut.Enum.PlayStyle;
+import com.ages.joinfut.Enum.Position;
 import com.ages.joinfut.dto.AtleteDTO;
+import com.ages.joinfut.service.AtleteService;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -23,6 +45,11 @@ public class Atlete {
     @Column(name = "atlete_age")
     private Integer atleteAge;
 
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Column(name = "date_birth")
+    private Date dateBirth;
+
     @Column(name = "atlete_height")
     private Double atleteHeight;
 
@@ -37,24 +64,53 @@ public class Atlete {
     @Column(name = "atlete_bid")
     private String atleteBid;
 
-    //@OneToMany(mappedBy = "id_atlete", cascade = CascadeType.REMOVE)
-    //private List<AtleteClub> atleteClubstory;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "dominant_leg")
+    private DominantLeg dominantLeg;
 
-    //@OneToMany(mappedBy = "id_atlete", cascade = CascadeType.REMOVE)
-    //private List<AtleteDecease> atleteDeaceases;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "position")
+    private Position position;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "play_style")
+    private PlayStyle playStyle;
+
+    @JoinColumn(name = "id_adress")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Adress adress;
+
+    @JoinColumn(name = "id_contact")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Contact contact;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
+    @JsonProperty("atleteClubs")
+    private List<AtleteClub> atleteClubs;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
+    private List<AtleteDecease> atleteDeceases;
 
     public Atlete() {}
 
     public Atlete(AtleteDTO atleteDTO) {
-        this.idAtlete = atleteDTO.getIdAtlete();
-        this.atleteName = atleteDTO.getAtleteName();
-        this.atleteAge = atleteDTO.getAtleteAge();
-        this.atleteHeight = atleteDTO.getAtleteHeight();
-        this.atleteWeight = atleteDTO.getAtleteWeight();
-        this.atleteImc = atleteDTO.getAtleteImc();
-        this.atleteBid = atleteDTO.getAtleteBid();
-        //this.atleteClubstory = atleteDTO.getAtleteClubStory();
-        //this.atleteDeaceases = atleteDTO.getAtleteDeaceases();
+        AtleteService atleteService = new AtleteService();
+        Atlete atlete = atleteService.EntityDataConverter(atleteDTO);
+        this.idAtlete = atlete.idAtlete;
+        this.atleteName = atlete.atleteName;
+        this.atleteAge = atlete.atleteAge;
+        this.dateBirth = atlete.dateBirth;
+        this.atleteHeight = atlete.atleteHeight;
+        this.atleteWeight = atlete.atleteWeight;
+        this.atleteImc = atlete.atleteImc;
+        this.atleteBid = atlete.atleteBid;
+        this.dominantLeg = atlete.dominantLeg;
+        this.position = atlete.position;
+        this.playStyle = atlete.playStyle;
+        this.adress = atlete.adress;
+        this.contact = atlete.contact;
+        this.atleteClubs = atlete.atleteClubs;
+        this.atleteDeceases = atlete.atleteDeceases;
     }
 
     public Long getId() {
@@ -94,10 +150,69 @@ public class Atlete {
 
     public void setAtleteBid(String atleteBid){ this.atleteBid = atleteBid; }
 
-    //public List<String> getAtleteClubStory() { return atleteClubstory; }
+    public List<AtleteClub> getAtleteClubs() { return atleteClubs; }
 
-    //public void setAtleteClubstory(List<String> atleteClubstory){ this.atleteClubstory = atleteClubstory; }
-    //public List<String> getAtleteDeaceases() {return atleteDeaceases; }
+    public void setAtleteClubs(List<AtleteClub> atleteClubs){ this.atleteClubs = atleteClubs; }
 
-    //public void setAtleteDeaceases() {this.atleteDeaceases = atleteDeaceases; }
+    public List<AtleteDecease> getAtleteDeceases() {return atleteDeceases; }
+
+    public void setAtleteDeceases(List<AtleteDecease> atleteDeceases) {
+        this.atleteDeceases = atleteDeceases;
+    }
+
+    public void setAtleteWeight(Double atleteWeight) {
+        this.atleteWeight = atleteWeight;
+    }
+
+    public void setAtleteImc(Double atleteImc) {
+        this.atleteImc = atleteImc;
+    }
+
+    public Adress getAdress() {
+        return adress;
+    }
+
+    public void setAdress(Adress adress) {
+        this.adress = adress;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    public Date getDateBirth() {
+        return dateBirth;
+    }
+
+    public void setDateBirth(Date dateBirth) {
+        this.dateBirth = dateBirth;
+    }
+
+    public DominantLeg getDominantLeg() {
+        return dominantLeg;
+    }
+
+    public void setDominantLeg(DominantLeg dominantLeg) {
+        this.dominantLeg = dominantLeg;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public PlayStyle getPlayStyle() {
+        return playStyle;
+    }
+
+    public void setPlayStyle(PlayStyle playStyle) {
+        this.playStyle = playStyle;
+    }
 }
