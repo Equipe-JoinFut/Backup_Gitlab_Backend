@@ -58,7 +58,7 @@ public class AtleteController {
     @Transactional
     public ResponseEntity<AtleteDTO> createAtlete(@RequestBody @Valid AtleteDTO atleteDTO, UriComponentsBuilder uriComponentsBuilder) {
         Atlete atlete = atleteService.desconvertObject(atleteDTO);
-        atleteRepository.save(atlete);
+        atleteService.save(atlete);
         URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(atlete.getId()).toUri();
         return ResponseEntity.created(uri).body(new AtleteDTO(atlete));
     }

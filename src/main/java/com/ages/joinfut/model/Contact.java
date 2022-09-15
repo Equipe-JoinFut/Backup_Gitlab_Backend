@@ -1,16 +1,22 @@
 package com.ages.joinfut.model;
 
 import com.ages.joinfut.dto.ContactDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
-import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "contacts", schema = "informations")
@@ -20,6 +26,11 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_contact")
     private Long idContact;
+
+    @JoinColumn(name = "id_atlete")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Atlete atlete;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
@@ -36,21 +47,21 @@ public class Contact {
     @Column(name = "telephone")
     private String telephone;
 
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "responses")
-    private List<String> responses;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
+    private List<Contact> responsibles;
 
     public Contact() {}
 
     public Contact(ContactDTO contactDTO) {
         this.idContact = contactDTO.getIdContact();
+        this.atlete = contactDTO.getAtlete();
         this.contactName = contactDTO.getContactName();
         this.email = contactDTO.getEmail();
         this.telephone = contactDTO.getTelephone();
-        this.responses = contactDTO.getResponses();
+        this.responsibles = contactDTO.getResponsibles();
     }
 
+    public Long getId() {return getIdContact();}
     public Long getIdContact() {
         return idContact; 
     }
@@ -83,11 +94,19 @@ public class Contact {
         this.telephone = telephone;
     }
 
-    public List<String> getResponses() {
-        return responses;
+    public List<Contact> getResponsibles() {
+        return responsibles;
     }
 
-    public void setResponses(List<String> responses) {
-        this.responses = responses;
+    public void setResponsibles(List<Contact> responsibles) {
+        this.responsibles = responsibles;
+    }
+
+    public Atlete getAtlete() {
+        return atlete;
+    }
+
+    public void setAtlete(Atlete atlete) {
+        this.atlete = atlete;
     }
 }
