@@ -30,6 +30,16 @@ public class Adress {
     @Column(name = "city")
     private String city;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "state")
+    private String state;
+
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "country")
+    private String country;
+
     public Adress() {}
 
     public Adress(AdressDTO adressDTO) {
@@ -38,6 +48,8 @@ public class Adress {
         this.street = adressDTO.getStreet();
         this.houseNumber = adressDTO.getHouseNumber();
         this.city = adressDTO.getCity();
+        this.state = adressDTO.getState();
+        this.country = adressDTO.getCountry();
     }
 
     public Long getId() {return getIdAdress();}
@@ -63,5 +75,21 @@ public class Adress {
 
     public void setAtlete(Atlete atlete) {
         this.atlete = atlete;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

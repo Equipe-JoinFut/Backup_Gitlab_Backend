@@ -36,11 +36,20 @@ public class AdressService {
         if (updated.getStreet() != null && !updated.getStreet().equals(saved.getStreet())) {
             saved.setStreet(updated.getStreet());
         }
+        if (updated.getAtlete() != null && !updated.getAtlete().equals(saved.getAtlete())) {
+            saved.setAtlete(updated.getAtlete());
+        }
         if (updated.getHouseNumber() != null && !updated.getHouseNumber().equals(saved.getHouseNumber())) {
             saved.setHouseNumber(updated.getHouseNumber());
         }
         if (updated.getCity() != null && !updated.getCity().equals(saved.getCity())) {
             saved.setCity(updated.getCity());
+        }
+        if (updated.getState() != null && !updated.getState().equals(saved.getState())) {
+            saved.setState(updated.getState());
+        }
+        if (updated.getCountry() != null && !updated.getCountry().equals(saved.getCountry())) {
+            saved.setCountry(updated.getCountry());
         }
         return saved;
     }

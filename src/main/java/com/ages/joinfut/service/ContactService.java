@@ -42,11 +42,19 @@ public class ContactService {
         if (updated.getContactName() != null && !updated.getContactName().equals(saved.getContactName())) {
             saved.setContactName(updated.getContactName());
         }
+        if (updated.getAtlete() != null && !updated.getAtlete().equals(saved.getAtlete())) {
+            saved.setAtlete(updated.getAtlete());
+        }
         if (updated.getEmail() != null && !updated.getEmail().equals(saved.getEmail())) {
             saved.setEmail(updated.getEmail());
         }
         if (updated.getTelephone() != null && !updated.getTelephone().equals(saved.getTelephone())) {
             saved.setTelephone(updated.getTelephone());
+        }
+        if (updated.getResponsibles() != null && !updated.getResponsibles().isEmpty()) {
+            for (Contact responsible : updated.getResponsibles()) {
+                updateObject(responsible.getId(), responsible, contactRepository);
+            }
         }
         return saved;
     }

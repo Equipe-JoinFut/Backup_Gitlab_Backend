@@ -21,6 +21,12 @@ public class AdressDTO {
     @ApiModelProperty(position = 4, notes = "Nome da cidade")
     private String city;
 
+    @ApiModelProperty(position = 5, notes = "Estado")
+    private String state;
+
+    @ApiModelProperty(position = 6, notes = "País")
+    private String country;
+
     public AdressDTO() {}
 
     public AdressDTO (Adress adress) {
@@ -29,6 +35,8 @@ public class AdressDTO {
         this.street = adress.getStreet();
         this.houseNumber = adress.getHouseNumber();
         this.city = adress.getCity();
+        this.state = adress.getState();
+        this.country = adress.getCountry();
     }
 
     public Long getIdAdress() { return idAdress; }
@@ -41,5 +49,13 @@ public class AdressDTO {
 
     public Atlete getAtlete() {
         return atlete;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getCountry() {
+        return country;
     }
 }
