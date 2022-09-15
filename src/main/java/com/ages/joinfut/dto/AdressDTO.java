@@ -12,19 +12,19 @@ public class AdressDTO {
     @ApiModelProperty(position = 2, notes = "Atleta")
     private Atlete atlete;
 
-    @ApiModelProperty(position = 2, notes = "Nome da rua")
+    @ApiModelProperty(position = 3, notes = "Nome da rua")
     private String street;
 
-    @ApiModelProperty(position = 3, notes = "Número da casa")
+    @ApiModelProperty(position = 4, notes = "Número da casa")
     private Long houseNumber;
 
-    @ApiModelProperty(position = 4, notes = "Nome da cidade")
+    @ApiModelProperty(position = 5, notes = "Nome da cidade")
     private String city;
 
-    @ApiModelProperty(position = 5, notes = "Estado")
+    @ApiModelProperty(position = 6, notes = "Estado")
     private String state;
 
-    @ApiModelProperty(position = 6, notes = "País")
+    @ApiModelProperty(position = 7, notes = "País")
     private String country;
 
     public AdressDTO() {}
