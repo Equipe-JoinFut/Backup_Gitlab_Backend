@@ -3,14 +3,17 @@ package com.ages.joinfut.model;
 import com.ages.joinfut.dto.ContactDTO;
 import org.hibernate.annotations.Type;
 
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "contacts", schema = "informations")
@@ -20,6 +23,10 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_contact")
     private Long idContact;
+
+    @JoinColumn(name = "id_atlete")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Atlete atlete;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
@@ -45,6 +52,7 @@ public class Contact {
 
     public Contact(ContactDTO contactDTO) {
         this.idContact = contactDTO.getIdContact();
+        this.atlete = contactDTO.getAtlete();
         this.contactName = contactDTO.getContactName();
         this.email = contactDTO.getEmail();
         this.telephone = contactDTO.getTelephone();
@@ -90,5 +98,13 @@ public class Contact {
 
     public void setResponsibles(List<Contact> responsibles) {
         this.responsibles = responsibles;
+    }
+
+    public Atlete getAtlete() {
+        return atlete;
+    }
+
+    public void setAtlete(Atlete atlete) {
+        this.atlete = atlete;
     }
 }

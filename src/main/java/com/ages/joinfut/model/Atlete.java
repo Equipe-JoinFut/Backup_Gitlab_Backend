@@ -3,7 +3,6 @@ package com.ages.joinfut.model;
 import com.ages.joinfut.dto.AtleteDTO;
 import org.hibernate.annotations.Type;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -47,8 +48,16 @@ public class Atlete {
     @Column(name = "atlete_bid")
     private String atleteBid;
 
+    @JoinColumn(name = "id_adress")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Adress adress;
+
+    @JoinColumn(name = "id_contact")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Contact contact;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
-    private List<AtleteClub> atleteClubStory;
+    private List<AtleteClub> atleteClubs;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
     private List<AtleteDecease> atleteDeaceases;
@@ -63,7 +72,9 @@ public class Atlete {
         this.atleteWeight = atleteDTO.getAtleteWeight();
         this.atleteImc = atleteDTO.getAtleteImc();
         this.atleteBid = atleteDTO.getAtleteBid();
-        this.atleteClubStory = atleteDTO.getAtleteClubStory();
+        this.adress = atleteDTO.getAdress();
+        this.contact = atleteDTO.getContact();
+        this.atleteClubs = atleteDTO.getAtleteClubs();
         this.atleteDeaceases = atleteDTO.getAtleteDeaceases();
     }
 
@@ -104,11 +115,39 @@ public class Atlete {
 
     public void setAtleteBid(String atleteBid){ this.atleteBid = atleteBid; }
 
-    public List<AtleteClub> getAtleteClubStory() { return atleteClubStory; }
+    public List<AtleteClub> getAtleteClubs() { return atleteClubs; }
 
-    public void setAtleteClubStory(List<AtleteClub> atleteClubstory){ this.atleteClubStory = atleteClubStory; }
+    public void setAtleteClubs(List<AtleteClub> atleteClubs){ this.atleteClubs = atleteClubs; }
 
     public List<AtleteDecease> getAtleteDeaceases() {return atleteDeaceases; }
 
     public void setAtleteDeaceases() {this.atleteDeaceases = atleteDeaceases; }
+
+    public void setAtleteWeight(Double atleteWeight) {
+        this.atleteWeight = atleteWeight;
+    }
+
+    public void setAtleteImc(Double atleteImc) {
+        this.atleteImc = atleteImc;
+    }
+
+    public Adress getAdress() {
+        return adress;
+    }
+
+    public void setAdress(Adress adress) {
+        this.adress = adress;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    public void setAtleteDeaceases(List<AtleteDecease> atleteDeaceases) {
+        this.atleteDeaceases = atleteDeaceases;
+    }
 }

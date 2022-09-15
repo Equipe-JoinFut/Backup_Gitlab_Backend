@@ -11,6 +11,20 @@ import java.util.stream.Collectors;
 @Service
 public class ContactService {
 
+    private final ContactRepository contactRepository;
+    public ContactService(ContactRepository contactRepository){
+        this.contactRepository = contactRepository;
+    }
+
+    public void save(Contact contact) {
+        if (contact.getResponsibles() != null && !contact.getResponsibles().isEmpty()) {
+            for(Contact responsible : contact.getResponsibles()) {
+                responsible.setAtlete(contact.getAtlete());
+                contactRepository.save(responsible);
+            }
+        }
+    }
+
     public List<ContactDTO> convertList(List<Contact> adresses) {
         return adresses.stream().map(ContactDTO::new).collect(Collectors.toList());
     }

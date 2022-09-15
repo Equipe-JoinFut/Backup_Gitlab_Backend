@@ -11,6 +11,16 @@ import java.util.stream.Collectors;
 @Service
 public class AtleteDeceaseService {
 
+    private final AtleteDeceaseRepository atleteDeceaseRepository;
+
+    public AtleteDeceaseService(AtleteDeceaseRepository atleteDeceaseRepository) {
+        this.atleteDeceaseRepository = atleteDeceaseRepository;
+    }
+
+    public void save(AtleteDecease atleteDecease) {
+        atleteDeceaseRepository.save(atleteDecease);
+    }
+
     public List<AtleteDeceaseDTO> convertList(List<AtleteDecease> atletes) {
         return atletes.stream().map(AtleteDeceaseDTO::new).collect(Collectors.toList());
     }

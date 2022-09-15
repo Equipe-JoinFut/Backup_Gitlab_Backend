@@ -11,6 +11,14 @@ import java.util.stream.Collectors;
 @Service
 public class AdressService {
 
+    private final AdressRepository adressRepository;
+    public AdressService(AdressRepository adressRepository) {
+        this.adressRepository = adressRepository;
+    }
+
+    public void save(Adress adress) {
+        adressRepository.save(adress);
+    }
     public List<AdressDTO> convertList(List<Adress> adresses) {
         return adresses.stream().map(AdressDTO::new).collect(Collectors.toList());
     }

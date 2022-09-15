@@ -2,6 +2,7 @@ package com.ages.joinfut.dto;
 
 import java.util.List;
 
+import com.ages.joinfut.model.Atlete;
 import com.ages.joinfut.model.Contact;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -9,6 +10,9 @@ public class ContactDTO {
     
     @ApiModelProperty(position = 1, notes = "Identificação única do Contato")
     private Long idContact;
+
+    @ApiModelProperty(position = 2, notes = "Atleta")
+    private Atlete atlete;
 
     @ApiModelProperty(position = 2, notes = "Nome de Contato")
     private String contactName;
@@ -26,6 +30,7 @@ public class ContactDTO {
 
     public ContactDTO (Contact contact) {
         this.idContact = contact.getIdContact();
+        this.atlete = contact.getAtlete();
         this.contactName = contact.getContactName();
         this.email = contact.getEmail();
         this.telephone = contact.getTelephone();
@@ -50,5 +55,9 @@ public class ContactDTO {
 
     public List<Contact> getResponsibles() {
         return responsibles;
+    }
+
+    public Atlete getAtlete() {
+        return atlete;
     }
 }

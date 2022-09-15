@@ -3,6 +3,7 @@ package com.ages.joinfut.service;
 import com.ages.joinfut.dto.AtleteClubDTO;
 import com.ages.joinfut.model.AtleteClub;
 import com.ages.joinfut.repository.AtleteClubRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class AtleteClubService {
+
+    private final AtleteClubRepository atleteClubRepository;
+    public AtleteClubService(AtleteClubRepository atleteClubRepository) {
+        this.atleteClubRepository = atleteClubRepository;
+    }
+
+    public void save(AtleteClub atleteClub) {
+        atleteClubRepository.save(atleteClub);
+    }
+
     public List<AtleteClubDTO> convertList(List<AtleteClub> atleteClubs) {
         return atleteClubs.stream().map(AtleteClubDTO::new).collect(Collectors.toList());
     }
