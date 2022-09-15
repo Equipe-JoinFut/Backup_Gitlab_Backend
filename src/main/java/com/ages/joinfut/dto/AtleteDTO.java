@@ -1,8 +1,12 @@
 package com.ages.joinfut.dto;
 
+import com.ages.joinfut.Enum.DominantLeg;
+import com.ages.joinfut.Enum.PlayStyle;
+import com.ages.joinfut.Enum.Position;
 import com.ages.joinfut.model.*;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
 import java.util.List;
 
 public class AtleteDTO {
@@ -16,28 +20,40 @@ public class AtleteDTO {
     @ApiModelProperty(position = 3, notes = "Idade do Atleta")
     private Integer atleteAge;
 
-    @ApiModelProperty(position = 4, notes = "Peso do Atleta")
+    @ApiModelProperty(position = 4, notes = "Data de nascimento")
+    private Date dateBirth;
+
+    @ApiModelProperty(position = 5, notes = "Peso do Atleta")
     private Double atleteHeight;
 
-    @ApiModelProperty(position = 5, notes = "Altura do Atleta")
+    @ApiModelProperty(position = 6, notes = "Altura do Atleta")
     private Double atleteWeight;
 
-    @ApiModelProperty(position = 6, notes = "IMC do Atlela")
+    @ApiModelProperty(position = 7, notes = "IMC do Atlela")
     private Double atleteImc;
 
-    @ApiModelProperty(position = 7, notes = "Código BID do Atleta")
+    @ApiModelProperty(position = 8, notes = "Código BID do Atleta")
     private String atleteBid;
 
-    @ApiModelProperty(position = 8, notes = "Endereço do jogador")
+    @ApiModelProperty(position = 9, notes = "Perna Dominante")
+    private DominantLeg dominantLeg;
+
+    @ApiModelProperty(position = 10, notes = "Posição")
+    private Position position;
+
+    @ApiModelProperty(position = 11, notes = "Estilo de jogo")
+    private PlayStyle playStyle;
+
+    @ApiModelProperty(position = 12, notes = "Endereço do jogador")
     private Adress adress;
 
-    @ApiModelProperty(position = 9, notes = "Contato do jogador")
+    @ApiModelProperty(position = 13, notes = "Contato do jogador")
     private Contact contact;
 
-    @ApiModelProperty(position = 8, notes = "Histórico de Clubes do Atleta")
+    @ApiModelProperty(position = 14, notes = "Histórico de Clubes do Atleta")
     private List<AtleteClub> atleteClubs;
 
-    @ApiModelProperty(position = 9, notes = "Doenças pŕe-existentes do Atleta")
+    @ApiModelProperty(position = 15, notes = "Doenças pŕe-existentes do Atleta")
     private List<AtleteDecease> atleteDeceases;
 
     public AtleteDTO () {}
@@ -46,14 +62,18 @@ public class AtleteDTO {
         this.idAtlete = atlete.getIdAtlete();
         this.atleteName = atlete.getAtleteName();
         this.atleteAge = atlete.getAtleteAge();
+        this.dateBirth = atlete.getDateBirth();
         this.atleteHeight = atlete.getAtleteHeight();
         this.atleteWeight = atlete.getAtleteWeight();
         this.atleteImc = atlete.getAtleteImc();
         this.atleteBid = atlete.getAtleteBid();
+        this.dominantLeg = atlete.getDominantLeg();
+        this.position = atlete.getPosition();
+        this.playStyle = atlete.getPlayStyle();
         this.adress = atlete.getAdress();
         this.contact = atlete.getContact();
         this.atleteClubs = atlete.getAtleteClubs();
-        this.atleteDeceases = atlete.getAtleteDeaceases();
+        this.atleteDeceases = atlete.getAtleteDeceases();
     }
 
     public Long getIdAtlete() {
@@ -78,7 +98,7 @@ public class AtleteDTO {
 
     public List<AtleteClub> getAtleteClubs() { return atleteClubs; }
 
-    public List<AtleteDecease> getAtleteDeaceases() { return atleteDeceases; }
+    public List<AtleteDecease> getAtleteDeceases() { return atleteDeceases; }
 
     public Adress getAdress() {
         return adress;
@@ -88,7 +108,19 @@ public class AtleteDTO {
         return contact;
     }
 
-    public List<AtleteDecease> getAtleteDeceases() {
-        return atleteDeceases;
+    public Date getDateBirth() {
+        return dateBirth;
+    }
+
+    public DominantLeg getDominantLeg() {
+        return dominantLeg;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public PlayStyle getPlayStyle() {
+        return playStyle;
     }
 }

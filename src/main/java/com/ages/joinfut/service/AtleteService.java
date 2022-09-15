@@ -4,6 +4,7 @@ import com.ages.joinfut.dto.AtleteDTO;
 import com.ages.joinfut.model.Atlete;
 import com.ages.joinfut.model.AtleteClub;
 import com.ages.joinfut.model.AtleteDecease;
+import com.ages.joinfut.repository.AtleteClubRepository;
 import com.ages.joinfut.repository.AtleteDeceaseRepository;
 import com.ages.joinfut.repository.AtleteRepository;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,17 @@ public class AtleteService {
 
     private final AtleteRepository atleteRepository;
     private final AtleteClubService atleteClubService;
+    private final AtleteDeceaseService atleteDeceaseService;
     private final AtleteDeceaseRepository atleteDeceaseRepository;
+    private final AtleteClubRepository atleteClubRepository;
     private final AdressService adressService;
     private final ContactService contactService;
-    public AtleteService(AtleteRepository atleteRepository, AtleteClubService atleteClubService, AtleteDeceaseRepository atleteDeceaseRepository, AdressService adressService, ContactService contactService){
+    public AtleteService(AtleteRepository atleteRepository, AtleteClubService atleteClubService, AtleteDeceaseService atleteDeceaseService, AtleteDeceaseRepository atleteDeceaseRepository, AtleteClubRepository atleteClubRepository, AdressService adressService, ContactService contactService){
         this.atleteRepository = atleteRepository;
         this.atleteClubService = atleteClubService;
+        this.atleteDeceaseService = atleteDeceaseService;
         this.atleteDeceaseRepository = atleteDeceaseRepository;
+        this.atleteClubRepository = atleteClubRepository;
         this.adressService = adressService;
         this.contactService = contactService;
     }
@@ -35,8 +40,8 @@ public class AtleteService {
                 atleteClubService.save(atleteClub);
             }
         }
-        if (atlete.getAtleteDeaceases() != null) {
-            for (AtleteDecease atleteDecease : atlete.getAtleteDeaceases()) {
+        if (atlete.getAtleteDeceases() != null) {
+            for (AtleteDecease atleteDecease : atlete.getAtleteDeceases()) {
                 atleteDecease.setAtlete(atlete);
                 atleteDeceaseRepository.save(atleteDecease);
             }
@@ -76,6 +81,9 @@ public class AtleteService {
         if (updated.getAtleteAge() != null && !updated.getAtleteAge().equals(saved.getAtleteAge())) {
             saved.setAtleteAge(updated.getAtleteAge());
         }
+        if (updated.getDateBirth() != null && !updated.getDateBirth().equals(saved.getDateBirth())) {
+            saved.setDateBirth(updated.getDateBirth());
+        }
         if (updated.getAtleteHeight() != null && !updated.getAtleteHeight().equals(saved.getAtleteHeight())) {
             saved.setAtleteHeight(updated.getAtleteHeight());
         }
@@ -88,11 +96,30 @@ public class AtleteService {
         if (updated.getAtleteBid() != null && !updated.getAtleteBid().equals(saved.getAtleteBid())) {
             saved.setAtleteBid(updated.getAtleteBid());
         }
+        if (updated.getDominantLeg() != null && !updated.getDominantLeg().equals(saved.getDominantLeg())) {
+            saved.setDominantLeg(updated.getDominantLeg());
+        }
+        if (updated.getPosition() != null && !updated.getPosition().equals(saved.getPosition())) {
+            saved.setPosition(updated.getPosition());
+        }
+        if (updated.getPlayStyle() != null && !updated.getPlayStyle().equals(saved.getPlayStyle())) {
+            saved.setPlayStyle(updated.getPlayStyle());
+        }
         if (updated.getContact() != null && !updated.getContact().equals(saved.getContact())) {
             saved.setContact(updated.getContact());
         }
         if (updated.getAdress() != null && !updated.getAdress().equals(saved.getAdress())) {
             saved.setAdress(updated.getAdress());
+        }
+        if (updated.getAtleteClubs() != null && !updated.getAtleteClubs().isEmpty()) {
+            for (AtleteClub atleteClub : updated.getAtleteClubs()) {
+                atleteClubService.updateObject(atleteClub.getId(), atleteClub,atleteClubRepository);
+            }
+        }
+        if (updated.getAtleteDeceases() != null && !updated.getAtleteDeceases().isEmpty()) {
+            for (AtleteDecease atleteDecease : updated.getAtleteDeceases()) {
+                atleteDeceaseService.updateObject(atleteDecease.getId(), atleteDecease, atleteDeceaseRepository);
+            }
         }
         return saved;
     }
