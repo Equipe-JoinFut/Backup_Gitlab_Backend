@@ -4,66 +4,118 @@ import com.ages.joinfut.dto.AtleteDTO;
 import com.ages.joinfut.model.Atlete;
 import com.ages.joinfut.model.AtleteClub;
 import com.ages.joinfut.model.AtleteDecease;
+import com.ages.joinfut.repository.AdressRepository;
 import com.ages.joinfut.repository.AtleteClubRepository;
 import com.ages.joinfut.repository.AtleteDeceaseRepository;
 import com.ages.joinfut.repository.AtleteRepository;
+import com.ages.joinfut.repository.ContactRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class AtleteService {
 
-    private final AtleteRepository atleteRepository;
-    private final AtleteClubService atleteClubService;
-    private final AtleteDeceaseService atleteDeceaseService;
-    private final AtleteDeceaseRepository atleteDeceaseRepository;
-    private final AtleteClubRepository atleteClubRepository;
-    private final AdressService adressService;
-    private final ContactService contactService;
-    public AtleteService(AtleteRepository atleteRepository, AtleteClubService atleteClubService, AtleteDeceaseService atleteDeceaseService, AtleteDeceaseRepository atleteDeceaseRepository, AtleteClubRepository atleteClubRepository, AdressService adressService, ContactService contactService){
-        this.atleteRepository = atleteRepository;
-        this.atleteClubService = atleteClubService;
-        this.atleteDeceaseService = atleteDeceaseService;
-        this.atleteDeceaseRepository = atleteDeceaseRepository;
-        this.atleteClubRepository = atleteClubRepository;
-        this.adressService = adressService;
-        this.contactService = contactService;
+    @Autowired
+    private AtleteRepository atleteRepository;
+
+    @Autowired
+    private AtleteDeceaseRepository atleteDeceaseRepository;
+
+    @Autowired
+    private AtleteClubRepository atleteClubRepository;
+
+    @Autowired
+    private AdressRepository adressRepository;
+
+    @Autowired
+    private ContactRepository contactRepository;
+
+    private AdressService adressService = new AdressService();
+    private ContactService contactService = new ContactService();
+    private AtleteClubService atleteClubService = new AtleteClubService();
+    private  AtleteDeceaseService atleteDeceaseService = new AtleteDeceaseService();
+
+    public AtleteService(){
     }
 
+    @Transactional
     public void save(Atlete atlete) {
+        atleteRepository.save(atlete);
 
         if (atlete.getAtleteClubs() != null && !atlete.getAtleteClubs().isEmpty()) {
             for (AtleteClub atleteClub : atlete.getAtleteClubs()) {
                 atleteClub.setAtlete(atlete);
-                atleteClubService.save(atleteClub);
+                atleteClubService.save(atleteClub, atleteClubRepository);
             }
         }
         if (atlete.getAtleteDeceases() != null) {
             for (AtleteDecease atleteDecease : atlete.getAtleteDeceases()) {
                 atleteDecease.setAtlete(atlete);
-                atleteDeceaseRepository.save(atleteDecease);
+                atleteDeceaseService.save(atleteDecease, atleteDeceaseRepository);
             }
         }
         if (atlete.getAdress() != null) {
             atlete.getAdress().setAtlete(atlete);
-            adressService.save(atlete.getAdress());
+            adressService.save(atlete.getAdress(), adressRepository);
         }
         if (atlete.getContact() != null) {
             atlete.getContact().setAtlete(atlete);
-            contactService.save(atlete.getContact());
+            contactService.save(atlete.getContact(), contactRepository);
         }
-        atleteRepository.save(atlete);
     }
 
     public List<AtleteDTO> convertList(List<Atlete> atletes) {
         return atletes.stream().map(AtleteDTO::new).collect(Collectors.toList());
     }
 
+    public AtleteDTO DTODataConverter(Atlete atlete) {
+        AtleteDTO atleteDTO = new AtleteDTO();
+        atleteDTO.setIdAtlete(atlete.getIdAtlete());
+        atleteDTO.setAtleteName(atlete.getAtleteName());
+        atleteDTO.setAtleteAge(atlete.getAtleteAge());
+        atleteDTO.setDateBirth(atlete.getDateBirth());
+        atleteDTO.setAtleteHeight(atlete.getAtleteHeight());
+        atleteDTO.setAtleteWeight(atlete.getAtleteWeight());
+        atleteDTO.setAtleteImc(atlete.getAtleteImc());
+        atleteDTO.setAtleteBid(atlete.getAtleteBid());
+        atleteDTO.setDominantLeg(atlete.getDominantLeg());
+        atleteDTO.setPosition(atlete.getPosition());
+        atleteDTO.setPlayStyle(atlete.getPlayStyle());
+        atleteDTO.setAdress(adressService.convertObjet(atlete.getAdress()));
+        atleteDTO.setContact(contactService.convertObjet(atlete.getContact()));
+        atleteDTO.setAtleteClubs(atleteClubService.convertList(atlete.getAtleteClubs()));
+        atleteDTO.setAtleteDeceases(atleteDeceaseService.convertList(atlete.getAtleteDeceases()));
+        return atleteDTO;
+    }
+
+    public Atlete EntityDataConverter(AtleteDTO atleteDTO) {
+        Atlete atlete = new Atlete();
+        atlete.setIdAtlete(atleteDTO.getIdAtlete());
+        atlete.setAtleteName(atleteDTO.getAtleteName());
+        atlete.setAtleteAge(atleteDTO.getAtleteAge());
+        atlete.setDateBirth(atleteDTO.getDateBirth());
+        atlete.setAtleteHeight(atleteDTO.getAtleteHeight());
+        atlete.setAtleteWeight(atleteDTO.getAtleteWeight());
+        atlete.setAtleteImc(atleteDTO.getAtleteImc());
+        atlete.setAtleteBid(atleteDTO.getAtleteBid());
+        atlete.setDominantLeg(atleteDTO.getDominantLeg());
+        atlete.setPosition(atleteDTO.getPosition());
+        atlete.setPlayStyle(atleteDTO.getPlayStyle());
+        atlete.setAdress(adressService.desconvertObject(atleteDTO.getAdress()));
+        atlete.setContact(contactService.desconvertObject(atleteDTO.getContact()));
+        atlete.setAtleteClubs(atleteClubService.desconvertList(atleteDTO.getAtleteClubs()));
+        atlete.setAtleteDeceases(atleteDeceaseService.desconvertList(atleteDTO.getAtleteDeceases()));
+        return atlete;
+    }
+
     public AtleteDTO convertObject(Atlete atlete){
         return new AtleteDTO(atlete);
     }
+
 
     public List<Atlete> desconvertList(List<AtleteDTO> atleteDTOS) {
         return atleteDTOS.stream().map(Atlete::new).collect(Collectors.toList());

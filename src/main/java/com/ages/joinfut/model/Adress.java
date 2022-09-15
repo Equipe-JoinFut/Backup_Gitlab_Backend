@@ -1,5 +1,6 @@
 package com.ages.joinfut.model;
 import com.ages.joinfut.dto.AdressDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class Adress {
     private Long idAdress;
 
     @JoinColumn(name = "id_atlete")
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Atlete atlete;
 

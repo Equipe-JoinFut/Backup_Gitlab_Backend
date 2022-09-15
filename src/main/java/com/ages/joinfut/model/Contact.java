@@ -1,8 +1,10 @@
 package com.ages.joinfut.model;
 
 import com.ages.joinfut.dto.ContactDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -25,7 +28,8 @@ public class Contact {
     private Long idContact;
 
     @JoinColumn(name = "id_atlete")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Atlete atlete;
 
     @Lob
@@ -43,9 +47,7 @@ public class Contact {
     @Column(name = "telephone")
     private String telephone;
 
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "responsibles")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
     private List<Contact> responsibles;
 
     public Contact() {}

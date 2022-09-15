@@ -3,21 +3,24 @@ package com.ages.joinfut.service;
 import com.ages.joinfut.dto.AtleteDeceaseDTO;
 import com.ages.joinfut.model.AtleteDecease;
 import com.ages.joinfut.repository.AtleteDeceaseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class AtleteDeceaseService {
 
-    private final AtleteDeceaseRepository atleteDeceaseRepository;
+    @Autowired
+    private AtleteDeceaseRepository atleteDeceaseRepository;
 
-    public AtleteDeceaseService(AtleteDeceaseRepository atleteDeceaseRepository) {
+    public AtleteDeceaseService() {}
+
+    @Transactional
+    public void save(AtleteDecease atleteDecease, AtleteDeceaseRepository atleteDeceaseRepository) {
         this.atleteDeceaseRepository = atleteDeceaseRepository;
-    }
-
-    public void save(AtleteDecease atleteDecease) {
         atleteDeceaseRepository.save(atleteDecease);
     }
 

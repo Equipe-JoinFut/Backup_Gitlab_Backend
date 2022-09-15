@@ -3,22 +3,27 @@ package com.ages.joinfut.service;
 import com.ages.joinfut.dto.AdressDTO;
 import com.ages.joinfut.model.Adress;
 import com.ages.joinfut.repository.AdressRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class AdressService {
 
-    private final AdressRepository adressRepository;
-    public AdressService(AdressRepository adressRepository) {
-        this.adressRepository = adressRepository;
-    }
+    @Autowired
+    private AdressRepository adressRepository;
 
-    public void save(Adress adress) {
+    public AdressService() {}
+
+    @Transactional
+    public void save(Adress adress, AdressRepository adressRepository) {
+        this.adressRepository = adressRepository;
         adressRepository.save(adress);
     }
+
     public List<AdressDTO> convertList(List<Adress> adresses) {
         return adresses.stream().map(AdressDTO::new).collect(Collectors.toList());
     }

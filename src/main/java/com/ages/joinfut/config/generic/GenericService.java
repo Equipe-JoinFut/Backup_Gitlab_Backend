@@ -1,4 +1,4 @@
-package com.ages.joinfut.service;
+package com.ages.joinfut.config.generic;
 
 import java.util.List;
 import java.util.stream.Collectors;

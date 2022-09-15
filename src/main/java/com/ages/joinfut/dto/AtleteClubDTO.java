@@ -26,6 +26,8 @@ public class AtleteClubDTO {
     @ApiModelProperty(position = 6, notes = "Atleta atualmente nesse clube? sim/não")
     private Boolean currentClub;
 
+    public AtleteClubDTO() {}
+
     public AtleteClubDTO (AtleteClub atleteClub) {
         this.idAtleteClub = atleteClub.getIdAtleteClub();
         this.atlete = atleteClub.getAtlete();

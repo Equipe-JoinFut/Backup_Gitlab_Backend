@@ -3,21 +3,24 @@ package com.ages.joinfut.service;
 import com.ages.joinfut.dto.AtleteClubDTO;
 import com.ages.joinfut.model.AtleteClub;
 import com.ages.joinfut.repository.AtleteClubRepository;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class AtleteClubService {
 
-    private final AtleteClubRepository atleteClubRepository;
-    public AtleteClubService(AtleteClubRepository atleteClubRepository) {
-        this.atleteClubRepository = atleteClubRepository;
-    }
+    @Autowired
+    private AtleteClubRepository atleteClubRepository;
 
-    public void save(AtleteClub atleteClub) {
+    public AtleteClubService() {}
+
+    @Transactional
+    public void save(AtleteClub atleteClub, AtleteClubRepository atleteClubRepository) {
+        this.atleteClubRepository = atleteClubRepository;
         atleteClubRepository.save(atleteClub);
     }
 

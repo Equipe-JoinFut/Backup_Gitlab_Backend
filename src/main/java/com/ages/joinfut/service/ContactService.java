@@ -3,26 +3,31 @@ package com.ages.joinfut.service;
 import com.ages.joinfut.dto.ContactDTO;
 import com.ages.joinfut.model.Contact;
 import com.ages.joinfut.repository.ContactRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ContactService {
 
-    private final ContactRepository contactRepository;
-    public ContactService(ContactRepository contactRepository){
-        this.contactRepository = contactRepository;
-    }
+    @Autowired
+    private ContactRepository contactRepository;
 
-    public void save(Contact contact) {
+    public ContactService(){}
+
+    @Transactional
+    public void save(Contact contact, ContactRepository contactRepository) {
+        this.contactRepository = contactRepository;
         if (contact.getResponsibles() != null && !contact.getResponsibles().isEmpty()) {
             for(Contact responsible : contact.getResponsibles()) {
                 responsible.setAtlete(contact.getAtlete());
                 contactRepository.save(responsible);
             }
         }
+        contactRepository.save(contact);
     }
 
     public List<ContactDTO> convertList(List<Contact> adresses) {

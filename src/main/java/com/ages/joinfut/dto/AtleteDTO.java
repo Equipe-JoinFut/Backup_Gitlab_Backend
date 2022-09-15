@@ -3,7 +3,12 @@ package com.ages.joinfut.dto;
 import com.ages.joinfut.Enum.DominantLeg;
 import com.ages.joinfut.Enum.PlayStyle;
 import com.ages.joinfut.Enum.Position;
-import com.ages.joinfut.model.*;
+import com.ages.joinfut.model.Atlete;
+import com.ages.joinfut.service.AdressService;
+import com.ages.joinfut.service.AtleteClubService;
+import com.ages.joinfut.service.AtleteDeceaseService;
+import com.ages.joinfut.service.AtleteService;
+import com.ages.joinfut.service.ContactService;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
@@ -45,35 +50,37 @@ public class AtleteDTO {
     private PlayStyle playStyle;
 
     @ApiModelProperty(position = 12, notes = "Endereço do jogador")
-    private Adress adress;
+    private AdressDTO adress;
 
     @ApiModelProperty(position = 13, notes = "Contato do jogador")
-    private Contact contact;
+    private ContactDTO contact;
 
     @ApiModelProperty(position = 14, notes = "Histórico de Clubes do Atleta")
-    private List<AtleteClub> atleteClubs;
+    private List<AtleteClubDTO> atleteClubs;
 
     @ApiModelProperty(position = 15, notes = "Doenças pŕe-existentes do Atleta")
-    private List<AtleteDecease> atleteDeceases;
+    private List<AtleteDeceaseDTO> atleteDeceases;
 
     public AtleteDTO () {}
 
     public AtleteDTO (Atlete atlete) {
-        this.idAtlete = atlete.getIdAtlete();
-        this.atleteName = atlete.getAtleteName();
-        this.atleteAge = atlete.getAtleteAge();
-        this.dateBirth = atlete.getDateBirth();
-        this.atleteHeight = atlete.getAtleteHeight();
-        this.atleteWeight = atlete.getAtleteWeight();
-        this.atleteImc = atlete.getAtleteImc();
-        this.atleteBid = atlete.getAtleteBid();
-        this.dominantLeg = atlete.getDominantLeg();
-        this.position = atlete.getPosition();
-        this.playStyle = atlete.getPlayStyle();
-        this.adress = atlete.getAdress();
-        this.contact = atlete.getContact();
-        this.atleteClubs = atlete.getAtleteClubs();
-        this.atleteDeceases = atlete.getAtleteDeceases();
+        AtleteService atleteService = new AtleteService();
+        AtleteDTO atleteDTO = atleteService.DTODataConverter(atlete);
+        this.idAtlete = atleteDTO.idAtlete;
+        this.atleteName = atleteDTO.atleteName;
+        this.atleteAge = atleteDTO.atleteAge;
+        this.dateBirth = atleteDTO.dateBirth;
+        this.atleteHeight = atleteDTO.atleteHeight;
+        this.atleteWeight = atleteDTO.atleteWeight;
+        this.atleteImc = atleteDTO.atleteImc;
+        this.atleteBid = atleteDTO.atleteBid;
+        this.dominantLeg = atleteDTO.dominantLeg;
+        this.position = atleteDTO.position;
+        this.playStyle = atleteDTO.playStyle;
+        this.adress = atleteDTO.adress;
+        this.contact = atleteDTO.contact;
+        this.atleteClubs = atleteDTO.atleteClubs;
+        this.atleteDeceases = atleteDTO.atleteDeceases;
     }
 
     public Long getIdAtlete() {
@@ -96,15 +103,15 @@ public class AtleteDTO {
 
     public String getAtleteBid() { return atleteBid; }
 
-    public List<AtleteClub> getAtleteClubs() { return atleteClubs; }
+    public List<AtleteClubDTO> getAtleteClubs() { return atleteClubs; }
 
-    public List<AtleteDecease> getAtleteDeceases() { return atleteDeceases; }
+    public List<AtleteDeceaseDTO> getAtleteDeceases() { return atleteDeceases; }
 
-    public Adress getAdress() {
+    public AdressDTO getAdress() {
         return adress;
     }
 
-    public Contact getContact() {
+    public ContactDTO getContact() {
         return contact;
     }
 
@@ -122,5 +129,66 @@ public class AtleteDTO {
 
     public PlayStyle getPlayStyle() {
         return playStyle;
+    }
+
+
+    public void setIdAtlete(Long idAtlete) {
+        this.idAtlete = idAtlete;
+    }
+
+    public void setAtleteName(String atleteName) {
+        this.atleteName = atleteName;
+    }
+
+    public void setAtleteAge(Integer atleteAge) {
+        this.atleteAge = atleteAge;
+    }
+
+    public void setDateBirth(Date dateBirth) {
+        this.dateBirth = dateBirth;
+    }
+
+    public void setAtleteHeight(Double atleteHeight) {
+        this.atleteHeight = atleteHeight;
+    }
+
+    public void setAtleteWeight(Double atleteWeight) {
+        this.atleteWeight = atleteWeight;
+    }
+
+    public void setAtleteImc(Double atleteImc) {
+        this.atleteImc = atleteImc;
+    }
+
+    public void setAtleteBid(String atleteBid) {
+        this.atleteBid = atleteBid;
+    }
+
+    public void setDominantLeg(DominantLeg dominantLeg) {
+        this.dominantLeg = dominantLeg;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public void setPlayStyle(PlayStyle playStyle) {
+        this.playStyle = playStyle;
+    }
+
+    public void setAdress(AdressDTO adress) {
+        this.adress = adress;
+    }
+
+    public void setContact(ContactDTO contact) {
+        this.contact = contact;
+    }
+
+    public void setAtleteClubs(List<AtleteClubDTO> atleteClubs) {
+        this.atleteClubs = atleteClubs;
+    }
+
+    public void setAtleteDeceases(List<AtleteDeceaseDTO> atleteDeceases) {
+        this.atleteDeceases = atleteDeceases;
     }
 }

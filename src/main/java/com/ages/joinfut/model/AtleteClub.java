@@ -2,6 +2,7 @@ package com.ages.joinfut.model;
 
 import com.ages.joinfut.dto.AtleteClubDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
@@ -28,6 +29,7 @@ public class AtleteClub {
     private Long idAtleteClub;
 
     @JoinColumn(name = "id_atlete")
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Atlete atlete;
 
@@ -49,7 +51,9 @@ public class AtleteClub {
     @Column(name = "flag_current_club")
     private Boolean currentClub;
 
-    public AtleteClub() {}
+    public AtleteClub() {
+        super();
+    }
 
     public AtleteClub(AtleteClubDTO atleteClubDTO) {
         this.idAtleteClub = atleteClubDTO.getIdAtleteClub();
