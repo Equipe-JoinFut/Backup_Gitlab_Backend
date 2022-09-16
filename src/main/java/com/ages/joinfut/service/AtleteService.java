@@ -85,10 +85,18 @@ public class AtleteService {
         atleteDTO.setDominantLeg(atlete.getDominantLeg());
         atleteDTO.setPosition(atlete.getPosition());
         atleteDTO.setPlayStyle(atlete.getPlayStyle());
-        atleteDTO.setAdress(adressService.convertObjet(atlete.getAdress()));
-        atleteDTO.setContact(contactService.convertObjet(atlete.getContact()));
-        atleteDTO.setAtleteClubs(atleteClubService.convertList(atlete.getAtleteClubs()));
-        atleteDTO.setAtleteDeceases(atleteDeceaseService.convertList(atlete.getAtleteDeceases()));
+        if (atlete.getAdress() != null) {
+            atleteDTO.setAdress(adressService.convertObjet(atlete.getAdress()));
+        }
+        if (atlete.getContact() != null) {
+            atleteDTO.setContact(contactService.convertObjet(atlete.getContact()));
+        }
+        if (atlete.getAtleteClubs() != null && !atlete.getAtleteDeceases().isEmpty()) {
+            atleteDTO.setAtleteClubs(atleteClubService.convertList(atlete.getAtleteClubs()));
+        }
+        if (atlete.getAtleteDeceases() != null && !atlete.getAtleteDeceases().isEmpty()) {
+            atleteDTO.setAtleteDeceases(atleteDeceaseService.convertList(atlete.getAtleteDeceases()));
+        }
         return atleteDTO;
     }
 
@@ -105,10 +113,18 @@ public class AtleteService {
         atlete.setDominantLeg(atleteDTO.getDominantLeg());
         atlete.setPosition(atleteDTO.getPosition());
         atlete.setPlayStyle(atleteDTO.getPlayStyle());
-        atlete.setAdress(adressService.desconvertObject(atleteDTO.getAdress()));
-        atlete.setContact(contactService.desconvertObject(atleteDTO.getContact()));
-        atlete.setAtleteClubs(atleteClubService.desconvertList(atleteDTO.getAtleteClubs()));
-        atlete.setAtleteDeceases(atleteDeceaseService.desconvertList(atleteDTO.getAtleteDeceases()));
+        if (atleteDTO.getAdress() != null) {
+            atlete.setAdress(adressService.desconvertObject(atleteDTO.getAdress()));
+        }
+        if (atleteDTO.getContact() != null) {
+            atlete.setContact(contactService.desconvertObject(atleteDTO.getContact()));
+        }
+        if (atleteDTO.getAtleteClubs() != null && !atleteDTO.getAtleteClubs().isEmpty()) {
+            atlete.setAtleteClubs(atleteClubService.desconvertList(atleteDTO.getAtleteClubs()));
+        }
+        if (atleteDTO.getAtleteDeceases() != null && !atleteDTO.getAtleteDeceases().isEmpty()) {
+            atlete.setAtleteDeceases(atleteDeceaseService.desconvertList(atleteDTO.getAtleteDeceases()));
+        }
         return atlete;
     }
 

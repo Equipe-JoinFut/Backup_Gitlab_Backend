@@ -80,11 +80,11 @@ public class Atlete {
     private PlayStyle playStyle;
 
     @JoinColumn(name = "id_adress")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Adress adress;
 
     @JoinColumn(name = "id_contact")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Contact contact;
 
     @JsonProperty("atleteClubs")
