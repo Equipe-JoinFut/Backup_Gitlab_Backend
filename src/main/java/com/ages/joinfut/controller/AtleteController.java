@@ -5,7 +5,6 @@ import com.ages.joinfut.model.Atlete;
 import com.ages.joinfut.repository.AtleteRepository;
 import com.ages.joinfut.service.AtleteService;
 import io.swagger.annotations.ApiModelProperty;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -72,7 +71,7 @@ public class AtleteController {
         Optional<Atlete> verifyId = atleteRepository.findById(id);
         if (verifyId.isPresent()) {
             Atlete updatedAtlete = atleteService.desconvertObject(atleteDTO);
-            Atlete atlete = atleteService.updateObject(id, updatedAtlete, atleteRepository);
+            Atlete atlete = atleteService.update(id, updatedAtlete, atleteRepository);
             return ResponseEntity.ok(new AtleteDTO(atlete));
         }
         return ResponseEntity.notFound().build();
