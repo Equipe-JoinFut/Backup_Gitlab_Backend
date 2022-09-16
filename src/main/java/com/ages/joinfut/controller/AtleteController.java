@@ -84,7 +84,7 @@ public class AtleteController {
     public ResponseEntity<Long> deleteAtlete(@PathVariable Long id) {
         Optional<Atlete> verifyId = atleteRepository.findById(id);
         if (verifyId.isPresent()) {
-            atleteRepository.deleteById(id);
+            atleteService.delete(id);
             return ResponseEntity.ok(id);
         }
         return ResponseEntity.notFound().build();

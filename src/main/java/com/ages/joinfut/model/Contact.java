@@ -3,7 +3,6 @@ package com.ages.joinfut.model;
 import com.ages.joinfut.dto.ContactDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
@@ -17,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -30,9 +30,9 @@ public class Contact {
     @Column(name = "id_contact")
     private Long idContact;
 
-    @JoinColumn(name = "id_atlete")
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_atlete")
     private Atlete atlete;
 
     @Lob
@@ -50,8 +50,8 @@ public class Contact {
     @Column(name = "telephone")
     private String telephone;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
     @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "atlete", cascade = CascadeType.REMOVE)
     private List<Contact> responsibles;
 
     public Contact() {}
