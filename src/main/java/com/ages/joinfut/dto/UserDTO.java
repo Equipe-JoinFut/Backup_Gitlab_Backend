@@ -5,24 +5,35 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class UserDTO {
 
-    @ApiModelProperty(position = 1, notes = "Identificação única do User")
+    @ApiModelProperty(position = 1, notes = "Identificação única do Usuário")
     private Long idUser;
 
-    // Email
-    // Senha
-    // Data criação
+    @ApiModelProperty(position = 4, notes = "Email do Usuário")
+    private String email;
+
+    @ApiModelProperty(position = 4, notes = "Senha do Usuário")
+    private String password;
+
 
     public UserDTO (User user) {
         this.idUser = user.getIdUser();
-        // Email
-        //Senha
+        this.email = user.getEmail();
+        this.password = user.getPassword();
         // Data criação
     }
 
-    public Long getIdUser() { return idUser; }
+    public Long getIdUser() {
+        return idUser;
+    }
 
-    // getEmail
-    // getSenha
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     // getData criação
 
 }
