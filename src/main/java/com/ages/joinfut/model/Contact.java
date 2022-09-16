@@ -51,6 +51,7 @@ public class Contact {
     private String telephone;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Contact> responsibles;
 
     public Contact() {}
