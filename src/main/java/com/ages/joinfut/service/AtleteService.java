@@ -11,9 +11,11 @@ import com.ages.joinfut.repository.AtleteRepository;
 import com.ages.joinfut.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,6 +68,33 @@ public class AtleteService {
             atlete.getContact().setAtlete(atlete);
             contactService.save(atlete.getContact(), contactRepository);
         }
+    }
+
+    @Transactional
+    public void delete( @PathVariable Long id) {
+        Optional<Atlete> atleteGetter = atleteRepository.findById(id);
+        Atlete atlete = atleteGetter.get();
+        if (atlete.getContact() != null && atlete.getContact().getId() != null) {
+            contactService.delete(atlete.getContact());
+        }
+        if (atlete.getAdress() != null && atlete.getAdress().getId() != null) {
+            adressRepository.delete(atlete.getAdress());
+        }
+        if (atlete.getAtleteClubs() != null && !atlete.getAtleteClubs().isEmpty()) {
+            for (AtleteClub atleteClub : atlete.getAtleteClubs()) {
+                if (atleteClub.getId() != null) {
+                    atleteClubRepository.delete(atleteClub);
+                }
+            }
+        }
+        if (atlete.getAtleteDeceases() != null && !atlete.getAtleteDeceases().isEmpty()) {
+            for (AtleteDecease atleteDecease : atlete.getAtleteDeceases()) {
+                if (atleteDecease.getId() != null) {
+                    atleteDeceaseRepository.delete(atleteDecease);
+                }
+            }
+        }
+        atleteRepository.delete(atlete);
     }
 
     public List<AtleteDTO> convertList(List<Atlete> atletes) {

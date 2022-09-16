@@ -30,6 +30,23 @@ public class ContactService {
         contactRepository.save(contact);
     }
 
+    @Transactional
+    public void delete(Contact contact) {
+        Contact dbContact = contactRepository.findByidContact(contact.getId());
+//        if (dbContact.getResponsibles() != null && !dbContact.getResponsibles().isEmpty()) {
+//            for (Contact responsible : dbContact.getResponsibles()) {
+//                contactRepository.delete(responsible);
+//            }
+//        }
+//        contactRepository.delete(dbContact);
+        List<Contact> contacts = contactRepository.findByAtlete(contact.getAtlete());
+        for (Contact contact1 : contacts) {
+            if (contact1.getId() != null) {
+                contactRepository.delete(contact1);
+            }
+        }
+    }
+
     public List<ContactDTO> convertList(List<Contact> adresses) {
         return adresses.stream().map(ContactDTO::new).collect(Collectors.toList());
     }
