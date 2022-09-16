@@ -6,6 +6,8 @@ import com.ages.joinfut.Enum.Position;
 import com.ages.joinfut.dto.AtleteDTO;
 import com.ages.joinfut.service.AtleteService;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Type;
 
@@ -29,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "atletes", schema = "personas")
 public class Atlete {
 
@@ -84,10 +87,11 @@ public class Atlete {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Contact contact;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
     @JsonProperty("atleteClubs")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
     private List<AtleteClub> atleteClubs;
 
+    @JsonProperty("atleteDeceases")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
     private List<AtleteDecease> atleteDeceases;
 

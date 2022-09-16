@@ -2,6 +2,8 @@ package com.ages.joinfut.model;
 
 import com.ages.joinfut.dto.ContactDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
@@ -19,6 +21,7 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "contacts", schema = "informations")
 public class Contact {
     

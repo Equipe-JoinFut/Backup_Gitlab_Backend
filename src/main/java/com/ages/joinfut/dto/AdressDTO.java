@@ -2,6 +2,7 @@ package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.Adress;
 import com.ages.joinfut.model.Atlete;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 
 public class AdressDTO {

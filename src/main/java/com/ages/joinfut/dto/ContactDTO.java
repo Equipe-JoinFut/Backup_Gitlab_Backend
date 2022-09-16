@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ages.joinfut.model.Atlete;
 import com.ages.joinfut.model.Contact;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 
 public class ContactDTO {
