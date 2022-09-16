@@ -2,6 +2,7 @@ package com.ages.joinfut.model;
 
 import com.ages.joinfut.dto.AtleteDeceaseDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "atlete_decesases", schema = "informations")
 public class AtleteDecease {
 

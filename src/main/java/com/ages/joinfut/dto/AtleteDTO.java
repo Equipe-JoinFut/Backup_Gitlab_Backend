@@ -4,11 +4,7 @@ import com.ages.joinfut.Enum.DominantLeg;
 import com.ages.joinfut.Enum.PlayStyle;
 import com.ages.joinfut.Enum.Position;
 import com.ages.joinfut.model.Atlete;
-import com.ages.joinfut.service.AdressService;
-import com.ages.joinfut.service.AtleteClubService;
-import com.ages.joinfut.service.AtleteDeceaseService;
 import com.ages.joinfut.service.AtleteService;
-import com.ages.joinfut.service.ContactService;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
@@ -55,10 +51,10 @@ public class AtleteDTO {
     @ApiModelProperty(position = 13, notes = "Contato do jogador")
     private ContactDTO contact;
 
-    @ApiModelProperty(position = 14, notes = "Histórico de Clubes do Atleta")
+    @ApiModelProperty(position = 14, notes = "Historico de Clubes do Atleta")
     private List<AtleteClubDTO> atleteClubs;
 
-    @ApiModelProperty(position = 15, notes = "Doenças pŕe-existentes do Atleta")
+    @ApiModelProperty(position = 15, notes = "Doenças pre-existentes do Atleta")
     private List<AtleteDeceaseDTO> atleteDeceases;
 
     public AtleteDTO () {}

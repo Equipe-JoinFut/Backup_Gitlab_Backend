@@ -2,6 +2,7 @@ package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.Atlete;
 import com.ages.joinfut.model.AtleteClub;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
