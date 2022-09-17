@@ -2,31 +2,25 @@ package com.ages.joinfut.Enum;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum PlayStyle {
-    D("D", "Defensivo"),
-    O("O", "Ofensivo");
+public enum State {
+
+    RS("RS", "Rio Grande do Sul");
 
     private final String chave;
     private final String descricao;
 
-    PlayStyle(String chave, String descricao) {
+    State(String chave, String descricao) {
         this.chave = chave;
         this.descricao = descricao;
     }
 
-    public String getChave() {
-        return chave;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
+    public String getChave(){return chave;}
+    public String getDescricao(){return descricao;}
 
     @JsonValue
     public String getValor() {
         switch (this) {
-            case D:
-            case O:
+            case RS:
                 return getChave();
         }
         return "Valor Inválido";

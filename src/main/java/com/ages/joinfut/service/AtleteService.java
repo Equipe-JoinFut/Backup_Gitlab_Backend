@@ -3,10 +3,8 @@ package com.ages.joinfut.service;
 import com.ages.joinfut.dto.AtleteDTO;
 import com.ages.joinfut.model.Atlete;
 import com.ages.joinfut.model.AtleteClub;
-import com.ages.joinfut.model.AtleteDecease;
 import com.ages.joinfut.repository.AdressRepository;
 import com.ages.joinfut.repository.AtleteClubRepository;
-import com.ages.joinfut.repository.AtleteDeceaseRepository;
 import com.ages.joinfut.repository.AtleteRepository;
 import com.ages.joinfut.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +23,6 @@ public class AtleteService {
     private AtleteRepository atleteRepository;
 
     @Autowired
-    private AtleteDeceaseRepository atleteDeceaseRepository;
-
-    @Autowired
     private AtleteClubRepository atleteClubRepository;
 
     @Autowired
@@ -39,7 +34,6 @@ public class AtleteService {
     private AdressService adressService = new AdressService();
     private ContactService contactService = new ContactService();
     private AtleteClubService atleteClubService = new AtleteClubService();
-    private  AtleteDeceaseService atleteDeceaseService = new AtleteDeceaseService();
 
     public AtleteService(){
     }
@@ -52,12 +46,6 @@ public class AtleteService {
             for (AtleteClub atleteClub : atlete.getAtleteClubs()) {
                 atleteClub.setAtlete(atlete);
                 atleteClubService.save(atleteClub, atleteClubRepository);
-            }
-        }
-        if (atlete.getAtleteDeceases() != null) {
-            for (AtleteDecease atleteDecease : atlete.getAtleteDeceases()) {
-                atleteDecease.setAtlete(atlete);
-                atleteDeceaseService.save(atleteDecease, atleteDeceaseRepository);
             }
         }
         if (atlete.getAdress() != null) {
@@ -87,13 +75,6 @@ public class AtleteService {
                 }
             }
         }
-        if (atlete.getAtleteDeceases() != null && !atlete.getAtleteDeceases().isEmpty()) {
-            for (AtleteDecease atleteDecease : atlete.getAtleteDeceases()) {
-                if (atleteDecease.getId() != null) {
-                    atleteDeceaseRepository.delete(atleteDecease);
-                }
-            }
-        }
         atleteRepository.delete(atlete);
     }
 
@@ -102,9 +83,6 @@ public class AtleteService {
         Atlete saved = atleteRepository.findByidAtlete(id);
         if (updated.getAtleteName() != null && !updated.getAtleteName().equals(saved.getAtleteName())) {
             saved.setAtleteName(updated.getAtleteName());
-        }
-        if (updated.getAtleteAge() != null && !updated.getAtleteAge().equals(saved.getAtleteAge())) {
-            saved.setAtleteAge(updated.getAtleteAge());
         }
         if (updated.getDateBirth() != null && !updated.getDateBirth().equals(saved.getDateBirth())) {
             saved.setDateBirth(updated.getDateBirth());
@@ -127,24 +105,19 @@ public class AtleteService {
         if (updated.getPosition() != null && !updated.getPosition().equals(saved.getPosition())) {
             saved.setPosition(updated.getPosition());
         }
-        if (updated.getPlayStyle() != null && !updated.getPlayStyle().equals(saved.getPlayStyle())) {
-            saved.setPlayStyle(updated.getPlayStyle());
-        }
         if (updated.getContact() != null && !updated.getContact().equals(saved.getContact())) {
             saved.setContact(updated.getContact());
         }
         if (updated.getAdress() != null && !updated.getAdress().equals(saved.getAdress())) {
-            saved.setAdress(updated.getAdress());
+            saved.setAdress(adressService.updateObject(updated.getAdress().getId(), updated.getAdress(), adressRepository));
         }
         if (updated.getAtleteClubs() != null && !updated.getAtleteClubs().isEmpty()) {
             for (AtleteClub atleteClub : updated.getAtleteClubs()) {
                 atleteClubService.updateObject(atleteClub.getId(), atleteClub,atleteClubRepository);
             }
         }
-        if (updated.getAtleteDeceases() != null && !updated.getAtleteDeceases().isEmpty()) {
-            for (AtleteDecease atleteDecease : updated.getAtleteDeceases()) {
-                atleteDeceaseService.updateObject(atleteDecease.getId(), atleteDecease, atleteDeceaseRepository);
-            }
+        if (updated.getDeceases() != null && !updated.getDeceases().equals(saved.getDeceases())) {
+            saved.setDeceases(updated.getDeceases());
         }
         return saved;
     }
@@ -157,7 +130,6 @@ public class AtleteService {
         AtleteDTO atleteDTO = new AtleteDTO();
         atleteDTO.setIdAtlete(atlete.getIdAtlete());
         atleteDTO.setAtleteName(atlete.getAtleteName());
-        atleteDTO.setAtleteAge(atlete.getAtleteAge());
         atleteDTO.setDateBirth(atlete.getDateBirth());
         atleteDTO.setAtleteHeight(atlete.getAtleteHeight());
         atleteDTO.setAtleteWeight(atlete.getAtleteWeight());
@@ -165,18 +137,15 @@ public class AtleteService {
         atleteDTO.setAtleteBid(atlete.getAtleteBid());
         atleteDTO.setDominantLeg(atlete.getDominantLeg());
         atleteDTO.setPosition(atlete.getPosition());
-        atleteDTO.setPlayStyle(atlete.getPlayStyle());
+        atleteDTO.setDeceases(atlete.getDeceases());
         if (atlete.getAdress() != null) {
             atleteDTO.setAdress(adressService.convertObjet(atlete.getAdress()));
         }
         if (atlete.getContact() != null) {
             atleteDTO.setContact(contactService.convertObjet(atlete.getContact()));
         }
-        if (atlete.getAtleteClubs() != null && !atlete.getAtleteDeceases().isEmpty()) {
+        if (atlete.getAtleteClubs() != null && !atlete.getAtleteClubs().isEmpty()) {
             atleteDTO.setAtleteClubs(atleteClubService.convertList(atlete.getAtleteClubs()));
-        }
-        if (atlete.getAtleteDeceases() != null && !atlete.getAtleteDeceases().isEmpty()) {
-            atleteDTO.setAtleteDeceases(atleteDeceaseService.convertList(atlete.getAtleteDeceases()));
         }
         return atleteDTO;
     }
@@ -185,7 +154,6 @@ public class AtleteService {
         Atlete atlete = new Atlete();
         atlete.setIdAtlete(atleteDTO.getIdAtlete());
         atlete.setAtleteName(atleteDTO.getAtleteName());
-        atlete.setAtleteAge(atleteDTO.getAtleteAge());
         atlete.setDateBirth(atleteDTO.getDateBirth());
         atlete.setAtleteHeight(atleteDTO.getAtleteHeight());
         atlete.setAtleteWeight(atleteDTO.getAtleteWeight());
@@ -193,7 +161,7 @@ public class AtleteService {
         atlete.setAtleteBid(atleteDTO.getAtleteBid());
         atlete.setDominantLeg(atleteDTO.getDominantLeg());
         atlete.setPosition(atleteDTO.getPosition());
-        atlete.setPlayStyle(atleteDTO.getPlayStyle());
+        atlete.setDeceases(atleteDTO.getDeceases());
         if (atleteDTO.getAdress() != null) {
             atlete.setAdress(adressService.desconvertObject(atleteDTO.getAdress()));
         }
@@ -202,9 +170,6 @@ public class AtleteService {
         }
         if (atleteDTO.getAtleteClubs() != null && !atleteDTO.getAtleteClubs().isEmpty()) {
             atlete.setAtleteClubs(atleteClubService.desconvertList(atleteDTO.getAtleteClubs()));
-        }
-        if (atleteDTO.getAtleteDeceases() != null && !atleteDTO.getAtleteDeceases().isEmpty()) {
-            atlete.setAtleteDeceases(atleteDeceaseService.desconvertList(atleteDTO.getAtleteDeceases()));
         }
         return atlete;
     }
