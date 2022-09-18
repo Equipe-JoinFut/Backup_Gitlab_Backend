@@ -1,9 +1,19 @@
 package com.ages.joinfut.model;
 import com.ages.joinfut.dto.UserDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.Type;
 
+import java.util.Date;
+
 import javax.persistence.*;
+
+@Getter
+@Setter
 
 @Entity
 @Table(name = "users", schema = "personas")
@@ -24,7 +34,10 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    //Data criação
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Column(name = "creation_date")
+    private Date creationDate;
 
     public User() {}
     
@@ -32,39 +45,13 @@ public class User {
         this.idUser = userDTO.getIdUser();
         this.email = userDTO.getEmail();
         this.password = userDTO.getPassword();
+        this.creationDate = userDTO.getCreationDate();
         
-        //Data criação
     }
 
     public Long getId() {
-        return getId();
+        return getIdUser();
     }
-
-    public Long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    // get/setDataCriação
 
     
 }

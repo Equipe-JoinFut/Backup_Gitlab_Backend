@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,10 +22,10 @@ public class UserService {
 
     @Transactional
     public void save(User user) {
-        User anyUser = userRepository.findByidAdress(user.getIdUser());
-        if(anyUser == null){
-            userRepository.save(user);
+        if (user.getCreationDate() == null) {
+            user.setCreationDate(new Date());
         }
+        userRepository.save(user);
     }
 
     public List<UserDTO> convertList(List<User> users) {
