@@ -3,6 +3,7 @@ package com.ages.joinfut.model;
 import com.ages.joinfut.dto.AtleteClubDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
@@ -20,6 +21,7 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "atlete_clubs", schema = "informations")
 public class AtleteClub {
 
