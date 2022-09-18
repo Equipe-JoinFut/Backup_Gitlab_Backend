@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/personas")
 public class UserController {
 
     private static final String URL_PLURAL = "/users";
@@ -50,7 +50,7 @@ public class UserController {
     @Transactional
     public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO, UriComponentsBuilder uriComponentsBuilder) {
         User user = userService.desconvertObject(userDTO);
-        userRepository.save(user);
+        userService.save(user);
         URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(new UserDTO(user));
     }

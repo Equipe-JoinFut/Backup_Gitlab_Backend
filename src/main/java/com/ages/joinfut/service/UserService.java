@@ -45,9 +45,13 @@ public class UserService {
     }
 
     public User updateObject(Long id, User updated, UserRepository userRepository) {
-        User saved = userRepository.findByidAdress(id);
-        if (updated.getIdUser() != null && !updated.getIdUser().equals(saved.getIdUser())) {
-            saved.setIdUser(updated.getIdUser());
+        User saved = userRepository.findByidUser(id);
+        if (updated.getEmail() != null && !updated.getEmail().equals(saved.getEmail())) {
+            saved.setEmail(updated.getEmail());
+        }
+
+        if (updated.getPassword() != null && !updated.getPassword().equals(saved.getPassword())) {
+            saved.setPassword(updated.getPassword());
         }
         return saved;
     }

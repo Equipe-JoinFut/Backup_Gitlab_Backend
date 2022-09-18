@@ -23,6 +23,7 @@ public class UserDTO {
     @ApiModelProperty(position = 4, notes = "Data de criação do Usuário")
     private Date creationDate;
 
+    public UserDTO () {}
 
     public UserDTO (User user) {
         this.idUser = user.getIdUser();
