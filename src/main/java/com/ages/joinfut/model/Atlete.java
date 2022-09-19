@@ -115,5 +115,4 @@ public class Atlete {
     public Long getId() {
         return getIdAtlete();
     }
-
 }
