@@ -2,11 +2,14 @@ package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.Atlete;
 import com.ages.joinfut.model.AtleteClub;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
+@Getter
+@Setter
 public class AtleteClubDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificação única do clube que o atleta participou")
@@ -38,27 +41,7 @@ public class AtleteClubDTO {
         this.currentClub = atleteClub.getCurrentClub();
     }
 
-    public Long getIdAtleteClub() {
-        return idAtleteClub;
-    }
-
-    public Atlete getAtlete() {
-        return atlete;
-    }
-
-    public String getAtleteClubName() {
-        return atleteClubName;
-    }
-
-    public Date getBeginDate() {
-        return beginDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public Boolean getCurrentClub() {
-        return currentClub;
+    public Long getId() {
+        return getIdAtleteClub();
     }
 }

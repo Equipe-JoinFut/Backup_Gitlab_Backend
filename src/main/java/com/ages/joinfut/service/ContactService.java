@@ -52,7 +52,7 @@ public class ContactService {
 
     public Contact desconvertObject(ContactDTO adressDTO){return new Contact(adressDTO);}
 
-    public Contact updateObject(Long id, Contact updated, ContactRepository contactRepository) {
+    public Contact update(Long id, Contact updated, ContactRepository contactRepository) {
         Contact saved = contactRepository.findByidContact(id);
         if (updated.getContactName() != null && !updated.getContactName().equals(saved.getContactName())) {
             saved.setContactName(updated.getContactName());
@@ -68,7 +68,7 @@ public class ContactService {
         }
         if (updated.getResponsibles() != null && !updated.getResponsibles().isEmpty()) {
             for (Contact responsible : updated.getResponsibles()) {
-                updateObject(responsible.getId(), responsible, contactRepository);
+                update(responsible.getId(), responsible, contactRepository);
             }
         }
         return saved;

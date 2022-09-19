@@ -4,9 +4,12 @@ import java.util.List;
 
 import com.ages.joinfut.model.Atlete;
 import com.ages.joinfut.model.Contact;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class ContactDTO {
     
     @ApiModelProperty(position = 1, notes = "Identificação única do Contato")
@@ -24,7 +27,7 @@ public class ContactDTO {
     @ApiModelProperty(position = 4, notes = "Telephone")
     private String telephone;
 
-    @ApiModelProperty(position = 4, notes = "Responsáveis")
+    @ApiModelProperty(position = 5, notes = "Responsáveis")
     private List<Contact> responsibles;
     
     public ContactDTO() {}
@@ -38,27 +41,7 @@ public class ContactDTO {
         this.responsibles = contact.getResponsibles();
     }
 
-    public Long getIdContact() {
-        return idContact;
-    }
-
-    public String getContactName() {
-        return contactName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public List<Contact> getResponsibles() {
-        return responsibles;
-    }
-
-    public Atlete getAtlete() {
-        return atlete;
+    public Long getId() {
+        return getIdContact();
     }
 }

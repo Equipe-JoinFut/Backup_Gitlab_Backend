@@ -106,14 +106,14 @@ public class AtleteService {
             saved.setPosition(updated.getPosition());
         }
         if (updated.getContact() != null && !updated.getContact().equals(saved.getContact())) {
-            saved.setContact(updated.getContact());
+            saved.setContact(contactService.update(updated.getContact().getId(), updated.getContact(), contactRepository));
         }
         if (updated.getAdress() != null && !updated.getAdress().equals(saved.getAdress())) {
-            saved.setAdress(adressService.updateObject(updated.getAdress().getId(), updated.getAdress(), adressRepository));
+            saved.setAdress(adressService.update(updated.getAdress().getId(), updated.getAdress(), adressRepository));
         }
         if (updated.getAtleteClubs() != null && !updated.getAtleteClubs().isEmpty()) {
             for (AtleteClub atleteClub : updated.getAtleteClubs()) {
-                atleteClubService.updateObject(atleteClub.getId(), atleteClub,atleteClubRepository);
+                atleteClubService.update(atleteClub.getId(), atleteClub,atleteClubRepository);
             }
         }
         if (updated.getDeceases() != null && !updated.getDeceases().equals(saved.getDeceases())) {

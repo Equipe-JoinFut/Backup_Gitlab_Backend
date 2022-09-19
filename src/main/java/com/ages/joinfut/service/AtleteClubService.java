@@ -40,7 +40,7 @@ public class AtleteClubService {
         return new AtleteClub(atleteClubDTO);
     }
 
-    public AtleteClub updateObject(Long id, AtleteClub updated, AtleteClubRepository atleteClubRepository) {
+    public AtleteClub update(Long id, AtleteClub updated, AtleteClubRepository atleteClubRepository) {
         AtleteClub saved = atleteClubRepository.findByidAtleteClub(id);
         if (updated.getAtlete() != null && !updated.getAtlete().equals(saved.getAtlete())) {
             saved.setAtlete(updated.getAtlete());

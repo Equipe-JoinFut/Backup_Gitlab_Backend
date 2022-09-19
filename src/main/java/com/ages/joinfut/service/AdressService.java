@@ -32,7 +32,7 @@ public class AdressService {
 
     public Adress desconvertObject(AdressDTO adressDTO){return new Adress(adressDTO);}
 
-    public Adress updateObject(Long id, Adress updated, AdressRepository adressRepository) {
+    public Adress update(Long id, Adress updated, AdressRepository adressRepository) {
         Adress saved = adressRepository.findByidAdress(id);
         if (updated.getStreetInfo() != null && !updated.getStreetInfo().equals(saved.getStreetInfo())) {
             saved.setStreetInfo(updated.getStreetInfo());
