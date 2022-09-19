@@ -13,14 +13,10 @@ import java.util.stream.Collectors;
 @Service
 public class AdressService {
 
-    @Autowired
-    private AdressRepository adressRepository;
-
     public AdressService() {}
 
     @Transactional
     public void save(Adress adress, AdressRepository adressRepository) {
-        this.adressRepository = adressRepository;
         adressRepository.save(adress);
     }
 
@@ -36,16 +32,13 @@ public class AdressService {
 
     public Adress desconvertObject(AdressDTO adressDTO){return new Adress(adressDTO);}
 
-    public Adress updateObject(Long id, Adress updated, AdressRepository adressRepository) {
+    public Adress update(Long id, Adress updated, AdressRepository adressRepository) {
         Adress saved = adressRepository.findByidAdress(id);
-        if (updated.getStreet() != null && !updated.getStreet().equals(saved.getStreet())) {
-            saved.setStreet(updated.getStreet());
+        if (updated.getStreetInfo() != null && !updated.getStreetInfo().equals(saved.getStreetInfo())) {
+            saved.setStreetInfo(updated.getStreetInfo());
         }
         if (updated.getAtlete() != null && !updated.getAtlete().equals(saved.getAtlete())) {
             saved.setAtlete(updated.getAtlete());
-        }
-        if (updated.getHouseNumber() != null && !updated.getHouseNumber().equals(saved.getHouseNumber())) {
-            saved.setHouseNumber(updated.getHouseNumber());
         }
         if (updated.getCity() != null && !updated.getCity().equals(saved.getCity())) {
             saved.setCity(updated.getCity());
@@ -53,9 +46,7 @@ public class AdressService {
         if (updated.getState() != null && !updated.getState().equals(saved.getState())) {
             saved.setState(updated.getState());
         }
-        if (updated.getCountry() != null && !updated.getCountry().equals(saved.getCountry())) {
-            saved.setCountry(updated.getCountry());
-        }
+        adressRepository.save(saved);
         return saved;
     }
 }
