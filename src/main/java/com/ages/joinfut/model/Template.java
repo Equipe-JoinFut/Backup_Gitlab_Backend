@@ -2,6 +2,8 @@ package com.ages.joinfut.model;
 
 import com.ages.joinfut.dto.TemplateDTO;
 import com.ages.joinfut.Enum.TemplateEnum;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
@@ -14,7 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-
+@Getter
+@Setter
 @Entity
 @Table(name = "templates", schema = "examples")
 public class Template {
@@ -39,41 +42,13 @@ public class Template {
     public Template() {}
 
     public Template(TemplateDTO templateDTO) {
-        this.idTemplate = templateDTO.getidTemplate();
+        this.idTemplate = templateDTO.getIdTemplate();
         this.nome = templateDTO.getNome();
         this.templateEnum = templateDTO.getTemplateEnum();
         this.flagAtivo = templateDTO.getFlagAtivo();
     }
 
     public Long getId() {
-        return getidTemplate();
-    }
-
-    public Long getidTemplate() {
-        return idTemplate;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public TemplateEnum getTemplateEnum() {
-        return templateEnum;
-    }
-
-    public void setTemplateEnum(TemplateEnum templateEnum) {
-        this.templateEnum = templateEnum;
-    }
-
-    public Boolean getFlagAtivo() {
-        return flagAtivo;
-    }
-
-    public void setFlagAtivo(Boolean flagAtivo) {
-        this.flagAtivo = flagAtivo;
+        return getIdTemplate();
     }
 }

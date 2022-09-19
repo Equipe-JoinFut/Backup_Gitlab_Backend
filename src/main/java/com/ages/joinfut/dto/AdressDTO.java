@@ -1,9 +1,14 @@
 package com.ages.joinfut.dto;
 
+import com.ages.joinfut.Enum.State;
 import com.ages.joinfut.model.Adress;
 import com.ages.joinfut.model.Atlete;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class AdressDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificação única do Endereço")
@@ -12,50 +17,26 @@ public class AdressDTO {
     @ApiModelProperty(position = 2, notes = "Atleta")
     private Atlete atlete;
 
-    @ApiModelProperty(position = 2, notes = "Nome da rua")
-    private String street;
-
-    @ApiModelProperty(position = 3, notes = "Número da casa")
-    private Long houseNumber;
+    @ApiModelProperty(position = 3, notes = "Informações do endereço")
+    private String streetInfo;
 
     @ApiModelProperty(position = 4, notes = "Nome da cidade")
     private String city;
 
     @ApiModelProperty(position = 5, notes = "Estado")
-    private String state;
-
-    @ApiModelProperty(position = 6, notes = "País")
-    private String country;
+    private State state;
 
     public AdressDTO() {}
 
     public AdressDTO (Adress adress) {
         this.idAdress = adress.getIdAdress();
         this.atlete = adress.getAtlete();
-        this.street = adress.getStreet();
-        this.houseNumber = adress.getHouseNumber();
+        this.streetInfo = adress.getStreetInfo();
         this.city = adress.getCity();
         this.state = adress.getState();
-        this.country = adress.getCountry();
     }
 
-    public Long getIdAdress() { return idAdress; }
-
-    public String getStreet() { return street; }
-
-    public Long getHouseNumber() { return houseNumber; }
-
-    public String getCity() { return city; }
-
-    public Atlete getAtlete() {
-        return atlete;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public String getCountry() {
-        return country;
+    public Long getId() {
+        return getIdAdress();
     }
 }

@@ -3,6 +3,9 @@ package com.ages.joinfut.model;
 import com.ages.joinfut.dto.AtleteClubDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
@@ -19,7 +22,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "atlete_clubs", schema = "informations")
 public class AtleteClub {
 
@@ -66,53 +72,5 @@ public class AtleteClub {
 
     public Long getId() {
         return getIdAtleteClub();
-    }
-
-    public Long getIdAtleteClub() {
-        return idAtleteClub;
-    }
-
-    public void setIdAtleteClub(Long idAtleteClub) {
-        this.idAtleteClub = idAtleteClub;
-    }
-
-    public Atlete getAtlete() {
-        return atlete;
-    }
-
-    public void setAtlete(Atlete atlete) {
-        this.atlete = atlete;
-    }
-
-    public String getAtleteClubName() {
-        return atleteClubName;
-    }
-
-    public void setAtleteClubName(String atleteClubName) {
-        this.atleteClubName = atleteClubName;
-    }
-
-    public Date getBeginDate() {
-        return beginDate;
-    }
-
-    public void setBeginDate(Date beginDate) {
-        this.beginDate = beginDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Boolean getCurrentClub() {
-        return currentClub;
-    }
-
-    public void setCurrentClub(Boolean currentClub) {
-        this.currentClub = currentClub;
     }
 }

@@ -38,6 +38,7 @@ public class AtleteController {
     @Autowired
     private AtleteService atleteService;
 
+
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Busca em lista de todos os Atletas cadastrados")
     public ResponseEntity<List<AtleteDTO>> readAllAtletes() {
@@ -70,7 +71,7 @@ public class AtleteController {
         Optional<Atlete> verifyId = atleteRepository.findById(id);
         if (verifyId.isPresent()) {
             Atlete updatedAtlete = atleteService.desconvertObject(atleteDTO);
-            Atlete atlete = atleteService.updateObject(id, updatedAtlete, atleteRepository);
+            Atlete atlete = atleteService.update(id, updatedAtlete, atleteRepository);
             return ResponseEntity.ok(new AtleteDTO(atlete));
         }
         return ResponseEntity.notFound().build();
@@ -82,7 +83,7 @@ public class AtleteController {
     public ResponseEntity<Long> deleteAtlete(@PathVariable Long id) {
         Optional<Atlete> verifyId = atleteRepository.findById(id);
         if (verifyId.isPresent()) {
-            atleteRepository.deleteById(id);
+            atleteService.delete(id);
             return ResponseEntity.ok(id);
         }
         return ResponseEntity.notFound().build();

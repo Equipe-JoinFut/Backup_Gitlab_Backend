@@ -3,11 +3,15 @@ package com.ages.joinfut.dto;
 import com.ages.joinfut.Enum.TemplateEnum;
 import com.ages.joinfut.model.Template;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Getter
+@Setter
 public class TemplateDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificação única do Template")
@@ -28,41 +32,14 @@ public class TemplateDTO {
     public TemplateDTO() {}
 
     public TemplateDTO(Template template) {
-        this.idTemplate = template.getidTemplate();
+        this.idTemplate = template.getIdTemplate();
         this.nome = template.getNome();
         this.templateEnum = template.getTemplateEnum();
         this.flagAtivo = template.getFlagAtivo();
     }
 
     public Long getId() {
-        return getidTemplate();
+        return getIdTemplate();
     }
 
-    public Long getidTemplate() {
-        return idTemplate;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public TemplateEnum getTemplateEnum() {
-        return templateEnum;
-    }
-
-    public void setTemplateEnum(TemplateEnum templateEnum) {
-        this.templateEnum = templateEnum;
-    }
-
-    public Boolean getFlagAtivo() {
-        return flagAtivo;
-    }
-
-    public void setFlagAtivo(Boolean flagAtivo) {
-        this.flagAtivo = flagAtivo;
-    }
 }

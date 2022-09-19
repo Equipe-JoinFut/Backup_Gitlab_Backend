@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum DominantLeg {
 
     L("L","Esquerda"),
-    R("R","Direita");
+    R("R","Direita"),
+    B("B", "Ambas");
 
     private final String chave;
     private final String descricao;
@@ -28,6 +29,7 @@ public enum DominantLeg {
         switch (this) {
             case L:
             case R:
+            case B:
                 return getChave();
         }
         return "Valor Inválido";
