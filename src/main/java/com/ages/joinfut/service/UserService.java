@@ -3,12 +3,12 @@ package com.ages.joinfut.service;
 import com.ages.joinfut.model.User;
 import com.ages.joinfut.dto.UserDTO;
 import com.ages.joinfut.repository.UserRepository;
+import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
-
 import javax.transaction.Transactional;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,7 +63,7 @@ public class UserService {
     }
 
     public String hash(String passwordRaw){
-        String hashPass = DigestUtils.sha256Hex(passwordRaw);
+        String hashPass = Hashing.sha256().hashString(passwordRaw, StandardCharsets.UTF_8).toString();
         return hashPass;
     }
 
