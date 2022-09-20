@@ -1,4 +1,5 @@
 package com.ages.joinfut.model;
+import com.ages.joinfut.Enum.UserType;
 import com.ages.joinfut.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -39,6 +40,12 @@ public class User {
     @Column(name = "creation_date")
     private Date creationDate;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "user_type")
+    private UserType userType;
+
+
     public User() {}
     
     public User(UserDTO userDTO) {
@@ -46,7 +53,7 @@ public class User {
         this.email = userDTO.getEmail();
         this.password = userDTO.getPassword();
         this.creationDate = userDTO.getCreationDate();
-        
+        this.userType = userDTO.getUserType();
     }
 
     public Long getId() {

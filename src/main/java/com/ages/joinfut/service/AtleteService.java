@@ -35,6 +35,8 @@ public class AtleteService {
     private ContactService contactService = new ContactService();
     private AtleteClubService atleteClubService = new AtleteClubService();
 
+    private UserService userService = new UserService();
+
     public AtleteService(){
     }
 
@@ -75,6 +77,7 @@ public class AtleteService {
                 }
             }
         }
+
         atleteRepository.delete(atlete);
     }
 
@@ -119,6 +122,11 @@ public class AtleteService {
         if (updated.getDeceases() != null && !updated.getDeceases().equals(saved.getDeceases())) {
             saved.setDeceases(updated.getDeceases());
         }
+
+        if (updated.getUser() != null && !updated.getUser().equals(saved.getUser())) {
+            saved.setUser(updated.getUser());
+        }
+
         return saved;
     }
 
