@@ -56,6 +56,7 @@ public class AtleteService {
             atlete.getContact().setAtlete(atlete);
             contactService.save(atlete.getContact(), contactRepository);
         }
+
     }
 
     @Transactional
