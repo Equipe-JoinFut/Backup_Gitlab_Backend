@@ -3,7 +3,6 @@ package com.ages.joinfut.service;
 import com.ages.joinfut.dto.ClubDTO;
 import com.ages.joinfut.model.Club;
 import com.ages.joinfut.repository.AdressRepository;
-import com.ages.joinfut.repository.AtleteRepository;
 import com.ages.joinfut.repository.ClubRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +43,7 @@ public class ClubService {
         clubRepository.delete(club);
     }
 
-    public Club update(Long id, Club updated, AtleteRepository atleteRepository) {
+    public Club update(Long id, Club updated, ClubRepository clubRepository) {
         Club saved = clubRepository.findByidClub(id);
 
         if (updated.getClub() != null && !updated.getClub().equals(saved.getClub())) {
