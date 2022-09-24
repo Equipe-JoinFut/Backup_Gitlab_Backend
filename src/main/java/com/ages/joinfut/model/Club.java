@@ -1,6 +1,7 @@
 package com.ages.joinfut.model;
 
 import com.ages.joinfut.dto.ClubDTO;
+import com.ages.joinfut.service.ClubService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -63,12 +64,15 @@ public class Club {
     public Club() {}
     
     public Club(ClubDTO clubDTO) {
-        this.idClub = clubDTO.getIdClub();
-        this.club = clubDTO.getClub();
-        this.corporateName = clubDTO.getCorporateName();
-        this.fantasyName = clubDTO.getFantasyName();
-        this.cnpj = clubDTO.getCnpj();
-        this.adress = clubDTO.getAdress();
+        ClubService clubService = new ClubService();
+        Club club = clubService.EntityDataConverter(clubDTO);
+
+        this.idClub = club.idClub;
+        this.club = club.club;
+        this.corporateName = club.corporateName;
+        this.fantasyName = club.fantasyName;
+        this.cnpj = club.cnpj;
+        this.adress = club.adress;
     }
 
     public Long getId() {return getIdClub();}
