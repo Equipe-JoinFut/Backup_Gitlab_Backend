@@ -2,6 +2,8 @@ package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.Adress;
 import com.ages.joinfut.model.Club;
+import com.ages.joinfut.service.ClubService;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +28,7 @@ public class ClubDTO {
     private String cnpj;
 
     @ApiModelProperty(position = 6, notes = "Endereço")
-    private Adress adress;
+    private AdressDTO adress;
 
     // ndaContract ainda nao foi criado
     // @ApiModelProperty(position = 7, notes = "Termo de confidencialidade")
@@ -35,12 +37,16 @@ public class ClubDTO {
     public ClubDTO() {}
 
     public ClubDTO(Club club) {
-        this.idClub = club.getIdClub();
-        this.club = club.getClub();
-        this.corporateName = club.getCorporateName();
-        this.fantasyName = club.getFantasyName();
-        this.cnpj = club.getCnpj();
-        this.adress = club.getAdress();
+
+        ClubService clubService = new ClubService();
+        ClubDTO clubDTO = clubService.DTODataConverter(club);
+
+        this.idClub = clubDTO.idClub;
+        this.club = clubDTO.club;
+        this.corporateName = clubDTO.corporateName;
+        this.fantasyName = clubDTO.fantasyName;
+        this.cnpj = clubDTO.cnpj;
+        this.adress = clubDTO.adress;
     }
 
     public Long getId() {
