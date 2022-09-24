@@ -5,13 +5,14 @@ import com.ages.joinfut.model.Club;
 import com.ages.joinfut.repository.AdressRepository;
 import com.ages.joinfut.repository.ClubRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Service
 public class ClubService {
     
     @Autowired
