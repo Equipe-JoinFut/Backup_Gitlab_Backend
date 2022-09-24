@@ -7,7 +7,6 @@ import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
@@ -31,7 +30,7 @@ public class UserService {
     }
 
     public List<UserDTO> convertList(List<User> users) {
-        return users.stream().map(UserDTO::new).collect(Collectors.toList());
+        return users.stream().map(UserDTO   ::new).collect(Collectors.toList());
     }
 
     public UserDTO convertObject(User user) {
