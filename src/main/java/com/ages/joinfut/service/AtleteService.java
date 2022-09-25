@@ -63,6 +63,7 @@ public class AtleteService {
     public void delete( @PathVariable Long id) {
         Optional<Atlete> atleteGetter = atleteRepository.findById(id);
         Atlete atlete = atleteGetter.get();
+
         if (atlete.getContact() != null && atlete.getContact().getId() != null) {
             contactService.delete(atlete.getContact());
         }
