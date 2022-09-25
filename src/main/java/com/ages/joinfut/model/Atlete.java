@@ -100,11 +100,9 @@ public class Atlete {
         this.idAtlete = atlete.idAtlete;
         this.atleteName = atlete.atleteName;
         this.dateBirth = atlete.dateBirth;
-
-        this.atleteHeight < 0 || this.atleteHeight > 3 ? null : atlete.atleteHeight;
-        this.atleteWeight < 0 || this.atleteWeight > 200 ? null : atlete.atleteWeight;
-        this.atleteImc = this.atleteWeight / (this.atleteHeight * this.atleteHeight);
-        
+        this.atleteHeight = atlete.atleteHeight;
+        this.atleteWeight = atlete.atleteWeight;
+        this.atleteImc = atlete.atleteImc;
         this.atleteBid = atlete.atleteBid;
         this.dominantLeg = atlete.dominantLeg;
         this.position = atlete.position;

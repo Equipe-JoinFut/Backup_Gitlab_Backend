@@ -7,7 +7,11 @@ import com.ages.joinfut.service.AtleteService;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -24,10 +28,14 @@ public class AtleteDTO {
     @ApiModelProperty(position = 3, notes = "Data de nascimento")
     private Date dateBirth;
 
-    @ApiModelProperty(position = 4, notes = "Peso do Atleta")
+    @ApiModelProperty(position = 4, notes = "Altura do Atleta")
+    @DecimalMin(value = "0.0", message = "Altura mínima inválido!")
+    @DecimalMax(value = "3.0", message = "Altura máxima inválido!")
     private Double atleteHeight;
 
-    @ApiModelProperty(position = 5, notes = "Altura do Atleta")
+    @ApiModelProperty(position = 5, notes = "Peso do Atleta")
+    @DecimalMin(value = "0.0", message = "Peso mínimo inválido!")
+    @DecimalMax(value = "200.0", message = "Peso máximo inválido!")
     private Double atleteWeight;
 
     @ApiModelProperty(position = 6, notes = "IMC do Atlela")
