@@ -3,6 +3,7 @@ package com.ages.joinfut.dto;
 import com.ages.joinfut.Enum.DominantLeg;
 import com.ages.joinfut.Enum.Position;
 import com.ages.joinfut.model.Atlete;
+import com.ages.joinfut.model.User;
 import com.ages.joinfut.service.AtleteService;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -54,6 +55,9 @@ public class AtleteDTO {
     @ApiModelProperty(position = 13, notes = "Doenças pre-existentes do Atleta")
     private String deceases;
 
+    @ApiModelProperty(position = 14, notes = "Usuario vinculado ao atleta")
+    private User user;
+
     public AtleteDTO () {}
 
     public AtleteDTO (Atlete atlete) {
@@ -72,6 +76,7 @@ public class AtleteDTO {
         this.contact = atleteDTO.contact;
         this.atleteClubs = atleteDTO.atleteClubs;
         this.deceases = atleteDTO.deceases;
+        this.user = atleteDTO.user;
     }
 
     public Long getId() {
