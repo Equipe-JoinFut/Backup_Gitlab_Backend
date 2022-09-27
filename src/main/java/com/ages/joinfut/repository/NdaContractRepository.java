@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NdaContractRepository extends JpaRepository<NdaContract, Long> {
 
-    NdaContract findByNdaContract(Long id);
+    NdaContract findByidNdaContract(Long id);
 }

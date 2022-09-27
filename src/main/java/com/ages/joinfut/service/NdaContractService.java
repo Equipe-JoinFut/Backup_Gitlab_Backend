@@ -25,7 +25,7 @@ public class NdaContractService {
     public NdaContract desconvertObject(NdaContractDTO ndaContractDTO){ return new NdaContract(ndaContractDTO); }
 
     public NdaContract update(Long id, NdaContract updated, NdaContractRepository ndaContractRepository) {
-        NdaContract saved = ndaContractRepository.findByNdaContract(id);
+        NdaContract saved = ndaContractRepository.findByidNdaContract(id);
         if (updated.getInfoNda() != null && !updated.getInfoNda().equals(saved.getInfoNda())) {
             saved.setInfoNda(updated.getInfoNda());
         }
