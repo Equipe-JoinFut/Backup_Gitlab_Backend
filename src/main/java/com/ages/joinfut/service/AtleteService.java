@@ -147,10 +147,10 @@ public class AtleteService {
         atleteDTO.setPosition(atlete.getPosition());
         atleteDTO.setDeceases(atlete.getDeceases());
         if (atlete.getAdress() != null) {
-            atleteDTO.setAdress(adressService.convertObjet(atlete.getAdress()));
+            atleteDTO.setAdress(adressService.convertObject(atlete.getAdress()));
         }
         if (atlete.getContact() != null) {
-            atleteDTO.setContact(contactService.convertObjet(atlete.getContact()));
+            atleteDTO.setContact(contactService.convertObject(atlete.getContact()));
         }
         if (atlete.getAtleteClubs() != null && !atlete.getAtleteClubs().isEmpty()) {
             atleteDTO.setAtleteClubs(atleteClubService.convertList(atlete.getAtleteClubs()));

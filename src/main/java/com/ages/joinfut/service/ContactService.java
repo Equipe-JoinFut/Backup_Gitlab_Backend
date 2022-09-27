@@ -44,7 +44,7 @@ public class ContactService {
         return adresses.stream().map(ContactDTO::new).collect(Collectors.toList());
     }
 
-    public ContactDTO convertObjet(Contact contact) {return new ContactDTO(contact);}
+    public ContactDTO convertObject(Contact contact) {return new ContactDTO(contact);}
 
     public List<Contact> desconvertList(List<ContactDTO> adressDTOS) {
         return adressDTOS.stream().map(Contact::new).collect(Collectors.toList());
