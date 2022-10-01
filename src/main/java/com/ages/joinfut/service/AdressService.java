@@ -24,7 +24,7 @@ public class AdressService {
         return adresses.stream().map(AdressDTO::new).collect(Collectors.toList());
     }
 
-    public AdressDTO convertObjet(Adress adress) {return new AdressDTO(adress);}
+    public AdressDTO convertObject(Adress adress) {return new AdressDTO(adress);}
 
     public List<Adress> desconvertList(List<AdressDTO> adressDTOS) {
         return adressDTOS.stream().map(Adress::new).collect(Collectors.toList());

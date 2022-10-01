@@ -2,6 +2,7 @@ package com.ages.joinfut.dto;
 
 import java.util.Date;
 
+import com.ages.joinfut.Enum.UserType;
 import com.ages.joinfut.model.User;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -23,6 +24,9 @@ public class UserDTO {
     @ApiModelProperty(position = 4, notes = "Data de criação do Usuário")
     private Date creationDate;
 
+    @ApiModelProperty(position = 5, notes = "Tipo de Usuario")
+    private UserType userType;
+
     public UserDTO () {}
 
     public UserDTO (User user) {
@@ -30,6 +34,7 @@ public class UserDTO {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.creationDate = user.getCreationDate();
+        this.userType = user.getUserType();
     }
 
     public Long getIdUser() {

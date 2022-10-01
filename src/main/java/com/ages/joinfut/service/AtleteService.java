@@ -35,6 +35,8 @@ public class AtleteService {
     private ContactService contactService = new ContactService();
     private AtleteClubService atleteClubService = new AtleteClubService();
 
+    private UserService userService = new UserService();
+
     public AtleteService(){
     }
 
@@ -75,6 +77,7 @@ public class AtleteService {
                 }
             }
         }
+
         atleteRepository.delete(atlete);
     }
 
@@ -119,6 +122,11 @@ public class AtleteService {
         if (updated.getDeceases() != null && !updated.getDeceases().equals(saved.getDeceases())) {
             saved.setDeceases(updated.getDeceases());
         }
+
+        if (updated.getUser() != null && !updated.getUser().equals(saved.getUser())) {
+            saved.setUser(updated.getUser());
+        }
+
         return saved;
     }
 
@@ -139,10 +147,10 @@ public class AtleteService {
         atleteDTO.setPosition(atlete.getPosition());
         atleteDTO.setDeceases(atlete.getDeceases());
         if (atlete.getAdress() != null) {
-            atleteDTO.setAdress(adressService.convertObjet(atlete.getAdress()));
+            atleteDTO.setAdress(adressService.convertObject(atlete.getAdress()));
         }
         if (atlete.getContact() != null) {
-            atleteDTO.setContact(contactService.convertObjet(atlete.getContact()));
+            atleteDTO.setContact(contactService.convertObject(atlete.getContact()));
         }
         if (atlete.getAtleteClubs() != null && !atlete.getAtleteClubs().isEmpty()) {
             atleteDTO.setAtleteClubs(atleteClubService.convertList(atlete.getAtleteClubs()));

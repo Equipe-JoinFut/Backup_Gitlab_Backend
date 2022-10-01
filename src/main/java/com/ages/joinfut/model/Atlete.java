@@ -92,6 +92,11 @@ public class Atlete {
     @Column(name = "atlete_deceases")
     private String deceases;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
+    private User user;
+
+
     public Atlete() {}
 
     public Atlete(AtleteDTO atleteDTO) {
@@ -110,6 +115,7 @@ public class Atlete {
         this.contact = atlete.contact;
         this.atleteClubs = atlete.atleteClubs;
         this.deceases = atlete.deceases;
+        this.user = atlete.user;
     }
 
     public Long getId() {
