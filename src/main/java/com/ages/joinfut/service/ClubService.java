@@ -47,10 +47,6 @@ public class ClubService {
     public Club update(Long id, Club updated, ClubRepository clubRepository) {
         Club saved = clubRepository.findByidClub(id);
 
-        if (updated.getClub() != null && !updated.getClub().equals(saved.getClub())) {
-            saved.setClub(updated.getClub());
-        }
-        
         if (updated.getCorporateName() != null && !updated.getCorporateName().equals(saved.getCorporateName())) {
             saved.setCorporateName(updated.getCorporateName());
         }
@@ -77,13 +73,12 @@ public class ClubService {
     public ClubDTO DTODataConverter(Club club) {
         ClubDTO clubDTO = new ClubDTO();
         clubDTO.setIdClub(club.getIdClub());
-        clubDTO.setClub(club.getClub());
         clubDTO.setCorporateName(club.getCorporateName());
         clubDTO.setFantasyName(club.getFantasyName());
         clubDTO.setCnpj(club.getCnpj());
 
         if (club.getAdress() != null) {
-            clubDTO.setAdress(adressService.convertObjet(club.getAdress()));
+            clubDTO.setAdress(adressService.convertObject(club.getAdress()));
         }
         
         return clubDTO;
@@ -91,11 +86,10 @@ public class ClubService {
 
     public Club EntityDataConverter(ClubDTO clubDTO) {
         Club club = new Club();
-        club.setIdClub(club.getIdClub());
-        club.setClub(club.getClub());
-        club.setCorporateName(club.getCorporateName());
-        club.setFantasyName(club.getFantasyName());
-        club.setCnpj(club.getCnpj());
+        club.setIdClub(clubDTO.getIdClub());
+        club.setCorporateName(clubDTO.getCorporateName());
+        club.setFantasyName(clubDTO.getFantasyName());
+        club.setCnpj(clubDTO.getCnpj());
        
         if (clubDTO.getAdress() != null) {
             club.setAdress(adressService.desconvertObject(clubDTO.getAdress()));

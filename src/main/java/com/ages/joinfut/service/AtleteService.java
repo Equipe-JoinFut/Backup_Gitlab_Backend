@@ -35,8 +35,6 @@ public class AtleteService {
     private ContactService contactService = new ContactService();
     private AtleteClubService atleteClubService = new AtleteClubService();
 
-    private UserService userService = new UserService();
-
     public AtleteService(){
     }
 

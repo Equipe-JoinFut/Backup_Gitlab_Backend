@@ -1,6 +1,5 @@
 package com.ages.joinfut.dto;
 
-import com.ages.joinfut.model.Adress;
 import com.ages.joinfut.model.Club;
 import com.ages.joinfut.service.ClubService;
 
@@ -15,19 +14,16 @@ public class ClubDTO {
     @ApiModelProperty(position = 1, notes = "Identificação única do Clube")
     private Long idClub;
 
-    @ApiModelProperty(position = 2, notes = "Clube")
-    private Club club;
-
-    @ApiModelProperty(position = 3, notes = "Razão Social")
+    @ApiModelProperty(position = 2, notes = "Razão Social")
     private String corporateName;
 
-    @ApiModelProperty(position = 4, notes = "Nome fantasia")
+    @ApiModelProperty(position = 3, notes = "Nome fantasia")
     private String fantasyName;
 
-    @ApiModelProperty(position = 5, notes = "CNPJ")
+    @ApiModelProperty(position = 4, notes = "CNPJ")
     private String cnpj;
 
-    @ApiModelProperty(position = 6, notes = "Endereço")
+    @ApiModelProperty(position = 5, notes = "Endereço")
     private AdressDTO adress;
 
     // ndaContract ainda nao foi criado
@@ -42,7 +38,6 @@ public class ClubDTO {
         ClubDTO clubDTO = clubService.DTODataConverter(club);
 
         this.idClub = clubDTO.idClub;
-        this.club = clubDTO.club;
         this.corporateName = clubDTO.corporateName;
         this.fantasyName = clubDTO.fantasyName;
         this.cnpj = clubDTO.cnpj;
