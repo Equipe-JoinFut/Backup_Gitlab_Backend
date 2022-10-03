@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  node:
+    build: .
+    depends_on:
+      - db
+    environment:
+      - PORT="$PORT"
+    ports:
+      - "$PORT"
+
+  db:
+    image: postgres:12.12-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5433:5433'
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local
