@@ -40,6 +40,9 @@ public class AtleteService {
 
     @Transactional
     public void save(Atlete atlete) {
+
+        calculateImc(atlete);
+
         atleteRepository.save(atlete);
 
         if (atlete.getAtleteClubs() != null && !atlete.getAtleteClubs().isEmpty()) {
@@ -75,6 +78,7 @@ public class AtleteService {
                 }
             }
         }
+
         atleteRepository.delete(atlete);
     }
 
@@ -119,6 +123,11 @@ public class AtleteService {
         if (updated.getDeceases() != null && !updated.getDeceases().equals(saved.getDeceases())) {
             saved.setDeceases(updated.getDeceases());
         }
+
+        if (updated.getUser() != null && !updated.getUser().equals(saved.getUser())) {
+            saved.setUser(updated.getUser());
+        }
+
         return saved;
     }
 
@@ -139,10 +148,10 @@ public class AtleteService {
         atleteDTO.setPosition(atlete.getPosition());
         atleteDTO.setDeceases(atlete.getDeceases());
         if (atlete.getAdress() != null) {
-            atleteDTO.setAdress(adressService.convertObjet(atlete.getAdress()));
+            atleteDTO.setAdress(adressService.convertObject(atlete.getAdress()));
         }
         if (atlete.getContact() != null) {
-            atleteDTO.setContact(contactService.convertObjet(atlete.getContact()));
+            atleteDTO.setContact(contactService.convertObject(atlete.getContact()));
         }
         if (atlete.getAtleteClubs() != null && !atlete.getAtleteClubs().isEmpty()) {
             atleteDTO.setAtleteClubs(atleteClubService.convertList(atlete.getAtleteClubs()));
@@ -186,4 +195,7 @@ public class AtleteService {
     public Atlete desconvertObject(AtleteDTO atleteDTO) {
         return new Atlete(atleteDTO);
     }
+
+    public void calculateImc(Atlete atlete){ atlete.setAtleteImc(atlete.getAtleteWeight() / (Math.pow(atlete.getAtleteWeight(), 2))); }
+
 }

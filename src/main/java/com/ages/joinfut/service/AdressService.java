@@ -3,7 +3,6 @@ package com.ages.joinfut.service;
 import com.ages.joinfut.dto.AdressDTO;
 import com.ages.joinfut.model.Adress;
 import com.ages.joinfut.repository.AdressRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,7 +23,7 @@ public class AdressService {
         return adresses.stream().map(AdressDTO::new).collect(Collectors.toList());
     }
 
-    public AdressDTO convertObjet(Adress adress) {return new AdressDTO(adress);}
+    public AdressDTO convertObject(Adress adress) {return new AdressDTO(adress);}
 
     public List<Adress> desconvertList(List<AdressDTO> adressDTOS) {
         return adressDTOS.stream().map(Adress::new).collect(Collectors.toList());

@@ -14,13 +14,11 @@ import java.util.stream.Collectors;
 public class AtleteClubService {
 
     @Autowired
-    private AtleteClubRepository atleteClubRepository;
 
     public AtleteClubService() {}
 
     @Transactional
     public void save(AtleteClub atleteClub, AtleteClubRepository atleteClubRepository) {
-        this.atleteClubRepository = atleteClubRepository;
         atleteClubRepository.save(atleteClub);
     }
 
