@@ -3,7 +3,6 @@ package com.ages.joinfut.service;
 import com.ages.joinfut.dto.AdressDTO;
 import com.ages.joinfut.model.Adress;
 import com.ages.joinfut.repository.AdressRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
