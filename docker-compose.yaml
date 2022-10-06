@@ -1,25 +1,16 @@
-version: '3.3'
+version: '3.7'
 services:
-  node:
-    build: .
-    depends_on:
-      - db
-    environment:
-      - PORT="$PORT"
+  joinfut-backend:
+    image: joinfut/backend:latest
     ports:
-      - "$PORT"
-
-  db:
-    image: postgres:12.12-alpine
-    restart: always
+      - "8080:8080"
+    networks:
+      - backend
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - '5433:5433'
-    volumes:
-      - db:/var/lib/postgresql/data
+      - DB_URL=jdbc:postgresql://_______________:5433/joinfut
+      - DB_DDL=UPDATE
 
-volumes:
-  db:
-    driver: local
+networks:
+  backend:
+    external: true
+    driver: bridge
