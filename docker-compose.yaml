@@ -1,25 +1,25 @@
 version: '3.7'
 services:
   joinfut-backend:
-    depends_on:
-      - db
     image: f4nt0/joinfut:latest
     ports:
       - "8080:8080"
+    depends_on:
+      - db
 #    networks:
 #      - backend
     environment:
-      - DB_URL=jdbc:postgresql://127.0.0.1:5432/joinfut?useSSL=false
+      - DB_URL=jdbc:postgresql://db:5432/joinfut?useSSL=false
       - DB_DDL=create
   db:
-    container_name: pgdb
+    container_name: db
     image: postgres:12.12-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     expose:
-      - 5433
+      - 5432
     ports:
       - '5432:5432'
     volumes:
