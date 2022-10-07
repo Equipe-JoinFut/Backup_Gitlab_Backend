@@ -1,9 +1,9 @@
 package com.ages.joinfut.controller;
 
-import com.ages.joinfut.dto.AtleteDTO;
-import com.ages.joinfut.model.Atlete;
-import com.ages.joinfut.repository.AtleteRepository;
-import com.ages.joinfut.service.AtleteService;
+import com.ages.joinfut.dto.AthleteDTO;
+import com.ages.joinfut.model.Athlete;
+import com.ages.joinfut.repository.AthleteRepository;
+import com.ages.joinfut.service.AthleteService;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,52 +27,52 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/personas")
-public class AtleteController {
+public class AthleteController {
 
-    private static final String URL_PLURAL = "/atletes";
-    private static final String URL_SINGULAR = "/atlete/{id}";
-
-    @Autowired
-    private AtleteRepository atleteRepository;
+    private static final String URL_PLURAL = "/athletes";
+    private static final String URL_SINGULAR = "/athlete/{id}";
 
     @Autowired
-    private AtleteService atleteService;
+    private AthleteRepository athleteRepository;
+
+    @Autowired
+    private AthleteService athleteService;
 
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Busca em lista de todos os Atletas cadastrados")
-    public ResponseEntity<List<AtleteDTO>> readAllAtletes() {
-        List<Atlete> atletes = atleteRepository.findAll();
-        List<AtleteDTO> atletesDTO = atleteService.convertList(atletes);
-        return new ResponseEntity<>(atletesDTO, HttpStatus.OK);
+    public ResponseEntity<List<AthleteDTO>> readAllAthletes() {
+        List<Athlete> athletes = athleteRepository.findAll();
+        List<AthleteDTO> athletesDTO = athleteService.convertList(athletes);
+        return new ResponseEntity<>(athletesDTO, HttpStatus.OK);
     }
 
     @GetMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Busca de um Atleta pelo seu ID")
-    public ResponseEntity<AtleteDTO> readAtleteById(@PathVariable Long id) {
-        Optional<Atlete> atlete = atleteRepository.findById(id);
-        return atlete.map(value -> ResponseEntity.ok(new AtleteDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<AthleteDTO> readAthleteById(@PathVariable Long id) {
+        Optional<Athlete> athlete = athleteRepository.findById(id);
+        return athlete.map(value -> ResponseEntity.ok(new AthleteDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Cria um novo atleta")
     @Transactional
-    public ResponseEntity<AtleteDTO> createAtlete(@RequestBody @Valid AtleteDTO atleteDTO, UriComponentsBuilder uriComponentsBuilder) {
-        Atlete atlete = atleteService.desconvertObject(atleteDTO);
-        atleteService.save(atlete);
-        URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(atlete.getId()).toUri();
-        return ResponseEntity.created(uri).body(new AtleteDTO(atlete));
+    public ResponseEntity<AthleteDTO> createAthlete(@RequestBody @Valid AthleteDTO athleteDTO, UriComponentsBuilder uriComponentsBuilder) {
+        Athlete athlete = athleteService.desconvertObject(athleteDTO);
+        athleteService.save(athlete);
+        URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(athlete.getId()).toUri();
+        return ResponseEntity.created(uri).body(new AthleteDTO(athlete));
     }
 
     @PutMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Atualiza um atleta salvo")
     @Transactional
-    public ResponseEntity<AtleteDTO> updateAtlete(@PathVariable Long id, @RequestBody @Valid AtleteDTO atleteDTO) {
-        Optional<Atlete> verifyId = atleteRepository.findById(id);
+    public ResponseEntity<AthleteDTO> updateAthlete(@PathVariable Long id, @RequestBody @Valid AthleteDTO athleteDTO) {
+        Optional<Athlete> verifyId = athleteRepository.findById(id);
         if (verifyId.isPresent()) {
-            Atlete updatedAtlete = atleteService.desconvertObject(atleteDTO);
-            Atlete atlete = atleteService.update(id, updatedAtlete, atleteRepository);
-            return ResponseEntity.ok(new AtleteDTO(atlete));
+            Athlete updatedAthlete = athleteService.desconvertObject(athleteDTO);
+            Athlete athlete = athleteService.update(id, updatedAthlete, athleteRepository);
+            return ResponseEntity.ok(new AthleteDTO(athlete));
         }
         return ResponseEntity.notFound().build();
     }
@@ -80,10 +80,10 @@ public class AtleteController {
     @DeleteMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Remove um atleta salvo")
     @Transactional
-    public ResponseEntity<Long> deleteAtlete(@PathVariable Long id) {
-        Optional<Atlete> verifyId = atleteRepository.findById(id);
+    public ResponseEntity<Long> deleteAthlete(@PathVariable Long id) {
+        Optional<Athlete> verifyId = athleteRepository.findById(id);
         if (verifyId.isPresent()) {
-            atleteService.delete(id);
+            athleteService.delete(id);
             return ResponseEntity.ok(id);
         }
         return ResponseEntity.notFound().build();
