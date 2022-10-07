@@ -3,6 +3,7 @@ package com.ages.joinfut.dto;
 import java.util.Date;
 
 import com.ages.joinfut.Enum.UserType;
+import com.ages.joinfut.model.Atlete;
 import com.ages.joinfut.model.User;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -21,11 +22,19 @@ public class UserDTO {
     @ApiModelProperty(position = 3, notes = "Senha do Usuário")
     private String password;
 
-    @ApiModelProperty(position = 4, notes = "Data de criação do Usuário")
+    @ApiModelProperty(position = 4, notes = "Iddentificado único do Atleta Vinculado")
+    private Long idAtlete;
+
+    @ApiModelProperty(position = 5, notes = "Idenficiador único do Clube Vinculado")
+    private Long idClub;
+
+    @ApiModelProperty(position = 6, notes = "Tipo de Usuario")
+    private UserType userType;
+
+    @ApiModelProperty(position = 7, notes = "Data de criação do Usuário")
     private Date creationDate;
 
-    @ApiModelProperty(position = 5, notes = "Tipo de Usuario")
-    private UserType userType;
+
 
     public UserDTO () {}
 
@@ -33,8 +42,10 @@ public class UserDTO {
         this.idUser = user.getIdUser();
         this.email = user.getEmail();
         this.password = user.getPassword();
-        this.creationDate = user.getCreationDate();
+        this.idAtlete = user.getIdAtlete();
+        this.idClub = user.getIdClub();
         this.userType = user.getUserType();
+        this.creationDate = user.getCreationDate();
     }
 
     public Long getIdUser() {
