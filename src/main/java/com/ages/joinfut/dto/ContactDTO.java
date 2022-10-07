@@ -2,7 +2,7 @@ package com.ages.joinfut.dto;
 
 import java.util.List;
 
-import com.ages.joinfut.model.Atlete;
+import com.ages.joinfut.model.Athlete;
 import com.ages.joinfut.model.Contact;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -16,7 +16,7 @@ public class ContactDTO {
     private Long idContact;
 
     @ApiModelProperty(position = 2, notes = "Atleta")
-    private Atlete atlete;
+    private Athlete athlete;
 
     @ApiModelProperty(position = 3, notes = "Nome de Contato")
     private String contactName;
@@ -34,7 +34,7 @@ public class ContactDTO {
 
     public ContactDTO (Contact contact) {
         this.idContact = contact.getIdContact();
-        this.atlete = contact.getAtlete();
+        this.athlete = contact.getAthlete();
         this.contactName = contact.getContactName();
         this.email = contact.getEmail();
         this.telephone = contact.getTelephone();

@@ -35,8 +35,8 @@ public class Contact {
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_atlete")
-    private Atlete atlete;
+    @JoinColumn(name = "id_athlete")
+    private Athlete athlete;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
@@ -54,14 +54,14 @@ public class Contact {
     private String telephone;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "atlete", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "athlete", cascade = CascadeType.REMOVE)
     private List<Contact> responsibles;
 
     public Contact() {}
 
     public Contact(ContactDTO contactDTO) {
         this.idContact = contactDTO.getIdContact();
-        this.atlete = contactDTO.getAtlete();
+        this.athlete = contactDTO.getAthlete();
         this.contactName = contactDTO.getContactName();
         this.email = contactDTO.getEmail();
         this.telephone = contactDTO.getTelephone();

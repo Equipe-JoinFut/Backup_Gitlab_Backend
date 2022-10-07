@@ -33,10 +33,10 @@ public class Adress {
     @Column(name = "id_adress")
     private Long idAdress;
 
-    @JoinColumn(name = "id_atlete")
+    @JoinColumn(name = "id_athlete")
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    private Atlete atlete;
+    private Athlete athlete;
 
     @JoinColumn(name = "id_club")
     @JsonIgnore
@@ -61,7 +61,7 @@ public class Adress {
 
     public Adress(AdressDTO adressDTO) {
         this.idAdress = adressDTO.getIdAdress();
-        this.atlete = adressDTO.getAtlete();
+        this.athlete = adressDTO.getAthlete();
         this.streetInfo = adressDTO.getStreetInfo();
         this.city = adressDTO.getCity();
         this.state = adressDTO.getState();

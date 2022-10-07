@@ -36,8 +36,8 @@ public class AdressService {
         if (updated.getStreetInfo() != null && !updated.getStreetInfo().equals(saved.getStreetInfo())) {
             saved.setStreetInfo(updated.getStreetInfo());
         }
-        if (updated.getAtlete() != null && !updated.getAtlete().equals(saved.getAtlete())) {
-            saved.setAtlete(updated.getAtlete());
+        if (updated.getAthlete() != null && !updated.getAthlete().equals(saved.getAthlete())) {
+            saved.setAthlete(updated.getAthlete());
         }
         if (updated.getCity() != null && !updated.getCity().equals(saved.getCity())) {
             saved.setCity(updated.getCity());

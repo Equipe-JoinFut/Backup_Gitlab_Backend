@@ -2,9 +2,9 @@ package com.ages.joinfut.dto;
 
 import com.ages.joinfut.Enum.DominantLeg;
 import com.ages.joinfut.Enum.Position;
-import com.ages.joinfut.model.Atlete;
+import com.ages.joinfut.model.Athlete;
 import com.ages.joinfut.model.User;
-import com.ages.joinfut.service.AtleteService;
+import com.ages.joinfut.service.AthleteService;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,13 +16,13 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AtleteDTO {
+public class AthleteDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificação única do Atleta")
-    private Long idAtlete;
+    private Long idAthlete;
 
-    @ApiModelProperty(position = 2, notes = "Nome do Alteta")
-    private String atleteName;
+    @ApiModelProperty(position = 2, notes = "Nome do Atleta")
+    private String athleteName;
 
     @ApiModelProperty(position = 3, notes = "Data de nascimento")
     private Date dateBirth;
@@ -30,18 +30,18 @@ public class AtleteDTO {
     @ApiModelProperty(position = 4, notes = "Altura do Atleta")
     @DecimalMin(value = "0.0", message = "Altura mínima inválida!")
     @DecimalMax(value = "3.0", message = "Altura máxima inválida!")
-    private Double atleteHeight;
+    private Double athleteHeight;
 
     @ApiModelProperty(position = 5, notes = "Peso do Atleta")
     @DecimalMin(value = "0.0", message = "Peso mínimo inválido!")
     @DecimalMax(value = "200.0", message = "Peso máximo inválido!")
-    private Double atleteWeight;
+    private Double athleteWeight;
 
     @ApiModelProperty(position = 6, notes = "IMC do Atlela")
-    private Double atleteImc;
+    private Double athleteImc;
 
     @ApiModelProperty(position = 7, notes = "Código BID do Atleta")
-    private String atleteBid;
+    private String athleteBid;
 
     @ApiModelProperty(position = 8, notes = "Perna Dominante")
     private DominantLeg dominantLeg;
@@ -56,7 +56,7 @@ public class AtleteDTO {
     private ContactDTO contact;
 
     @ApiModelProperty(position = 12, notes = "Historico de Clubes do Atleta")
-    private List<AtleteClubDTO> atleteClubs;
+    private List<AthleteClubDTO> athleteClubs;
 
     @ApiModelProperty(position = 13, notes = "Doenças pre-existentes do Atleta")
     private String deceases;
@@ -64,28 +64,28 @@ public class AtleteDTO {
     @ApiModelProperty(position = 14, notes = "Usuario vinculado ao atleta")
     private User user;
 
-    public AtleteDTO () {}
+    public AthleteDTO () {}
 
-    public AtleteDTO (Atlete atlete) {
-        AtleteService atleteService = new AtleteService();
-        AtleteDTO atleteDTO = atleteService.DTODataConverter(atlete);
-        this.idAtlete = atleteDTO.idAtlete;
-        this.atleteName = atleteDTO.atleteName;
-        this.dateBirth = atleteDTO.dateBirth;
-        this.atleteHeight = atleteDTO.atleteHeight;
-        this.atleteWeight = atleteDTO.atleteWeight;
-        this.atleteImc = atleteDTO.atleteImc;
-        this.atleteBid = atleteDTO.atleteBid;
-        this.dominantLeg = atleteDTO.dominantLeg;
-        this.position = atleteDTO.position;
-        this.adress = atleteDTO.adress;
-        this.contact = atleteDTO.contact;
-        this.atleteClubs = atleteDTO.atleteClubs;
-        this.deceases = atleteDTO.deceases;
-        this.user = atleteDTO.user;
+    public AthleteDTO (Athlete athlete) {
+        AthleteService athleteService = new AthleteService();
+        AthleteDTO athleteDTO = athleteService.DTODataConverter(athlete);
+        this.idAthlete = athleteDTO.idAthlete;
+        this.athleteName = athleteDTO.athleteName;
+        this.dateBirth = athleteDTO.dateBirth;
+        this.athleteHeight = athleteDTO.athleteHeight;
+        this.athleteWeight = athleteDTO.athleteWeight;
+        this.athleteImc = athleteDTO.athleteImc;
+        this.athleteBid = athleteDTO.athleteBid;
+        this.dominantLeg = athleteDTO.dominantLeg;
+        this.position = athleteDTO.position;
+        this.adress = athleteDTO.adress;
+        this.contact = athleteDTO.contact;
+        this.athleteClubs = athleteDTO.athleteClubs;
+        this.deceases = athleteDTO.deceases;
+        this.user = athleteDTO.user;
     }
 
     public Long getId() {
-        return getIdAtlete();
+        return getIdAthlete();
     }
 }

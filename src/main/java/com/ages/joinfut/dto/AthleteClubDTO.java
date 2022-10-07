@@ -1,7 +1,7 @@
 package com.ages.joinfut.dto;
 
-import com.ages.joinfut.model.Atlete;
-import com.ages.joinfut.model.AtleteClub;
+import com.ages.joinfut.model.Athlete;
+import com.ages.joinfut.model.AthleteClub;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,16 +10,16 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class AtleteClubDTO {
+public class AthleteClubDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificação única do clube que o atleta participou")
-    private Long idAtleteClub;
+    private Long idAthleteClub;
 
     @ApiModelProperty(position = 2, notes = "Atleta que pertence esse registro")
-    private Atlete atlete;
+    private Athlete athlete;
 
     @ApiModelProperty(position = 3, notes = "Nome do Clube")
-    private String atleteClubName;
+    private String athleteClubName;
 
     @ApiModelProperty(position = 4, notes = "Data de inicio nesse clube (Opcional)")
     private Date beginDate;
@@ -30,18 +30,18 @@ public class AtleteClubDTO {
     @ApiModelProperty(position = 6, notes = "Atleta atualmente nesse clube? sim/não")
     private Boolean currentClub;
 
-    public AtleteClubDTO() {}
+    public AthleteClubDTO() {}
 
-    public AtleteClubDTO (AtleteClub atleteClub) {
-        this.idAtleteClub = atleteClub.getIdAtleteClub();
-        this.atlete = atleteClub.getAtlete();
-        this.atleteClubName = atleteClub.getAtleteClubName();
-        this.beginDate = atleteClub.getBeginDate();
-        this.endDate = atleteClub.getEndDate();
-        this.currentClub = atleteClub.getCurrentClub();
+    public AthleteClubDTO (AthleteClub athleteClub) {
+        this.idAthleteClub = athleteClub.getIdAthleteClub();
+        this.athlete = athleteClub.getAthlete();
+        this.athleteClubName = athleteClub.getAthleteClubName();
+        this.beginDate = athleteClub.getBeginDate();
+        this.endDate = athleteClub.getEndDate();
+        this.currentClub = athleteClub.getCurrentClub();
     }
 
     public Long getId() {
-        return getIdAtleteClub();
+        return getIdAthleteClub();
     }
 }

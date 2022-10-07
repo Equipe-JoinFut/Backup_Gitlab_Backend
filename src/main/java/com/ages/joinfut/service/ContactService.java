@@ -23,7 +23,7 @@ public class ContactService {
         this.contactRepository = contactRepository;
         if (contact.getResponsibles() != null && !contact.getResponsibles().isEmpty()) {
             for(Contact responsible : contact.getResponsibles()) {
-                responsible.setAtlete(contact.getAtlete());
+                responsible.setAthlete(contact.getAthlete());
                 contactRepository.save(responsible);
             }
         }
@@ -32,7 +32,7 @@ public class ContactService {
 
     @Transactional
     public void delete(Contact contact) {
-        List<Contact> contacts = contactRepository.findByAtlete(contact.getAtlete());
+        List<Contact> contacts = contactRepository.findByAthlete(contact.getAthlete());
         for (Contact contact1 : contacts) {
             if (contact1.getId() != null) {
                 contactRepository.delete(contact1);
@@ -57,8 +57,8 @@ public class ContactService {
         if (updated.getContactName() != null && !updated.getContactName().equals(saved.getContactName())) {
             saved.setContactName(updated.getContactName());
         }
-        if (updated.getAtlete() != null && !updated.getAtlete().equals(saved.getAtlete())) {
-            saved.setAtlete(updated.getAtlete());
+        if (updated.getAthlete() != null && !updated.getAthlete().equals(saved.getAthlete())) {
+            saved.setAthlete(updated.getAthlete());
         }
         if (updated.getEmail() != null && !updated.getEmail().equals(saved.getEmail())) {
             saved.setEmail(updated.getEmail());

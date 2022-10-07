@@ -1,6 +1,6 @@
 package com.ages.joinfut.model;
 
-import com.ages.joinfut.dto.AtleteClubDTO;
+import com.ages.joinfut.dto.AthleteClubDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,23 +26,23 @@ import java.util.Date;
 @Setter
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "atlete_clubs", schema = "informations")
-public class AtleteClub {
+@Table(name = "athlete_clubs", schema = "informations")
+public class AthleteClub {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_atlete_club")
-    private Long idAtleteClub;
+    @Column(name = "id_athlete_club")
+    private Long idAthleteClub;
 
-    @JoinColumn(name = "id_atlete")
+    @JoinColumn(name = "id_athlete")
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    private Atlete atlete;
+    private Athlete athlete;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "atlete_club_name")
-    private String atleteClubName;
+    @Column(name = "athlete_club_name")
+    private String athleteClubName;
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -57,20 +57,20 @@ public class AtleteClub {
     @Column(name = "flag_current_club")
     private Boolean currentClub;
 
-    public AtleteClub() {
+    public AthleteClub() {
         super();
     }
 
-    public AtleteClub(AtleteClubDTO atleteClubDTO) {
-        this.idAtleteClub = atleteClubDTO.getIdAtleteClub();
-        this.atlete = atleteClubDTO.getAtlete();
-        this.atleteClubName = atleteClubDTO.getAtleteClubName();
-        this.beginDate = atleteClubDTO.getBeginDate();
-        this.endDate = atleteClubDTO.getEndDate();
-        this.currentClub = atleteClubDTO.getCurrentClub();
+    public AthleteClub(AthleteClubDTO athleteClubDTO) {
+        this.idAthleteClub = athleteClubDTO.getIdAthleteClub();
+        this.athlete = athleteClubDTO.getAthlete();
+        this.athleteClubName = athleteClubDTO.getAthleteClubName();
+        this.beginDate = athleteClubDTO.getBeginDate();
+        this.endDate = athleteClubDTO.getEndDate();
+        this.currentClub = athleteClubDTO.getCurrentClub();
     }
 
     public Long getId() {
-        return getIdAtleteClub();
+        return getIdAthleteClub();
     }
 }

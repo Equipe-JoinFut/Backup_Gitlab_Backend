@@ -2,8 +2,8 @@ package com.ages.joinfut.model;
 
 import com.ages.joinfut.Enum.DominantLeg;
 import com.ages.joinfut.Enum.Position;
-import com.ages.joinfut.dto.AtleteDTO;
-import com.ages.joinfut.service.AtleteService;
+import com.ages.joinfut.dto.AthleteDTO;
+import com.ages.joinfut.service.AthleteService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -35,37 +35,37 @@ import java.util.List;
 @Setter
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "atletes", schema = "personas")
-public class Atlete {
+@Table(name = "athletes", schema = "personas")
+public class Athlete {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_atlete")
-    private Long idAtlete;
+    @Column(name = "id_athlete")
+    private Long idAthlete;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "atlete_name")
-    private String atleteName;
+    @Column(name = "athlete_name")
+    private String athleteName;
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date_birth")
     private Date dateBirth;
 
-    @Column(name = "atlete_height")
-    private Double atleteHeight;
+    @Column(name = "athlete_height")
+    private Double athleteHeight;
 
-    @Column(name = "atlete_weight")
-    private Double atleteWeight;
+    @Column(name = "athlete_weight")
+    private Double athleteWeight;
 
-    @Column(name = "atlete_imc")
-    private Double atleteImc;
+    @Column(name = "athlete_imc")
+    private Double athleteImc;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "atlete_bid")
-    private String atleteBid;
+    @Column(name = "athlete_bid")
+    private String athleteBid;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "dominant_leg")
@@ -83,13 +83,13 @@ public class Atlete {
     @JoinColumn(name = "id_contact")
     private Contact contact;
 
-    @JsonProperty("atleteClubs")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "atlete", cascade = CascadeType.REMOVE)
-    private List<AtleteClub> atleteClubs;
+    @JsonProperty("athleteClubs")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "athlete", cascade = CascadeType.REMOVE)
+    private List<AthleteClub> athleteClubs;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "atlete_deceases")
+    @Column(name = "athlete_deceases")
     private String deceases;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -97,28 +97,28 @@ public class Atlete {
     private User user;
 
 
-    public Atlete() {}
+    public Athlete() {}
 
-    public Atlete(AtleteDTO atleteDTO) {
-        AtleteService atleteService = new AtleteService();
-        Atlete atlete = atleteService.EntityDataConverter(atleteDTO);
-        this.idAtlete = atlete.idAtlete;
-        this.atleteName = atlete.atleteName;
-        this.dateBirth = atlete.dateBirth;
-        this.atleteHeight = atlete.atleteHeight;
-        this.atleteWeight = atlete.atleteWeight;
-        this.atleteImc = atlete.atleteImc;
-        this.atleteBid = atlete.atleteBid;
-        this.dominantLeg = atlete.dominantLeg;
-        this.position = atlete.position;
-        this.adress = atlete.adress;
-        this.contact = atlete.contact;
-        this.atleteClubs = atlete.atleteClubs;
-        this.deceases = atlete.deceases;
-        this.user = atlete.user;
+    public Athlete(AthleteDTO athleteDTO) {
+        AthleteService athleteService = new AthleteService();
+        Athlete athlete = athleteService.EntityDataConverter(athleteDTO);
+        this.idAthlete = athlete.idAthlete;
+        this.athleteName = athlete.athleteName;
+        this.dateBirth = athlete.dateBirth;
+        this.athleteHeight = athlete.athleteHeight;
+        this.athleteWeight = athlete.athleteWeight;
+        this.athleteImc = athlete.athleteImc;
+        this.athleteBid = athlete.athleteBid;
+        this.dominantLeg = athlete.dominantLeg;
+        this.position = athlete.position;
+        this.adress = athlete.adress;
+        this.contact = athlete.contact;
+        this.athleteClubs = athlete.athleteClubs;
+        this.deceases = athlete.deceases;
+        this.user = athlete.user;
     }
 
     public Long getId() {
-        return getIdAtlete();
+        return getIdAthlete();
     }
 }
