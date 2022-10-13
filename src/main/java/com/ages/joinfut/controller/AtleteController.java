@@ -57,7 +57,7 @@ public class AtleteController {
     @PostMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Cria um novo atleta")
     @Transactional
-    public ResponseEntity<AtleteDTO> createAtlete(@RequestBody @Valid AtleteDTO atleteDTO, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<AtleteDTO> createAtlete(@RequestBody @Valid AtleteDTO atleteDTO, @RequestBody @Valid AtleteDTO userDTO,UriComponentsBuilder uriComponentsBuilder) {
         Atlete atlete = atleteService.desconvertObject(atleteDTO);
         atleteService.save(atlete);
         URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(atlete.getId()).toUri();
