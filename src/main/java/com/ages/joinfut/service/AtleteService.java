@@ -35,13 +35,14 @@ public class AtleteService {
     private ContactService contactService = new ContactService();
     private AtleteClubService atleteClubService = new AtleteClubService();
 
-    private UserService userService = new UserService();
-
     public AtleteService(){
     }
 
     @Transactional
     public void save(Atlete atlete) {
+
+        calculateImc(atlete);
+
         atleteRepository.save(atlete);
 
         if (atlete.getAtleteClubs() != null && !atlete.getAtleteClubs().isEmpty()) {
@@ -194,4 +195,7 @@ public class AtleteService {
     public Atlete desconvertObject(AtleteDTO atleteDTO) {
         return new Atlete(atleteDTO);
     }
+
+    public void calculateImc(Atlete atlete){ atlete.setAtleteImc(atlete.getAtleteWeight() / (Math.pow(atlete.getAtleteWeight(), 2))); }
+
 }

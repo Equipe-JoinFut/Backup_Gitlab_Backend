@@ -38,6 +38,11 @@ public class Adress {
     @ManyToOne(fetch = FetchType.LAZY)
     private Atlete atlete;
 
+    @JoinColumn(name = "id_club")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Club club;
+
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "street_info")

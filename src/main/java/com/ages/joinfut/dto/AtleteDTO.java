@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import java.util.Date;
 import java.util.List;
 
@@ -25,10 +27,14 @@ public class AtleteDTO {
     @ApiModelProperty(position = 3, notes = "Data de nascimento")
     private Date dateBirth;
 
-    @ApiModelProperty(position = 4, notes = "Peso do Atleta")
+    @ApiModelProperty(position = 4, notes = "Altura do Atleta")
+    @DecimalMin(value = "0.0", message = "Altura mínima inválida!")
+    @DecimalMax(value = "3.0", message = "Altura máxima inválida!")
     private Double atleteHeight;
 
-    @ApiModelProperty(position = 5, notes = "Altura do Atleta")
+    @ApiModelProperty(position = 5, notes = "Peso do Atleta")
+    @DecimalMin(value = "0.0", message = "Peso mínimo inválido!")
+    @DecimalMax(value = "200.0", message = "Peso máximo inválido!")
     private Double atleteWeight;
 
     @ApiModelProperty(position = 6, notes = "IMC do Atlela")
