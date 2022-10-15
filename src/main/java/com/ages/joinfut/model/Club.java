@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "contacts", schema = "personas")
+@Table(name = "clubs", schema = "personas")
 public class Club {
     
     @Id
