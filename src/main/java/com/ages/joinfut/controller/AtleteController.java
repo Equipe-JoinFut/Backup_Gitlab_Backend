@@ -54,6 +54,8 @@ public class AtleteController {
         return atlete.map(value -> ResponseEntity.ok(new AtleteDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
+    // Criar apenas este aqui para o Controller do Subgroup
     @PostMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Cria um novo atleta")
     @Transactional

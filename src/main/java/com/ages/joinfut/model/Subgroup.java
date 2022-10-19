@@ -1,5 +1,6 @@
 package com.ages.joinfut.model;
 
+import com.ages.joinfut.dto.SubgroupDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -27,7 +27,7 @@ public class Subgroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nome = "id_subgroup")
+    @Column(name = "id_subgroup")
     private Long idSubgroup;
 
     @Lob
@@ -37,7 +37,20 @@ public class Subgroup {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_club")
-    private AtleteClub idClub;
+    private Club club;
+
+    public Subgroup(){}
+
+    public Subgroup(SubgroupDTO subgroupDTO){
+        this.idSubgroup = getIdSubgroup();
+        this.subgroupName = getSubgroupName();
+        this.club = getClub();
+    }
+    public Long getId(){
+        return getIdSubgroup();
+    }
+
+
 
 
 
