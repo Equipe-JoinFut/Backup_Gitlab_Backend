@@ -31,10 +31,10 @@ public class UserDTO {
 
     public UserDTO (User user) {
         this.idUser = user.getIdUser();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.creationDate = user.getCreationDate();
-        this.userType = user.getUserType();
+        //this.email = user.getEmail();
+        //this.password = user.getPassword();
+        //this.creationDate = user.getCreationDate();
+        //this.userType = user.getUserType();
     }
 
     public Long getIdUser() {

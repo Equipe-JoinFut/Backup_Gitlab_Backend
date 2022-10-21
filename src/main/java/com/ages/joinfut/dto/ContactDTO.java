@@ -35,10 +35,10 @@ public class ContactDTO {
     public ContactDTO (Contact contact) {
         this.idContact = contact.getIdContact();
         this.atlete = contact.getAtlete();
-        this.contactName = contact.getContactName();
-        this.email = contact.getEmail();
-        this.telephone = contact.getTelephone();
-        this.responsibles = contact.getResponsibles();
+        //this.contactName = contact.getContactName();
+        //this.email = contact.getEmail();
+        //this.telephone = contact.getTelephone();
+        //this.responsibles = contact.getResponsibles();
     }
 
     public Long getId() {

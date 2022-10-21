@@ -31,9 +31,9 @@ public class AdressDTO {
     public AdressDTO (Adress adress) {
         this.idAdress = adress.getIdAdress();
         this.atlete = adress.getAtlete();
-        this.streetInfo = adress.getStreetInfo();
-        this.city = adress.getCity();
-        this.state = adress.getState();
+        //this.streetInfo = adress.getStreetInfo();
+        //this.city = adress.getCity();
+        //this.state = adress.getState();
     }
 
     public Long getId() {
