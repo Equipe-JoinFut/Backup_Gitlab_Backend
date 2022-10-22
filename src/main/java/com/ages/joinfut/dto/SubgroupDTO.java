@@ -15,7 +15,7 @@ public class SubgroupDTO {
     private Long idSubgroup;
 
     @ApiModelProperty(position = 2, notes = "Nome do Subgrupo")
-    private String subGroupname;
+    private String subGroupName;
 
     @ApiModelProperty(position = 3, notes = "Identificacao do Clube que criou o Subgrupo")
     private Club club;

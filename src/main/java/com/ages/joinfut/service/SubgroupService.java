@@ -22,7 +22,6 @@ public class SubgroupService {
 
     @Transactional
     public void save(Subgroup subgroup){
-
         subgroupRepository.save(subgroup);
     }
 
@@ -30,11 +29,20 @@ public class SubgroupService {
         SubgroupDTO subgroupDTO = new SubgroupDTO();
         subgroupDTO.setIdSubgroup(subgroup.getIdSubgroup());
         subgroupDTO.setClub(subgroup.getClub());
-        subgroupDTO.setSubGroupname(subgroup.getSubgroupName());
+        subgroupDTO.setSubGroupName(subgroup.getSubGroupName());
         return subgroupDTO;
     }
 
+
     public Subgroup desconvertObject(SubgroupDTO subgroupDTO) {
         return new Subgroup(subgroupDTO);
+    }
+
+    public Subgroup EntityDataConverter(SubgroupDTO subgroupDTO) {
+        Subgroup subgroup = new Subgroup();
+        subgroup.setIdSubgroup(subgroupDTO.getIdSubgroup());
+        subgroup.setSubGroupName(subgroupDTO.getSubGroupName());
+        subgroup.setClub(subgroupDTO.getClub());
+        return subgroup;
     }
 }

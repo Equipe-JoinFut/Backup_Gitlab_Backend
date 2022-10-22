@@ -1,13 +1,17 @@
 package com.ages.joinfut.controller;
 
+import com.ages.joinfut.dto.AtleteDTO;
 import com.ages.joinfut.dto.SubgroupDTO;
 import com.ages.joinfut.model.Subgroup;
 import com.ages.joinfut.repository.SubgroupRepository;
+import com.ages.joinfut.service.AtleteService;
 import com.ages.joinfut.service.SubgroupService;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +35,9 @@ public class SubgroupController {
     @Autowired
     private SubgroupService subgroupService;
 
+    @Autowired
+    private AtleteService atleteService;
+
     @PostMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Cria um novo Atleta")
     @Transactional
@@ -40,4 +47,18 @@ public class SubgroupController {
         URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(subgroup.getId()).toUri();
         return ResponseEntity.created(uri).body(new SubgroupDTO(subgroup));
     }
+
+/*    @GetMapping(value=URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiModelProperty("Busca em lista todos os Atletas cadastrados no Subgroup")
+    public ResponseEntity<List<AtleteDTO>> readAllAtletesBySubgroup(){
+        List<Atlete> atletes = subgroupService.findAllAtletes();
+        List<AtleteDTO> atletesDTO = atleteService.convertList(atletes);
+        return new ResponseEntity<>(atletesDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value=URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiModelProperty("Adiciona um atleta no subgroup")
+    public ResponseEntity<SubgroupDTO> addAtleteSubgroup(@RequestBody @Valid )*/
+
+
 }

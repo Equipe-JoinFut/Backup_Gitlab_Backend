@@ -1,6 +1,7 @@
 package com.ages.joinfut.model;
 
 import com.ages.joinfut.dto.SubgroupDTO;
+import com.ages.joinfut.service.SubgroupService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -33,7 +36,7 @@ public class Subgroup {
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "subgroup_name")
-    private String subgroupName;
+    private String subGroupName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_club")
@@ -42,9 +45,11 @@ public class Subgroup {
     public Subgroup(){}
 
     public Subgroup(SubgroupDTO subgroupDTO){
-        this.idSubgroup = getIdSubgroup();
-        this.subgroupName = getSubgroupName();
-        this.club = getClub();
+        SubgroupService subgroupService = new SubgroupService();
+        Subgroup subgroup = subgroupService.EntityDataConverter(subgroupDTO);
+        this.idSubgroup =subgroupDTO.getIdSubgroup();
+        this.subGroupName = subgroupDTO.getSubGroupName();
+        this.club = subgroupDTO.getClub();
     }
     public Long getId(){
         return getIdSubgroup();
