@@ -196,6 +196,5 @@ public class AtleteService {
         return new Atlete(atleteDTO);
     }
 
-    public void calculateImc(Atlete atlete){ atlete.setAtleteImc(atlete.getAtleteWeight() / (Math.pow(atlete.getAtleteWeight(), 2))); }
-
+    public void calculateImc(Atlete atlete){ atlete.setAtleteImc(atlete.getAtleteWeight() / (Math.pow(atlete.getAtleteHeight(), 2))); }
 }
