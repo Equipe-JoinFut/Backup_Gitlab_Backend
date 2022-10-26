@@ -90,7 +90,8 @@ public class AthleteService {
     }
 
     @Transactional
-    public Athlete update(Long id, Athlete updated, AthleteRepository athleteRepository) {
+    public Athlete update(Long id, AthleteDTO athleteDTO, AthleteRepository athleteRepository) {
+        Athlete updated = athleteMapper.AthleteDTOToAthlete(athleteDTO);
         Athlete saved = athleteRepository.findByidAthlete(id);
         if (updated.getAthleteName() != null && !updated.getAthleteName().equals(saved.getAthleteName())) {
             saved.setAthleteName(updated.getAthleteName());
@@ -140,67 +141,6 @@ public class AthleteService {
 
     public List<AthleteDTO> convertList(List<Athlete> athletes) {
         return athletes.stream().map(AthleteDTO::new).collect(Collectors.toList());
-    }
-
-    public AthleteDTO DTODataConverter(Athlete athlete) {
-        AthleteDTO athleteDTO = new AthleteDTO();
-        athleteDTO.setIdAthlete(athlete.getIdAthlete());
-        athleteDTO.setAthleteName(athlete.getAthleteName());
-        athleteDTO.setDateBirth(athlete.getDateBirth());
-        athleteDTO.setAthleteHeight(athlete.getAthleteHeight());
-        athleteDTO.setAthleteWeight(athlete.getAthleteWeight());
-        athleteDTO.setAthleteImc(athlete.getAthleteImc());
-        athleteDTO.setAthleteBid(athlete.getAthleteBid());
-        athleteDTO.setDominantLeg(athlete.getDominantLeg());
-        athleteDTO.setPosition(athlete.getPosition());
-        athleteDTO.setDeceases(athlete.getDeceases());
-        if (athlete.getAdress() != null) {
-            athleteDTO.setAdress(adressService.convertObject(athlete.getAdress()));
-        }
-        if (athlete.getContact() != null) {
-            athleteDTO.setContact(contactService.convertObject(athlete.getContact()));
-        }
-        if (athlete.getAthleteClubs() != null && !athlete.getAthleteClubs().isEmpty()) {
-            athleteDTO.setAthleteClubs(athleteClubService.convertList(athlete.getAthleteClubs()));
-        }
-        return athleteDTO;
-    }
-
-    public Athlete EntityDataConverter(AthleteDTO athleteDTO) {
-        Athlete athlete = new Athlete();
-        athlete.setIdAthlete(athleteDTO.getIdAthlete());
-        athlete.setAthleteName(athleteDTO.getAthleteName());
-        athlete.setDateBirth(athleteDTO.getDateBirth());
-        athlete.setAthleteHeight(athleteDTO.getAthleteHeight());
-        athlete.setAthleteWeight(athleteDTO.getAthleteWeight());
-        athlete.setAthleteImc(athleteDTO.getAthleteImc());
-        athlete.setAthleteBid(athleteDTO.getAthleteBid());
-        athlete.setDominantLeg(athleteDTO.getDominantLeg());
-        athlete.setPosition(athleteDTO.getPosition());
-        athlete.setDeceases(athleteDTO.getDeceases());
-        if (athleteDTO.getAdress() != null) {
-            athlete.setAdress(adressService.desconvertObject(athleteDTO.getAdress()));
-        }
-        if (athleteDTO.getContact() != null) {
-            athlete.setContact(contactService.desconvertObject(athleteDTO.getContact()));
-        }
-        if (athleteDTO.getAthleteClubs() != null && !athleteDTO.getAthleteClubs().isEmpty()) {
-            athlete.setAthleteClubs(athleteClubService.desconvertList(athleteDTO.getAthleteClubs()));
-        }
-        return athlete;
-    }
-
-    public AthleteDTO convertObject(Athlete athlete){
-        return new AthleteDTO(athlete);
-    }
-
-
-    public List<Athlete> desconvertList(List<AthleteDTO> athleteDTOS) {
-        return athleteDTOS.stream().map(Athlete::new).collect(Collectors.toList());
-    }
-
-    public Athlete desconvertObject(AthleteDTO athleteDTO) {
-        return new Athlete(athleteDTO);
     }
 
     public void calculateImc(Athlete athlete){ athlete.setAthleteImc(athlete.getAthleteWeight() / (Math.pow(athlete.getAthleteWeight(), 2))); }

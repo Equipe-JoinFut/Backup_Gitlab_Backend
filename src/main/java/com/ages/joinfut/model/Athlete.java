@@ -2,8 +2,8 @@ package com.ages.joinfut.model;
 
 import com.ages.joinfut.Enum.DominantLeg;
 import com.ages.joinfut.Enum.Position;
+import com.ages.joinfut.config.mappers.AthleteMapper;
 import com.ages.joinfut.dto.AthleteDTO;
-import com.ages.joinfut.service.AthleteService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -103,26 +103,6 @@ public class Athlete {
 
 
     public Athlete() {}
-
-    public Athlete(AthleteDTO athleteDTO) {
-        AthleteService athleteService = new AthleteService();
-        Athlete athlete = athleteService.EntityDataConverter(athleteDTO);
-        this.idAthlete = athlete.idAthlete;
-        this.athleteName = athlete.athleteName;
-        this.dateBirth = athlete.dateBirth;
-        this.athleteHeight = athlete.athleteHeight;
-        this.athleteWeight = athlete.athleteWeight;
-        this.athleteImc = athlete.athleteImc;
-        this.athleteBid = athlete.athleteBid;
-        this.dominantLeg = athlete.dominantLeg;
-        this.position = athlete.position;
-        this.adress = athlete.adress;
-        this.contact = athlete.contact;
-        this.athleteClubs = athlete.athleteClubs;
-        this.deceases = athlete.deceases;
-        this.user = athlete.user;
-        this.age = athlete.age;
-    }
 
     public Long getId() {
         return getIdAthlete();
