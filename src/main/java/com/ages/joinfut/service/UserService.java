@@ -1,7 +1,11 @@
 package com.ages.joinfut.service;
 
+import com.ages.joinfut.dto.AthleteDTO;
+import com.ages.joinfut.model.Athlete;
 import com.ages.joinfut.model.User;
 import com.ages.joinfut.dto.UserDTO;
+import com.ages.joinfut.repository.AthleteRepository;
+import com.ages.joinfut.repository.ClubRepository;
 import com.ages.joinfut.repository.UserRepository;
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,15 @@ import java.util.stream.Collectors;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AthleteRepository athleteRepository;
+
+    @Autowired
+    private ClubRepository clubRepository;
+
+    private AthleteService athleteService = new AthleteService();
+    private ClubService clubService = new ClubService();
 
     public UserService(){
     }
@@ -60,17 +73,47 @@ public class UserService {
             saved.setUserType(updated.getUserType());
         }
 
-        // Salva o id do atleta vinculado
-        if (updated.getIdAtlete() != null && !updated.getIdAtlete().equals(saved.getIdAtlete())){
-            saved.setIdAtlete(updated.getIdAtlete());
+        if (updated.getAthlete() != null && !updated.getAthlete().equals(saved.getAthlete())){
+            saved.setAthlete(updated.getAthlete());
         }
 
-        // Salva o id do clube vinculado
-        if (updated.getIdClub() != null && !updated.getIdClub().equals(saved.getIdClub())){
-            saved.setIdClub(updated.getIdClub());
+        if (updated.getClub() != null && !updated.getClub().equals(saved.getClub())){
+            saved.setClub(updated.getClub());
         }
 
         return saved;
+    }
+
+    public UserDTO DTODataConverter(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setIdUser(user.getIdUser());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setPassword(user.getPassword());
+        userDTO.setCreationDate(user.getCreationDate());
+        userDTO.setUserType(user.getUserType());
+        if (user.getAthlete() != null) {
+            userDTO.setAthlete(athleteService.convertObject(user.getAthlete()));
+        }
+        if (user.getClub() != null) {
+            userDTO.setClub(clubService.convertObject(user.getClub()));
+        }
+        return userDTO;
+    }
+
+    public User EntityDataConverter(UserDTO userDTO) {
+        User user = new User();
+        user.setIdUser(userDTO.getIdUser());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        user.setCreationDate(userDTO.getCreationDate());
+        user.setUserType(userDTO.getUserType());
+        if (userDTO.getAthlete() != null) {
+            user.setAthlete(athleteService.desconvertObject(userDTO.getAthlete()));
+        }
+        if (userDTO.getClub() != null) {
+            user.setClub(clubService.desconvertObject(userDTO.getClub()));
+        }
+        return user;
     }
 
     public String hash(String passwordRaw){

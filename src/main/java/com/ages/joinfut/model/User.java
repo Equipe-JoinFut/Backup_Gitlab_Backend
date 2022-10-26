@@ -1,6 +1,7 @@
 package com.ages.joinfut.model;
 import com.ages.joinfut.Enum.UserType;
 import com.ages.joinfut.dto.UserDTO;
+import com.ages.joinfut.service.UserService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
@@ -33,15 +34,13 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    @JoinColumn(name = "id_Atlete")
-    private Long idAtlete;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_Athlete")
+    private Athlete athlete;
 
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_Club")
-    private Long idClub;
+    private Club club;
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -56,13 +55,15 @@ public class User {
     public User() {}
     
     public User(UserDTO userDTO) {
-        this.idUser = userDTO.getIdUser();
-        this.email = userDTO.getEmail();
-        this.password = userDTO.getPassword();
-        this.idAtlete = userDTO.getIdAtlete();
-        this.idClub = userDTO.getIdClub();
-        this.creationDate = userDTO.getCreationDate();
-        this.userType = userDTO.getUserType();
+        UserService userService = new UserService();
+        User user = userService.EntityDataConverter(userDTO);
+        this.idUser = user.idUser;
+        this.email = user.email;
+        this.password = user.password;
+        this.athlete = user.athlete;
+        this.club = user.club;
+        this.creationDate = user.creationDate;
+        this.userType = user.userType;
     }
 
     public Long getId() {

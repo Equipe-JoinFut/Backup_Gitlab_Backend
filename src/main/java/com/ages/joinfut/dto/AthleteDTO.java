@@ -86,7 +86,7 @@ public class AthleteDTO {
         this.athleteClubs = athleteDTO.athleteClubs;
         this.deceases = athleteDTO.deceases;
         this.user = athleteDTO.user;
-        this.age = atleteDTO.age;
+        this.age = athleteDTO.age;
     }
 
     public Long getId() {

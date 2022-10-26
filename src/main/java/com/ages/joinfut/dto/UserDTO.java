@@ -3,8 +3,8 @@ package com.ages.joinfut.dto;
 import java.util.Date;
 
 import com.ages.joinfut.Enum.UserType;
-import com.ages.joinfut.model.Atlete;
 import com.ages.joinfut.model.User;
+import com.ages.joinfut.service.UserService;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,11 +22,11 @@ public class UserDTO {
     @ApiModelProperty(position = 3, notes = "Senha do Usuário")
     private String password;
 
-    @ApiModelProperty(position = 4, notes = "Iddentificado único do Atleta Vinculado")
-    private Long idAtlete;
+    @ApiModelProperty(position = 4, notes = "Usuário Atleta")
+    private AthleteDTO athlete;
 
-    @ApiModelProperty(position = 5, notes = "Idenficiador único do Clube Vinculado")
-    private Long idClub;
+    @ApiModelProperty(position = 5, notes = "Usuário Clube")
+    private ClubDTO club;
 
     @ApiModelProperty(position = 6, notes = "Tipo de Usuario")
     private UserType userType;
@@ -39,19 +39,18 @@ public class UserDTO {
     public UserDTO () {}
 
     public UserDTO (User user) {
-        this.idUser = user.getIdUser();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.idAtlete = user.getIdAtlete();
-        this.idClub = user.getIdClub();
-        this.userType = user.getUserType();
-        this.creationDate = user.getCreationDate();
+        UserService userService = new UserService();
+        UserDTO userDTO = userService.DTODataConverter(user);
+        this.idUser = userDTO.idUser;
+        this.email = userDTO.email;
+        this.password = userDTO.password;
+        this.athlete = userDTO.athlete;
+        this.club = userDTO.club;
+        this.userType = userDTO.userType;
+        this.creationDate = userDTO.creationDate;
     }
 
-    public Long getIdUser() {
-        return idUser;
+    public Long getId() {
+        return getIdUser();
     }
-
-    
-
 }

@@ -121,7 +121,7 @@ public class Athlete {
         this.athleteClubs = athlete.athleteClubs;
         this.deceases = athlete.deceases;
         this.user = athlete.user;
-        this.age = atlete.age;
+        this.age = athlete.age;
     }
 
     public Long getId() {

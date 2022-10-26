@@ -32,11 +32,17 @@ public class AthleteController {
     private static final String URL_PLURAL = "/athletes";
     private static final String URL_SINGULAR = "/athlete/{id}";
 
-    @Autowired
     private AthleteRepository athleteRepository;
+    private AthleteService athleteService;
 
     @Autowired
-    private AthleteService athleteService;
+    public AthleteController(
+            AthleteRepository athleteRepository,
+            AthleteService athleteService
+    ){
+        this.athleteRepository = athleteRepository;
+        this.athleteService = athleteService;
+    }
 
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,8 +64,7 @@ public class AthleteController {
     @ApiModelProperty("Cria um novo atleta")
     @Transactional
     public ResponseEntity<AthleteDTO> createAthlete(@RequestBody @Valid AthleteDTO athleteDTO, UriComponentsBuilder uriComponentsBuilder) {
-        Athlete athlete = athleteService.desconvertObject(athleteDTO);
-        athleteService.save(athlete);
+        Athlete athlete = athleteService.save(athleteDTO);
         URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(athlete.getId()).toUri();
         return ResponseEntity.created(uri).body(new AthleteDTO(athlete));
     }

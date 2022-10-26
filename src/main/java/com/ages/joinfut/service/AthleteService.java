@@ -1,5 +1,6 @@
 package com.ages.joinfut.service;
 
+import com.ages.joinfut.config.mappers.AthleteMapper;
 import com.ages.joinfut.dto.AthleteDTO;
 import com.ages.joinfut.model.Athlete;
 import com.ages.joinfut.model.AthleteClub;
@@ -31,6 +32,8 @@ public class AthleteService {
     @Autowired
     private ContactRepository contactRepository;
 
+    private AthleteMapper athleteMapper;
+
     private AdressService adressService = new AdressService();
     private ContactService contactService = new ContactService();
     private AthleteClubService athleteClubService = new AthleteClubService();
@@ -39,7 +42,9 @@ public class AthleteService {
     }
 
     @Transactional
-    public void save(Athlete athlete) {
+    public Athlete save(AthleteDTO athleteDTO) {
+
+        Athlete athlete = athleteMapper.AthleteDTOToAthlete(athleteDTO);
 
         calculateImc(athlete);
 
@@ -59,6 +64,8 @@ public class AthleteService {
             athlete.getContact().setAthlete(athlete);
             contactService.save(athlete.getContact(), contactRepository);
         }
+
+        return athlete;
     }
 
     @Transactional
