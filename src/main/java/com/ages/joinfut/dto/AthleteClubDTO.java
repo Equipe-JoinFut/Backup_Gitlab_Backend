@@ -2,6 +2,7 @@ package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.Athlete;
 import com.ages.joinfut.model.AthleteClub;
+import com.ages.joinfut.model.AthleteSlim;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

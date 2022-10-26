@@ -35,7 +35,6 @@ public class AthleteController {
 
     private AthleteRepository athleteRepository;
     private AthleteService athleteService;
-    private AthleteMapper athleteMapper;
 
     @Autowired
     public AthleteController(
@@ -59,7 +58,7 @@ public class AthleteController {
     @ApiModelProperty("Busca de um Atleta pelo seu ID")
     public ResponseEntity<AthleteDTO> readAthleteById(@PathVariable Long id) {
         Optional<Athlete> athlete = athleteRepository.findById(id);
-        return athlete.map(value -> ResponseEntity.ok(athleteMapper.AthleteToAthleteDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
+        return athlete.map(value -> ResponseEntity.ok(AthleteMapper.MAPPER.AthleteToAthleteDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -68,7 +67,7 @@ public class AthleteController {
     public ResponseEntity<AthleteDTO> createAthlete(@RequestBody @Valid AthleteDTO athleteDTO, UriComponentsBuilder uriComponentsBuilder) {
         Athlete athlete = athleteService.save(athleteDTO);
         URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(athlete.getId()).toUri();
-        return ResponseEntity.created(uri).body(athleteMapper.AthleteToAthleteDTO(athlete));
+        return ResponseEntity.created(uri).body(AthleteMapper.MAPPER.AthleteToAthleteDTO(athlete));
     }
 
     @PutMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -78,7 +77,7 @@ public class AthleteController {
         Optional<Athlete> verifyId = athleteRepository.findById(id);
         if (verifyId.isPresent()) {
             Athlete athlete = athleteService.update(id, athleteDTO, athleteRepository);
-            return ResponseEntity.ok(athleteMapper.AthleteToAthleteDTO(athlete));
+            return ResponseEntity.ok(AthleteMapper.MAPPER.AthleteToAthleteDTO(athlete));
         }
         return ResponseEntity.notFound().build();
     }

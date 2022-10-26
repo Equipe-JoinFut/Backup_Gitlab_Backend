@@ -23,7 +23,7 @@ public class UserDTO {
     private String password;
 
     @ApiModelProperty(position = 4, notes = "Usuário Atleta")
-    private AthleteDTO athlete;
+    private AthleteSlimDTO athlete;
 
     @ApiModelProperty(position = 5, notes = "Usuário Clube")
     private ClubDTO club;

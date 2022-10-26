@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class AthleteService {
+public class AthleteService{
 
     @Autowired
     private AthleteRepository athleteRepository;
@@ -32,8 +32,6 @@ public class AthleteService {
     @Autowired
     private ContactRepository contactRepository;
 
-    private AthleteMapper athleteMapper;
-
     private AdressService adressService = new AdressService();
     private ContactService contactService = new ContactService();
     private AthleteClubService athleteClubService = new AthleteClubService();
@@ -44,7 +42,7 @@ public class AthleteService {
     @Transactional
     public Athlete save(AthleteDTO athleteDTO) {
 
-        Athlete athlete = athleteMapper.AthleteDTOToAthlete(athleteDTO);
+        Athlete athlete = AthleteMapper.MAPPER.AthleteDTOToAthlete(athleteDTO);
 
         calculateImc(athlete);
 
@@ -91,7 +89,7 @@ public class AthleteService {
 
     @Transactional
     public Athlete update(Long id, AthleteDTO athleteDTO, AthleteRepository athleteRepository) {
-        Athlete updated = athleteMapper.AthleteDTOToAthlete(athleteDTO);
+        Athlete updated = AthleteMapper.MAPPER.AthleteDTOToAthlete(athleteDTO);
         Athlete saved = athleteRepository.findByidAthlete(id);
         if (updated.getAthleteName() != null && !updated.getAthleteName().equals(saved.getAthleteName())) {
             saved.setAthleteName(updated.getAthleteName());
@@ -140,7 +138,7 @@ public class AthleteService {
     }
 
     public List<AthleteDTO> convertList(List<Athlete> athletes) {
-        return athletes.stream().map(AthleteDTO::new).collect(Collectors.toList());
+        return athletes.stream().map(athlete -> AthleteMapper.MAPPER.AthleteToAthleteDTO(athlete)).collect(Collectors.toList());
     }
 
     public void calculateImc(Athlete athlete){ athlete.setAthleteImc(athlete.getAthleteWeight() / (Math.pow(athlete.getAthleteWeight(), 2))); }

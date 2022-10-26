@@ -1,7 +1,6 @@
 package com.ages.joinfut.service;
 
-import com.ages.joinfut.dto.AthleteDTO;
-import com.ages.joinfut.model.Athlete;
+import com.ages.joinfut.config.mappers.AthleteMapper;
 import com.ages.joinfut.model.User;
 import com.ages.joinfut.dto.UserDTO;
 import com.ages.joinfut.repository.AthleteRepository;
@@ -92,7 +91,7 @@ public class UserService {
         userDTO.setCreationDate(user.getCreationDate());
         userDTO.setUserType(user.getUserType());
         if (user.getAthlete() != null) {
-            userDTO.setAthlete(athleteService.convertObject(user.getAthlete()));
+            userDTO.setAthlete(AthleteMapper.MAPPER.AthleteToAthleteSlimDTO(user.getAthlete()));
         }
         if (user.getClub() != null) {
             userDTO.setClub(clubService.convertObject(user.getClub()));
@@ -108,7 +107,7 @@ public class UserService {
         user.setCreationDate(userDTO.getCreationDate());
         user.setUserType(userDTO.getUserType());
         if (userDTO.getAthlete() != null) {
-            user.setAthlete(athleteService.desconvertObject(userDTO.getAthlete()));
+            user.setAthlete(AthleteMapper.MAPPER.AthleteSlimDTOToAthlete(userDTO.getAthlete()));
         }
         if (userDTO.getClub() != null) {
             user.setClub(clubService.desconvertObject(userDTO.getClub()));

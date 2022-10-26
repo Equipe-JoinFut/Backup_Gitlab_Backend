@@ -69,26 +69,6 @@ public class AthleteDTO {
 
     public AthleteDTO () {}
 
-    public AthleteDTO (Athlete athlete) {
-        AthleteService athleteService = new AthleteService();
-        AthleteDTO athleteDTO = athleteService.DTODataConverter(athlete);
-        this.idAthlete = athleteDTO.idAthlete;
-        this.athleteName = athleteDTO.athleteName;
-        this.dateBirth = athleteDTO.dateBirth;
-        this.athleteHeight = athleteDTO.athleteHeight;
-        this.athleteWeight = athleteDTO.athleteWeight;
-        this.athleteImc = athleteDTO.athleteImc;
-        this.athleteBid = athleteDTO.athleteBid;
-        this.dominantLeg = athleteDTO.dominantLeg;
-        this.position = athleteDTO.position;
-        this.adress = athleteDTO.adress;
-        this.contact = athleteDTO.contact;
-        this.athleteClubs = athleteDTO.athleteClubs;
-        this.deceases = athleteDTO.deceases;
-        this.user = athleteDTO.user;
-        this.age = athleteDTO.age;
-    }
-
     public Long getId() {
         return getIdAthlete();
     }
