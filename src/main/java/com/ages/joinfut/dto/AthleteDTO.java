@@ -64,6 +64,9 @@ public class AthleteDTO {
     @ApiModelProperty(position = 14, notes = "Usuario vinculado ao atleta")
     private User user;
 
+    @ApiModelProperty(position = 15, notes = "Idade do atleta")
+    private Integer age;
+
     public AthleteDTO () {}
 
     public AthleteDTO (Athlete athlete) {
@@ -83,6 +86,7 @@ public class AthleteDTO {
         this.athleteClubs = athleteDTO.athleteClubs;
         this.deceases = athleteDTO.deceases;
         this.user = athleteDTO.user;
+        this.age = atleteDTO.age;
     }
 
     public Long getId() {

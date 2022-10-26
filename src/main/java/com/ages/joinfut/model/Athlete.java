@@ -55,6 +55,11 @@ public class Athlete {
 
     @Column(name = "athlete_height")
     private Double athleteHeight;
+    @Column(name = "age")
+    private Integer age;
+
+    @Column(name = "atlete_height")
+    private Double atleteHeight;
 
     @Column(name = "athlete_weight")
     private Double athleteWeight;
@@ -116,6 +121,7 @@ public class Athlete {
         this.athleteClubs = athlete.athleteClubs;
         this.deceases = athlete.deceases;
         this.user = athlete.user;
+        this.age = atlete.age;
     }
 
     public Long getId() {

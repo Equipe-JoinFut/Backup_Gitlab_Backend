@@ -48,6 +48,7 @@ public class UserService {
     public User updateObject(Long id, User updated, UserRepository userRepository) {
         User saved = userRepository.findByidUser(id);
         String updateHash = hash(updated.getPassword());
+
         if (updated.getEmail() != null && !updated.getEmail().equals(saved.getEmail())) {
             saved.setEmail(updated.getEmail());
         }
@@ -58,11 +59,25 @@ public class UserService {
         if (updated.getUserType() != null && !updated.getUserType().equals(saved.getUserType())){
             saved.setUserType(updated.getUserType());
         }
+
+        // Salva o id do atleta vinculado
+        if (updated.getIdAtlete() != null && !updated.getIdAtlete().equals(saved.getIdAtlete())){
+            saved.setIdAtlete(updated.getIdAtlete());
+        }
+
+        // Salva o id do clube vinculado
+        if (updated.getIdClub() != null && !updated.getIdClub().equals(saved.getIdClub())){
+            saved.setIdClub(updated.getIdClub());
+        }
+
         return saved;
     }
 
     public String hash(String passwordRaw){
+        passwordRaw = "@-0" + passwordRaw + "magic@@futbola";
         String hashPass = Hashing.sha256().hashString(passwordRaw, StandardCharsets.UTF_8).toString();
+        hashPass = hashPass + "duvideiDecifrar";
+        hashPass = Hashing.sha256().hashString(passwordRaw, StandardCharsets.UTF_8).toString();
         return hashPass;
     }
 
