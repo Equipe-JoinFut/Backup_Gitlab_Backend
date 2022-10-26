@@ -8,17 +8,7 @@ import lombok.Setter;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -43,6 +33,16 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @JoinColumn(name = "id_Atlete")
+    private Long idAtlete;
+
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @JoinColumn(name = "id_Club")
+    private Long idClub;
+
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "creation_date")
@@ -59,6 +59,8 @@ public class User {
         this.idUser = userDTO.getIdUser();
         this.email = userDTO.getEmail();
         this.password = userDTO.getPassword();
+        this.idAtlete = userDTO.getIdAtlete();
+        this.idClub = userDTO.getIdClub();
         this.creationDate = userDTO.getCreationDate();
         this.userType = userDTO.getUserType();
     }
