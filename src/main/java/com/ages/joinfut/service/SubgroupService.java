@@ -32,8 +32,8 @@ public class SubgroupService {
     @Transactional
     public Subgroup update(Long id, Subgroup updated, SubgroupRepository subgroupRepository) {
         Subgroup saved = subgroupRepository.findByidSubgroup(id);
-        if (saved.getSubGroupName() != null && !updated.getSubGroupName().equals(saved.getSubGroupName())) {
-            saved.setSubGroupName(updated.getSubGroupName());
+        if (saved.getSubgroupName() != null && !updated.getSubgroupName().equals(saved.getSubgroupName())) {
+            saved.setSubgroupName(updated.getSubgroupName());
         }
         return saved;
     }
@@ -48,7 +48,7 @@ public class SubgroupService {
     public SubgroupDTO DTODataConverter(Subgroup subgroup){
         SubgroupDTO subgroupDTO = new SubgroupDTO();
         subgroupDTO.setIdSubgroup(subgroup.getIdSubgroup());
-        subgroupDTO.setSubGroupName(subgroup.getSubGroupName());
+        subgroupDTO.setSubgroupName(subgroup.getSubgroupName());
         if (subgroup.getClub() != null) {
             subgroupDTO.setClub(clubService.convertObject(subgroup.getClub()));
         }
@@ -62,7 +62,7 @@ public class SubgroupService {
     public Subgroup EntityDataConverter(SubgroupDTO subgroupDTO) {
         Subgroup subgroup = new Subgroup();
         subgroup.setIdSubgroup(subgroupDTO.getIdSubgroup());
-        subgroup.setSubGroupName(subgroupDTO.getSubGroupName());
+        subgroup.setSubgroupName(subgroupDTO.getSubgroupName());
         if (subgroupDTO.getClub() != null) {
             subgroup.setClub(clubService.desconvertObject(subgroupDTO.getClub()));
         }

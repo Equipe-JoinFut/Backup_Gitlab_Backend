@@ -14,7 +14,7 @@ public class SubgroupDTO {
     private Long idSubgroup;
 
     @ApiModelProperty(position = 2, notes = "Nome do Subgrupo")
-    private String subGroupName;
+    private String subgroupName;
 
     @ApiModelProperty(position = 3, notes = "Identificacao do Clube que criou o Subgrupo")
     private ClubDTO club;
@@ -25,7 +25,7 @@ public class SubgroupDTO {
         SubgroupService subgroupService = new SubgroupService();
         SubgroupDTO subgroupDTO = subgroupService.DTODataConverter(subgroup);
         this.idSubgroup = subgroupDTO.idSubgroup;
-        this.subGroupName = subgroupDTO.subGroupName;
+        this.subgroupName = subgroupDTO.subgroupName;
         this.club = subgroupDTO.club;
     }
     public Long getId(){

@@ -34,7 +34,7 @@ public class Subgroup {
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "subgroup_name")
-    private String subGroupName;
+    private String subgroupName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_club")
@@ -46,7 +46,7 @@ public class Subgroup {
         SubgroupService subgroupService = new SubgroupService();
         Subgroup subgroup = subgroupService.EntityDataConverter(subgroupDTO);
         this.idSubgroup = subgroup.idSubgroup;
-        this.subGroupName = subgroup.subGroupName;
+        this.subgroupName = subgroup.subgroupName;
         this.club = subgroup.club;
     }
     public Long getId(){
