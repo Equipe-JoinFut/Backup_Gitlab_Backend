@@ -79,7 +79,7 @@ public class ClubService {
         }
         
         if (updated.getAdress() != null && !updated.getAdress().equals(saved.getAdress())) {
-            saved.setAdress(updated.getAdress());
+            saved.setAdress(adressService.update(updated.getAdress().getId(), updated.getAdress(), adressRepository));
         }
 
         if (updated.getNdaContract() != null && !updated.getNdaContract().equals(saved.getNdaContract())) {

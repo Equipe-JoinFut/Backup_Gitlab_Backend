@@ -1,6 +1,7 @@
 package com.ages.joinfut.model;
 import com.ages.joinfut.Enum.StatusNda;
 import com.ages.joinfut.dto.NdaContractDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
 
@@ -42,6 +43,7 @@ public class NdaContract {
     private StatusNda statusNda;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "id_club")
     private Club club;
 

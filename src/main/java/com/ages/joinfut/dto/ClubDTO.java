@@ -1,6 +1,7 @@
 package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.Adress;
+import com.ages.joinfut.model.NdaContract;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -26,9 +27,8 @@ public class ClubDTO {
     @ApiModelProperty(position = 5, notes = "Endereço")
     private Adress adress;
 
-    // ndaContract ainda nao foi criado
-    // @ApiModelProperty(position = 7, notes = "Termo de confidencialidade")
-    // private NdaContract ndaContract;
+    @ApiModelProperty(position = 6, notes = "Termo de confidencialidade")
+    private NdaContract ndaContract;
 
     public ClubDTO() {}
 
