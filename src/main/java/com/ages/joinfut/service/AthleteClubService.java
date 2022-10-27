@@ -1,5 +1,6 @@
 package com.ages.joinfut.service;
 
+import com.ages.joinfut.config.mappers.AthleteClubMapper;
 import com.ages.joinfut.dto.AthleteClubDTO;
 import com.ages.joinfut.model.AthleteClub;
 import com.ages.joinfut.repository.AthleteClubRepository;
@@ -23,19 +24,7 @@ public class AthleteClubService {
     }
 
     public List<AthleteClubDTO> convertList(List<AthleteClub> athleteClubs) {
-        return athleteClubs.stream().map(AthleteClubDTO::new).collect(Collectors.toList());
-    }
-
-    public AthleteClubDTO convertObject(AthleteClub athleteClub){
-        return new AthleteClubDTO(athleteClub);
-    }
-
-    public List<AthleteClub> desconvertList(List<AthleteClubDTO> athleteClubDTOS) {
-        return athleteClubDTOS.stream().map(AthleteClub::new).collect(Collectors.toList());
-    }
-
-    public AthleteClub desconvertObject(AthleteClubDTO athleteClubDTO) {
-        return new AthleteClub(athleteClubDTO);
+        return athleteClubs.stream().map(athleteClub -> AthleteClubMapper.MAPPER.AthleteClubToAthleteClubDTO(athleteClub)).collect(Collectors.toList());
     }
 
     public AthleteClub update(Long id, AthleteClub updated, AthleteClubRepository athleteClubRepository) {

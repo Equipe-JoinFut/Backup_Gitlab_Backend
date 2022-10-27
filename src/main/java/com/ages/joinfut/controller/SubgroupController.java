@@ -1,5 +1,6 @@
 package com.ages.joinfut.controller;
 
+import com.ages.joinfut.config.mappers.SubgroupMapper;
 import com.ages.joinfut.dto.SubgroupDTO;
 import com.ages.joinfut.model.Club;
 import com.ages.joinfut.model.Subgroup;
@@ -36,14 +37,20 @@ public class SubgroupController {
 
     private static final String URL_SINGULAR = "/subgroup/{id}";
 
-    @Autowired
     private SubgroupRepository subgroupRepository;
-
-    @Autowired
     private ClubRepository clubRepository;
+    private SubgroupService subgroupService;
 
     @Autowired
-    private SubgroupService subgroupService;
+    public SubgroupController(
+            SubgroupRepository subgroupRepository,
+            ClubRepository clubRepository,
+            SubgroupService subgroupService
+    ){
+        this.subgroupRepository = subgroupRepository;
+        this.clubRepository = clubRepository;
+        this.subgroupService = subgroupService;
+    }
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Busca em lista de Subgrupos pelo Clube")
@@ -65,17 +72,16 @@ public class SubgroupController {
     @ApiModelProperty("Busca de um Subgrupo pelo seu ID")
     public ResponseEntity<SubgroupDTO> readSubgroupById(@PathVariable Long id) {
         Optional<Subgroup> subgroup = subgroupRepository.findById(id);
-        return subgroup.map(value -> ResponseEntity.ok(new SubgroupDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
+        return subgroup.map(value -> ResponseEntity.ok(SubgroupMapper.MAPPER.SubgroupToSubgroupDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Cria um novo Subgrupo")
     @Transactional
     public ResponseEntity<SubgroupDTO> createSubgroup(@RequestBody @Valid SubgroupDTO subgroupDTO, UriComponentsBuilder uriComponentsBuilder){
-        Subgroup subgroup = subgroupService.desconvertObject(subgroupDTO);
-        subgroupService.save(subgroup);
+        Subgroup subgroup = subgroupService.save(subgroupDTO);
         URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(subgroup.getId()).toUri();
-        return ResponseEntity.created(uri).body(new SubgroupDTO(subgroup));
+        return ResponseEntity.created(uri).body(SubgroupMapper.MAPPER.SubgroupToSubgroupDTO(subgroup));
     }
 
     @PutMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -84,9 +90,8 @@ public class SubgroupController {
     public ResponseEntity<SubgroupDTO> updateSubgroup(@PathVariable Long id, @RequestBody @Valid SubgroupDTO subgroupDTO) {
         Optional<Subgroup> verifyId = subgroupRepository.findById(id);
         if (verifyId.isPresent()) {
-            Subgroup updatedSubgroup = subgroupService.desconvertObject(subgroupDTO);
-            Subgroup subgroup = subgroupService.update(id, updatedSubgroup, subgroupRepository);
-            return ResponseEntity.ok(new SubgroupDTO(subgroup));
+            Subgroup subgroup = subgroupService.update(id, subgroupDTO, subgroupRepository);
+            return ResponseEntity.ok(SubgroupMapper.MAPPER.SubgroupToSubgroupDTO(subgroup));
         }
         return ResponseEntity.notFound().build();
     }

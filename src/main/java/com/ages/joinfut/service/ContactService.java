@@ -1,5 +1,6 @@
 package com.ages.joinfut.service;
 
+import com.ages.joinfut.config.mappers.ContactMapper;
 import com.ages.joinfut.dto.ContactDTO;
 import com.ages.joinfut.model.Contact;
 import com.ages.joinfut.repository.ContactRepository;
@@ -41,16 +42,8 @@ public class ContactService {
     }
 
     public List<ContactDTO> convertList(List<Contact> adresses) {
-        return adresses.stream().map(ContactDTO::new).collect(Collectors.toList());
+        return adresses.stream().map(contact -> ContactMapper.MAPPER.ContactToContactDTO(contact)).collect(Collectors.toList());
     }
-
-    public ContactDTO convertObject(Contact contact) {return new ContactDTO(contact);}
-
-    public List<Contact> desconvertList(List<ContactDTO> adressDTOS) {
-        return adressDTOS.stream().map(Contact::new).collect(Collectors.toList());
-    }
-
-    public Contact desconvertObject(ContactDTO adressDTO){return new Contact(adressDTO);}
 
     public Contact update(Long id, Contact updated, ContactRepository contactRepository) {
         Contact saved = contactRepository.findByidContact(id);

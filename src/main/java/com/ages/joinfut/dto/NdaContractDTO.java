@@ -1,7 +1,6 @@
 package com.ages.joinfut.dto;
 
 import com.ages.joinfut.Enum.StatusNda;
-import com.ages.joinfut.model.NdaContract;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,13 +18,10 @@ public class NdaContractDTO {
     @ApiModelProperty(position = 3, notes = "Tipo de aprovação")
     private StatusNda statusNda;
 
-    public NdaContractDTO() {}
+    @ApiModelProperty(position = 4, notes = "Club")
+    private ClubDTO club;
 
-    public NdaContractDTO (NdaContract ndaContract) {
-        this.idNdaContract = ndaContract.getIdNdaContract();
-        this.infoNda = ndaContract.getInfoNda();
-        this.statusNda = ndaContract.getStatusNda();
-    }
+    public NdaContractDTO() {}
 
     public Long getId() { return getIdNdaContract(); }
 

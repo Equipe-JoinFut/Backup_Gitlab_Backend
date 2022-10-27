@@ -50,23 +50,11 @@ public class Club {
     @JoinColumn(name = "id_adress")
     private Adress adress;
 
-    // ndaContract ainda nao foi criado
-    // @Type(type = "org.hibernate.type.TextType")
-    // @Column(name = "nda_contract")
-    // private NdaContract ndaContract;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nda_contract")
+    private NdaContract ndaContract;
 
     public Club() {}
-    
-    public Club(ClubDTO clubDTO) {
-        ClubService clubService = new ClubService();
-        Club club = clubService.EntityDataConverter(clubDTO);
-
-        this.idClub = club.idClub;
-        this.corporateName = club.corporateName;
-        this.fantasyName = club.fantasyName;
-        this.cnpj = club.cnpj;
-        this.adress = club.adress;
-    }
 
     public Long getId() {return getIdClub();}
 }

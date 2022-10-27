@@ -1,6 +1,5 @@
 package com.ages.joinfut.model;
 
-import com.ages.joinfut.dto.AthleteClubDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -57,18 +56,7 @@ public class AthleteClub {
     @Column(name = "flag_current_club")
     private Boolean currentClub;
 
-    public AthleteClub() {
-        super();
-    }
-
-    public AthleteClub(AthleteClubDTO athleteClubDTO) {
-        this.idAthleteClub = athleteClubDTO.getIdAthleteClub();
-        this.athlete = athleteClubDTO.getAthlete();
-        this.athleteClubName = athleteClubDTO.getAthleteClubName();
-        this.beginDate = athleteClubDTO.getBeginDate();
-        this.endDate = athleteClubDTO.getEndDate();
-        this.currentClub = athleteClubDTO.getCurrentClub();
-    }
+    public AthleteClub() {}
 
     public Long getId() {
         return getIdAthleteClub();

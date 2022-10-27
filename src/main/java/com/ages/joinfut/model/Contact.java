@@ -1,6 +1,5 @@
 package com.ages.joinfut.model;
 
-import com.ages.joinfut.dto.ContactDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -38,6 +37,11 @@ public class Contact {
     @JoinColumn(name = "id_athlete")
     private Athlete athlete;
 
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_club")
+    private Club club;
+
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "contact_name")
@@ -58,15 +62,6 @@ public class Contact {
     private List<Contact> responsibles;
 
     public Contact() {}
-
-    public Contact(ContactDTO contactDTO) {
-        this.idContact = contactDTO.getIdContact();
-        this.athlete = contactDTO.getAthlete();
-        this.contactName = contactDTO.getContactName();
-        this.email = contactDTO.getEmail();
-        this.telephone = contactDTO.getTelephone();
-        this.responsibles = contactDTO.getResponsibles();
-    }
 
     public Long getId() {return getIdContact();}
 

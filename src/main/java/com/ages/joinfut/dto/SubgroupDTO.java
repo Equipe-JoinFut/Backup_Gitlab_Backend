@@ -1,7 +1,5 @@
 package com.ages.joinfut.dto;
 
-import com.ages.joinfut.model.Subgroup;
-import com.ages.joinfut.service.SubgroupService;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,13 +19,6 @@ public class SubgroupDTO {
 
     public SubgroupDTO(){}
 
-    public SubgroupDTO(Subgroup subgroup){
-        SubgroupService subgroupService = new SubgroupService();
-        SubgroupDTO subgroupDTO = subgroupService.DTODataConverter(subgroup);
-        this.idSubgroup = subgroupDTO.idSubgroup;
-        this.subgroupName = subgroupDTO.subgroupName;
-        this.club = subgroupDTO.club;
-    }
     public Long getId(){
         return getIdSubgroup();
     }

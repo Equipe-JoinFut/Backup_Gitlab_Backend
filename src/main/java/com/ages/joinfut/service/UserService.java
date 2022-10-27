@@ -1,6 +1,7 @@
 package com.ages.joinfut.service;
 
 import com.ages.joinfut.config.mappers.AthleteMapper;
+import com.ages.joinfut.config.mappers.UserMapper;
 import com.ages.joinfut.model.User;
 import com.ages.joinfut.dto.UserDTO;
 import com.ages.joinfut.repository.AthleteRepository;
@@ -29,35 +30,28 @@ public class UserService {
     private AthleteService athleteService = new AthleteService();
     private ClubService clubService = new ClubService();
 
-    public UserService(){
-    }
+    public UserService(){}
 
     @Transactional
-    public void save(User user) {
+    public User save(UserDTO userDTO) {
+        User user = UserMapper.MAPPER.UserDTOToUser(userDTO);
+
         if (user.getCreationDate() == null) {
             user.setCreationDate(new Date());
         }
         user.setPassword(hash(user.getPassword()));
+
         userRepository.save(user);
+
+        return user;
     }
 
     public List<UserDTO> convertList(List<User> users) {
-        return users.stream().map(UserDTO   ::new).collect(Collectors.toList());
+        return users.stream().map(user -> UserMapper.MAPPER.UserToUserDTO(user)).collect(Collectors.toList());
     }
 
-    public UserDTO convertObject(User user) {
-        return new UserDTO(user);
-    }
-
-    public List<User> desconvertList(List<UserDTO> userDTOS) {
-        return userDTOS.stream().map(User::new).collect(Collectors.toList());
-    }
-
-    public User desconvertObject(UserDTO templateDTO) {
-        return new User(templateDTO);
-    }
-
-    public User updateObject(Long id, User updated, UserRepository userRepository) {
+    public User update(Long id, UserDTO userDTO, UserRepository userRepository) {
+        User updated = UserMapper.MAPPER.UserDTOToUser(userDTO);
         User saved = userRepository.findByidUser(id);
         String updateHash = hash(updated.getPassword());
 
@@ -72,47 +66,7 @@ public class UserService {
             saved.setUserType(updated.getUserType());
         }
 
-        if (updated.getAthlete() != null && !updated.getAthlete().equals(saved.getAthlete())){
-            saved.setAthlete(updated.getAthlete());
-        }
-
-        if (updated.getClub() != null && !updated.getClub().equals(saved.getClub())){
-            saved.setClub(updated.getClub());
-        }
-
         return saved;
-    }
-
-    public UserDTO DTODataConverter(User user) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setIdUser(user.getIdUser());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setCreationDate(user.getCreationDate());
-        userDTO.setUserType(user.getUserType());
-        if (user.getAthlete() != null) {
-            userDTO.setAthlete(AthleteMapper.MAPPER.AthleteToAthleteSlimDTO(user.getAthlete()));
-        }
-        if (user.getClub() != null) {
-            userDTO.setClub(clubService.convertObject(user.getClub()));
-        }
-        return userDTO;
-    }
-
-    public User EntityDataConverter(UserDTO userDTO) {
-        User user = new User();
-        user.setIdUser(userDTO.getIdUser());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-        user.setCreationDate(userDTO.getCreationDate());
-        user.setUserType(userDTO.getUserType());
-        if (userDTO.getAthlete() != null) {
-            user.setAthlete(AthleteMapper.MAPPER.AthleteSlimDTOToAthlete(userDTO.getAthlete()));
-        }
-        if (userDTO.getClub() != null) {
-            user.setClub(clubService.desconvertObject(userDTO.getClub()));
-        }
-        return user;
     }
 
     public String hash(String passwordRaw){

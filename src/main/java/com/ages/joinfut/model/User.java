@@ -1,7 +1,5 @@
 package com.ages.joinfut.model;
 import com.ages.joinfut.Enum.UserType;
-import com.ages.joinfut.dto.UserDTO;
-import com.ages.joinfut.service.UserService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
@@ -9,7 +7,20 @@ import lombok.Setter;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 
@@ -53,18 +64,6 @@ public class User {
 
 
     public User() {}
-    
-    public User(UserDTO userDTO) {
-        UserService userService = new UserService();
-        User user = userService.EntityDataConverter(userDTO);
-        this.idUser = user.idUser;
-        this.email = user.email;
-        this.password = user.password;
-        this.athlete = user.athlete;
-        this.club = user.club;
-        this.creationDate = user.creationDate;
-        this.userType = user.userType;
-    }
 
     public Long getId() {
         return getIdUser();

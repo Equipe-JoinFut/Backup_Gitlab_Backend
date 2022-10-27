@@ -1,5 +1,6 @@
 package com.ages.joinfut.service;
 
+import com.ages.joinfut.config.mappers.AdressMapper;
 import com.ages.joinfut.dto.AdressDTO;
 import com.ages.joinfut.model.Adress;
 import com.ages.joinfut.repository.AdressRepository;
@@ -20,17 +21,10 @@ public class AdressService {
     }
 
     public List<AdressDTO> convertList(List<Adress> adresses) {
-        return adresses.stream().map(AdressDTO::new).collect(Collectors.toList());
+        return adresses.stream().map(adress -> AdressMapper.MAPPER.AdressToAdressDTO(adress)).collect(Collectors.toList());
     }
 
-    public AdressDTO convertObject(Adress adress) {return new AdressDTO(adress);}
-
-    public List<Adress> desconvertList(List<AdressDTO> adressDTOS) {
-        return adressDTOS.stream().map(Adress::new).collect(Collectors.toList());
-    }
-
-    public Adress desconvertObject(AdressDTO adressDTO){return new Adress(adressDTO);}
-
+    @Transactional
     public Adress update(Long id, Adress updated, AdressRepository adressRepository) {
         Adress saved = adressRepository.findByidAdress(id);
         if (updated.getStreetInfo() != null && !updated.getStreetInfo().equals(saved.getStreetInfo())) {

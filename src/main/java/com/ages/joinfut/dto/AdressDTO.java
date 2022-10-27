@@ -1,7 +1,6 @@
 package com.ages.joinfut.dto;
 
 import com.ages.joinfut.Enum.State;
-import com.ages.joinfut.model.Adress;
 import com.ages.joinfut.model.Athlete;
 import com.ages.joinfut.model.Club;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,15 +30,6 @@ public class AdressDTO {
     private State state;
 
     public AdressDTO() {}
-
-    public AdressDTO (Adress adress) {
-        this.idAdress = adress.getIdAdress();
-        this.athlete = adress.getAthlete();
-        this.club = adress.getClub();
-        this.streetInfo = adress.getStreetInfo();
-        this.city = adress.getCity();
-        this.state = adress.getState();
-    }
 
     public Long getId() {
         return getIdAdress();

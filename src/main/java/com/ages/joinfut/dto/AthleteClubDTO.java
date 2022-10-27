@@ -1,8 +1,6 @@
 package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.Athlete;
-import com.ages.joinfut.model.AthleteClub;
-import com.ages.joinfut.model.AthleteSlim;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,15 +30,6 @@ public class AthleteClubDTO {
     private Boolean currentClub;
 
     public AthleteClubDTO() {}
-
-    public AthleteClubDTO (AthleteClub athleteClub) {
-        this.idAthleteClub = athleteClub.getIdAthleteClub();
-        this.athlete = athleteClub.getAthlete();
-        this.athleteClubName = athleteClub.getAthleteClubName();
-        this.beginDate = athleteClub.getBeginDate();
-        this.endDate = athleteClub.getEndDate();
-        this.currentClub = athleteClub.getCurrentClub();
-    }
 
     public Long getId() {
         return getIdAthleteClub();
