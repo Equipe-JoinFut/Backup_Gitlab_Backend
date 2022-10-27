@@ -9,13 +9,8 @@ import lombok.Setter;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -43,8 +38,8 @@ public class Club {
     @Column(name = "cnpj")
     private String cnpj;
 
-    @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "adress")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_adress")
     private Adress adress;
 
     // ndaContract ainda nao foi criado

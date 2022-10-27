@@ -45,4 +45,5 @@ public class SubgroupService {
         subgroup.setClub(subgroupDTO.getClub());
         return subgroup;
     }
+
 }

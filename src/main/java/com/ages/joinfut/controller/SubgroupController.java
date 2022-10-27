@@ -48,17 +48,5 @@ public class SubgroupController {
         return ResponseEntity.created(uri).body(new SubgroupDTO(subgroup));
     }
 
-/*    @GetMapping(value=URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiModelProperty("Busca em lista todos os Atletas cadastrados no Subgroup")
-    public ResponseEntity<List<AtleteDTO>> readAllAtletesBySubgroup(){
-        List<Atlete> atletes = subgroupService.findAllAtletes();
-        List<AtleteDTO> atletesDTO = atleteService.convertList(atletes);
-        return new ResponseEntity<>(atletesDTO, HttpStatus.OK);
-    }
-
-    @GetMapping(value=URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiModelProperty("Adiciona um atleta no subgroup")
-    public ResponseEntity<SubgroupDTO> addAtleteSubgroup(@RequestBody @Valid )*/
-
 
 }
