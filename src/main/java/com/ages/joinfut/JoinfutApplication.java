@@ -9,5 +9,4 @@ public class JoinfutApplication {
     public static void main(String[] args) {
         SpringApplication.run(JoinfutApplication.class, args);
     }
-
 }
