@@ -1,9 +1,11 @@
 package com.ages.joinfut.service;
 
+import com.ages.joinfut.config.mappers.ClubMapper;
 import com.ages.joinfut.dto.ClubDTO;
 import com.ages.joinfut.model.Club;
 import com.ages.joinfut.repository.AdressRepository;
 import com.ages.joinfut.repository.ClubRepository;
+import com.ages.joinfut.repository.NdaContractRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,18 +21,30 @@ public class ClubService {
     private ClubRepository clubRepository;
 
     @Autowired
+    private NdaContractRepository ndaContractRepository;
+
+    @Autowired
     private AdressRepository adressRepository;
 
     private AdressService adressService = new AdressService();
+    private NdaContractService ndaContractService = new NdaContractService();
 
     @Transactional
-    public void save(Club club) {
+    public Club save(ClubDTO clubDTO) {
+        Club club = ClubMapper.MAPPER.ClubDTOToClub(clubDTO);
+
         clubRepository.save(club);
 
         if (club.getAdress() != null) {
             club.getAdress().setClub(club);
             adressService.save(club.getAdress(), adressRepository);
         }
+
+        if (club.getNdaContract() != null) {
+            club.getNdaContract().setClub(club);
+            ndaContractService.save(club.getNdaContract(), ndaContractRepository);
+        }
+        return club;
     }
 
     public void delete( @PathVariable Long id) {
@@ -41,10 +55,15 @@ public class ClubService {
             adressRepository.delete(club.getAdress());
         }
 
+        if (club.getNdaContract() != null && club.getNdaContract().getId() != null) {
+            ndaContractRepository.delete(club.getNdaContract());
+        }
+
         clubRepository.delete(club);
     }
 
-    public Club update(Long id, Club updated, ClubRepository clubRepository) {
+    public Club update(Long id, ClubDTO clubDTO, ClubRepository clubRepository) {
+        Club updated = ClubMapper.MAPPER.ClubDTOToClub(clubDTO);
         Club saved = clubRepository.findByidClub(id);
 
         if (updated.getCorporateName() != null && !updated.getCorporateName().equals(saved.getCorporateName())) {
@@ -62,52 +81,15 @@ public class ClubService {
         if (updated.getAdress() != null && !updated.getAdress().equals(saved.getAdress())) {
             saved.setAdress(updated.getAdress());
         }
+
+        if (updated.getNdaContract() != null && !updated.getNdaContract().equals(saved.getNdaContract())) {
+            saved.setNdaContract(ndaContractService.update(updated.getNdaContract().getId(), updated.getNdaContract(), ndaContractRepository));
+        }
         
         return saved;
     }
 
     public List<ClubDTO> convertList(List<Club> clubs) {
-        return clubs.stream().map(ClubDTO::new).collect(Collectors.toList());
-    }
-
-    public ClubDTO DTODataConverter(Club club) {
-        ClubDTO clubDTO = new ClubDTO();
-        clubDTO.setIdClub(club.getIdClub());
-        clubDTO.setCorporateName(club.getCorporateName());
-        clubDTO.setFantasyName(club.getFantasyName());
-        clubDTO.setCnpj(club.getCnpj());
-
-        if (club.getAdress() != null) {
-            clubDTO.setAdress(adressService.convertObject(club.getAdress()));
-        }
-        
-        return clubDTO;
-    }
-
-    public Club EntityDataConverter(ClubDTO clubDTO) {
-        Club club = new Club();
-        club.setIdClub(clubDTO.getIdClub());
-        club.setCorporateName(clubDTO.getCorporateName());
-        club.setFantasyName(clubDTO.getFantasyName());
-        club.setCnpj(clubDTO.getCnpj());
-       
-        if (clubDTO.getAdress() != null) {
-            club.setAdress(adressService.desconvertObject(clubDTO.getAdress()));
-        }
-        
-        return club;
-    }
-
-    public ClubDTO convertObject(Club club){
-        return new ClubDTO(club);
-    }
-
-
-    public List<Club> desconvertList(List<ClubDTO> clubDTOS) {
-        return clubDTOS.stream().map(Club::new).collect(Collectors.toList());
-    }
-
-    public Club desconvertObject(ClubDTO clubDTO) {
-        return new Club(clubDTO);
+        return clubs.stream().map(club -> ClubMapper.MAPPER.ClubToClubDTO(club)).collect(Collectors.toList());
     }
 }

@@ -42,13 +42,6 @@ public class Subgroup {
 
     public Subgroup(){}
 
-    public Subgroup(SubgroupDTO subgroupDTO){
-        SubgroupService subgroupService = new SubgroupService();
-        Subgroup subgroup = subgroupService.EntityDataConverter(subgroupDTO);
-        this.idSubgroup = subgroup.idSubgroup;
-        this.subgroupName = subgroup.subgroupName;
-        this.club = subgroup.club;
-    }
     public Long getId(){
         return getIdSubgroup();
     }

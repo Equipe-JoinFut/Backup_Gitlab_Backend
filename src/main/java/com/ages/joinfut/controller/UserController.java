@@ -1,5 +1,6 @@
 package com.ages.joinfut.controller;
 
+import com.ages.joinfut.config.mappers.UserMapper;
 import com.ages.joinfut.dto.UserDTO;
 import com.ages.joinfut.model.User;
 import com.ages.joinfut.repository.UserRepository;
@@ -24,11 +25,17 @@ public class UserController {
     private static final String URL_PLURAL = "/users";
     private static final String URL_SINGULAR = "/user/{id}";
 
-    @Autowired
     private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    public UserController(
+            UserRepository userRepository,
+            UserService userService
+    ){
+        this.userRepository = userRepository;
+        this.userService = userService;
+    }
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Busca em lista de todos os usuários cadastrados")
@@ -42,17 +49,16 @@ public class UserController {
     @ApiModelProperty("Busca de um usuário pelo seu ID")
     public ResponseEntity<UserDTO> readUserById(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
-        return user.map(value -> ResponseEntity.ok(new UserDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
+        return user.map(value -> ResponseEntity.ok(UserMapper.MAPPER.UserToUserDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Cria um novo usuário")
     @Transactional
     public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO, UriComponentsBuilder uriComponentsBuilder) {
-        User user = userService.desconvertObject(userDTO);
-        userService.save(user);
+        User user = userService.save(userDTO);
         URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(user.getId()).toUri();
-        return ResponseEntity.created(uri).body(new UserDTO(user));
+        return ResponseEntity.created(uri).body(UserMapper.MAPPER.UserToUserDTO(user));
     }
 
     @PutMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,9 +67,8 @@ public class UserController {
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody @Valid UserDTO userDTO) {
         Optional<User> verifyId = userRepository.findById(id);
         if (verifyId.isPresent()) {
-            User updatedUser = userService.desconvertObject(userDTO);
-            User user = userService.updateObject(id, updatedUser, userRepository);
-            return ResponseEntity.ok(new UserDTO(user));
+            User user = userService.update(id, userDTO, userRepository);
+            return ResponseEntity.ok(UserMapper.MAPPER.UserToUserDTO(user));
         }
         return ResponseEntity.notFound().build();
     }

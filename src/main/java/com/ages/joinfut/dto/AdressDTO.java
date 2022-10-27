@@ -1,22 +1,24 @@
 package com.ages.joinfut.dto;
 
 import com.ages.joinfut.Enum.State;
-import com.ages.joinfut.model.Adress;
-import com.ages.joinfut.model.Atlete;
+import com.ages.joinfut.model.Athlete;
+import com.ages.joinfut.model.AthleteSlim;
 import com.ages.joinfut.model.Club;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AdressDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificação única do Endereço")
     private Long idAdress;
 
     @ApiModelProperty(position = 2, notes = "Atleta")
-    private Atlete atlete;
+    private Athlete athlete;
 
     @ApiModelProperty(position = 3, notes = "Clube")
     private Club club;
@@ -31,15 +33,6 @@ public class AdressDTO {
     private State state;
 
     public AdressDTO() {}
-
-    public AdressDTO (Adress adress) {
-        this.idAdress = adress.getIdAdress();
-        this.atlete = adress.getAtlete();
-        this.club = adress.getClub();
-        this.streetInfo = adress.getStreetInfo();
-        this.city = adress.getCity();
-        this.state = adress.getState();
-    }
 
     public Long getId() {
         return getIdAdress();

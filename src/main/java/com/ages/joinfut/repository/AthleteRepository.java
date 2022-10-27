@@ -1,10 +1,10 @@
 package com.ages.joinfut.repository;
 
-import com.ages.joinfut.model.Atlete;
+import com.ages.joinfut.model.Athlete;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AtleteRepository extends JpaRepository<Atlete, Long> {
-    Atlete findByidAtlete(Long id);
+public interface AthleteRepository extends JpaRepository<Athlete, Long> {
+    Athlete findByidAthlete(Long id);
 }

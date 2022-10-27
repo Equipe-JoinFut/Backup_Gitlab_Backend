@@ -1,6 +1,5 @@
 package com.ages.joinfut.model;
 import com.ages.joinfut.Enum.UserType;
-import com.ages.joinfut.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
@@ -8,7 +7,20 @@ import lombok.Setter;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 
@@ -33,15 +45,13 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    @JoinColumn(name = "id_Atlete")
-    private Long idAtlete;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_Athlete")
+    private Athlete athlete;
 
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_Club")
-    private Long idClub;
+    private Club club;
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -54,16 +64,6 @@ public class User {
 
 
     public User() {}
-    
-    public User(UserDTO userDTO) {
-        this.idUser = userDTO.getIdUser();
-        this.email = userDTO.getEmail();
-        this.password = userDTO.getPassword();
-        this.idAtlete = userDTO.getIdAtlete();
-        this.idClub = userDTO.getIdClub();
-        this.creationDate = userDTO.getCreationDate();
-        this.userType = userDTO.getUserType();
-    }
 
     public Long getId() {
         return getIdUser();
