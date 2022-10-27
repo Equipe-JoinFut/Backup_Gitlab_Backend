@@ -1,6 +1,5 @@
 package com.ages.joinfut.dto;
 
-import com.ages.joinfut.model.Club;
 import com.ages.joinfut.model.Subgroup;
 import com.ages.joinfut.service.SubgroupService;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,12 +17,16 @@ public class SubgroupDTO {
     private String subGroupName;
 
     @ApiModelProperty(position = 3, notes = "Identificacao do Clube que criou o Subgrupo")
-    private Club club;
+    private ClubDTO club;
 
     public SubgroupDTO(){}
+
     public SubgroupDTO(Subgroup subgroup){
         SubgroupService subgroupService = new SubgroupService();
         SubgroupDTO subgroupDTO = subgroupService.DTODataConverter(subgroup);
+        this.idSubgroup = subgroupDTO.idSubgroup;
+        this.subGroupName = subgroupDTO.subGroupName;
+        this.club = subgroupDTO.club;
     }
     public Long getId(){
         return getIdSubgroup();

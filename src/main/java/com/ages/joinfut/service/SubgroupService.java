@@ -6,8 +6,12 @@ import com.ages.joinfut.repository.ClubRepository;
 import com.ages.joinfut.repository.SubgroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SubgroupService {
@@ -16,7 +20,7 @@ public class SubgroupService {
     private SubgroupRepository subgroupRepository;
 
     @Autowired
-    private ClubRepository subgroupClubRepository;
+    private ClubRepository clubRepository;
 
     private ClubService clubService = new ClubService();
 
@@ -25,14 +29,31 @@ public class SubgroupService {
         subgroupRepository.save(subgroup);
     }
 
+    @Transactional
+    public Subgroup update(Long id, Subgroup updated, SubgroupRepository subgroupRepository) {
+        Subgroup saved = subgroupRepository.findByidSubgroup(id);
+        if (saved.getSubGroupName() != null && !updated.getSubGroupName().equals(saved.getSubGroupName())) {
+            saved.setSubGroupName(updated.getSubGroupName());
+        }
+        return saved;
+    }
+
+    @Transactional
+    public void delete(@PathVariable Long id) {
+        Optional<Subgroup> subgroupGetter = subgroupRepository.findById(id);
+        Subgroup subgroup = subgroupGetter.get();
+        subgroupRepository.delete(subgroup);
+    }
+
     public SubgroupDTO DTODataConverter(Subgroup subgroup){
         SubgroupDTO subgroupDTO = new SubgroupDTO();
         subgroupDTO.setIdSubgroup(subgroup.getIdSubgroup());
-        subgroupDTO.setClub(subgroup.getClub());
         subgroupDTO.setSubGroupName(subgroup.getSubGroupName());
+        if (subgroup.getClub() != null) {
+            subgroupDTO.setClub(clubService.convertObject(subgroup.getClub()));
+        }
         return subgroupDTO;
     }
-
 
     public Subgroup desconvertObject(SubgroupDTO subgroupDTO) {
         return new Subgroup(subgroupDTO);
@@ -42,8 +63,19 @@ public class SubgroupService {
         Subgroup subgroup = new Subgroup();
         subgroup.setIdSubgroup(subgroupDTO.getIdSubgroup());
         subgroup.setSubGroupName(subgroupDTO.getSubGroupName());
-        subgroup.setClub(subgroupDTO.getClub());
+        if (subgroupDTO.getClub() != null) {
+            subgroup.setClub(clubService.desconvertObject(subgroupDTO.getClub()));
+        }
         return subgroup;
     }
 
+    public SubgroupDTO convertObject(Subgroup subgroup) {return new SubgroupDTO(subgroup);}
+
+    public List<SubgroupDTO> convertList(List<Subgroup> subgroups) {
+        return subgroups.stream().map(SubgroupDTO::new).collect(Collectors.toList());
+    }
+
+    public List<Subgroup> desconvertList(List<SubgroupDTO> subgroupDTOS) {
+        return subgroupDTOS.stream().map(Subgroup::new).collect(Collectors.toList());
+    }
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubgroupRepository extends JpaRepository<Subgroup, Long> {
-
+    Subgroup findByidSubgroup(Long id);
 }

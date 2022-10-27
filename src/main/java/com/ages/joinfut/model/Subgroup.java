@@ -15,9 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -47,9 +45,9 @@ public class Subgroup {
     public Subgroup(SubgroupDTO subgroupDTO){
         SubgroupService subgroupService = new SubgroupService();
         Subgroup subgroup = subgroupService.EntityDataConverter(subgroupDTO);
-        this.idSubgroup =subgroupDTO.getIdSubgroup();
-        this.subGroupName = subgroupDTO.getSubGroupName();
-        this.club = subgroupDTO.getClub();
+        this.idSubgroup = subgroup.idSubgroup;
+        this.subGroupName = subgroup.subGroupName;
+        this.club = subgroup.club;
     }
     public Long getId(){
         return getIdSubgroup();
