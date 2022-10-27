@@ -9,14 +9,19 @@ import lombok.Setter;
 
 import org.hibernate.annotations.Type;
 
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 
 @Getter
 @Setter
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "contacts", schema = "personas")
+@Table(name = "clubs", schema = "personas")
 public class Club {
     
     @Id
