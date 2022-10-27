@@ -1,7 +1,5 @@
 package com.ages.joinfut.service;
 
-import com.ages.joinfut.config.mappers.ContactMapper;
-import com.ages.joinfut.dto.ContactDTO;
 import com.ages.joinfut.model.Contact;
 import com.ages.joinfut.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +37,6 @@ public class ContactService {
                 contactRepository.delete(contact1);
             }
         }
-    }
-
-    public List<ContactDTO> convertList(List<Contact> adresses) {
-        return adresses.stream().map(contact -> ContactMapper.MAPPER.ContactToContactDTO(contact)).collect(Collectors.toList());
     }
 
     public Contact update(Long id, Contact updated, ContactRepository contactRepository) {

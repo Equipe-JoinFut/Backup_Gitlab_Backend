@@ -2,23 +2,27 @@ package com.ages.joinfut.dto;
 
 import java.util.List;
 
+import com.ages.joinfut.model.Athlete;
+import com.ages.joinfut.model.Club;
 import com.ages.joinfut.model.Contact;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContactDTO {
     
     @ApiModelProperty(position = 1, notes = "Identificação única do Contato")
     private Long idContact;
 
     @ApiModelProperty(position = 2, notes = "Atleta")
-    private AthleteDTO athlete;
+    private Athlete athlete;
 
     @ApiModelProperty(position = 3, notes = "Clube")
-    private ClubDTO club;
+    private Club club;
 
     @ApiModelProperty(position = 4, notes = "Nome de Contato")
     private String contactName;

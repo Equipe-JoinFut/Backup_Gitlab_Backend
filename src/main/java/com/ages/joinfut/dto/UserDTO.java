@@ -3,12 +3,16 @@ package com.ages.joinfut.dto;
 import java.util.Date;
 
 import com.ages.joinfut.Enum.UserType;
+import com.ages.joinfut.model.AthleteSlim;
+import com.ages.joinfut.model.Club;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificação única do Usuário")
@@ -21,10 +25,10 @@ public class UserDTO {
     private String password;
 
     @ApiModelProperty(position = 4, notes = "Usuário Atleta")
-    private AthleteSlimDTO athlete;
+    private AthleteSlim athlete;
 
     @ApiModelProperty(position = 5, notes = "Usuário Clube")
-    private ClubDTO club;
+    private Club club;
 
     @ApiModelProperty(position = 6, notes = "Tipo de Usuario")
     private UserType userType;

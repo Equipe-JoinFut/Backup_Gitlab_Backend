@@ -5,7 +5,9 @@ import com.ages.joinfut.Enum.Position;
 import com.ages.joinfut.config.mappers.AthleteMapper;
 import com.ages.joinfut.dto.AthleteDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,11 +57,9 @@ public class Athlete {
 
     @Column(name = "athlete_height")
     private Double athleteHeight;
+
     @Column(name = "age")
     private Integer age;
-
-    @Column(name = "atlete_height")
-    private Double atleteHeight;
 
     @Column(name = "athlete_weight")
     private Double athleteWeight;
@@ -84,7 +84,8 @@ public class Athlete {
     @JoinColumn(name = "id_adress")
     private Adress adress;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("athlete")
     @JoinColumn(name = "id_contact")
     private Contact contact;
 

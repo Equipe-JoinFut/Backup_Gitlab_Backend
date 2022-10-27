@@ -2,6 +2,10 @@ package com.ages.joinfut.dto;
 
 import com.ages.joinfut.Enum.DominantLeg;
 import com.ages.joinfut.Enum.Position;
+import com.ages.joinfut.model.Adress;
+import com.ages.joinfut.model.AthleteClub;
+import com.ages.joinfut.model.Contact;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +17,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AthleteDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificação única do Atleta")
@@ -47,13 +52,13 @@ public class AthleteDTO {
     private Position position;
 
     @ApiModelProperty(position = 10, notes = "Endereço do jogador")
-    private AdressDTO adress;
+    private Adress adress;
 
     @ApiModelProperty(position = 11, notes = "Contato do jogador")
-    private ContactDTO contact;
+    private Contact contact;
 
     @ApiModelProperty(position = 12, notes = "Historico de Clubes do Atleta")
-    private List<AthleteClubDTO> athleteClubs;
+    private List<AthleteClub> athleteClubs;
 
     @ApiModelProperty(position = 13, notes = "Doenças pre-existentes do Atleta")
     private String deceases;
