@@ -7,7 +7,11 @@ public enum Position {
     V("V", "Volante"),
     Z("Z", "Zagueiro"),
     C("C", "Centroavante"),
-    L("L", "Lateral"),
+    LD("LD", "Lateral Direita"),
+    LE("LE", "Lateral Esquerda"),
+    PD("PD", "Ponta Direita"),
+    PE("PE", "Ponta Esquerda"),
+    M("M", "Meia"),
     A("A", "Atacante");
 
     private final String chave;
@@ -29,12 +33,16 @@ public enum Position {
     @JsonValue
     public String getValor() {
         switch (this) {
-            case L:
-            case A:
-            case C:
             case G:
             case V:
             case Z:
+            case C:
+            case LD:
+            case LE:
+            case PD:
+            case PE:
+            case M:
+            case A:
                 return getChave();
         }
         return "Valor Inválido";
