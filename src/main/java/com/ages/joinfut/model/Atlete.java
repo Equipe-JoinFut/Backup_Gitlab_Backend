@@ -53,6 +53,9 @@ public class Atlete {
     @Column(name = "date_birth")
     private Date dateBirth;
 
+    @Column(name = "age")
+    private Integer age;
+
     @Column(name = "atlete_height")
     private Double atleteHeight;
 
@@ -116,6 +119,7 @@ public class Atlete {
         this.atleteClubs = atlete.atleteClubs;
         this.deceases = atlete.deceases;
         this.user = atlete.user;
+        this.age = atlete.age;
     }
 
     public Long getId() {

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +44,7 @@ public class AtleteService {
     public void save(Atlete atlete) {
 
         calculateImc(atlete);
+        calculateAge(atlete);
 
         atleteRepository.save(atlete);
 
@@ -140,6 +143,7 @@ public class AtleteService {
         atleteDTO.setIdAtlete(atlete.getIdAtlete());
         atleteDTO.setAtleteName(atlete.getAtleteName());
         atleteDTO.setDateBirth(atlete.getDateBirth());
+        atleteDTO.setAge(atlete.getAge());
         atleteDTO.setAtleteHeight(atlete.getAtleteHeight());
         atleteDTO.setAtleteWeight(atlete.getAtleteWeight());
         atleteDTO.setAtleteImc(atlete.getAtleteImc());
@@ -164,6 +168,7 @@ public class AtleteService {
         atlete.setIdAtlete(atleteDTO.getIdAtlete());
         atlete.setAtleteName(atleteDTO.getAtleteName());
         atlete.setDateBirth(atleteDTO.getDateBirth());
+        atlete.setAge(atleteDTO.getAge());
         atlete.setAtleteHeight(atleteDTO.getAtleteHeight());
         atlete.setAtleteWeight(atleteDTO.getAtleteWeight());
         atlete.setAtleteImc(atleteDTO.getAtleteImc());
@@ -197,4 +202,16 @@ public class AtleteService {
     }
 
     public void calculateImc(Atlete atlete){ atlete.setAtleteImc(atlete.getAtleteWeight() / (Math.pow(atlete.getAtleteHeight(), 2))); }
+
+    public void calculateAge(Atlete atlete) {
+
+        Date dateNow = new Date();
+        Long timeBetween = dateNow.getTime() - atlete.getDateBirth().getTime();
+        Double yearsBetween = timeBetween / 3.15576e+10;
+        int age = (int) Math.floor(yearsBetween);
+        atlete.setAge(age);
+    }
+
+
+
 }
