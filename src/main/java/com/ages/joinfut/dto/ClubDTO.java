@@ -33,10 +33,8 @@ public class ClubDTO {
     public ClubDTO() {}
 
     public ClubDTO(Club club) {
-
         ClubService clubService = new ClubService();
         ClubDTO clubDTO = clubService.DTODataConverter(club);
-
         this.idClub = clubDTO.idClub;
         this.corporateName = clubDTO.corporateName;
         this.fantasyName = clubDTO.fantasyName;

@@ -3,6 +3,7 @@ package com.ages.joinfut.dto;
 import com.ages.joinfut.Enum.State;
 import com.ages.joinfut.model.Adress;
 import com.ages.joinfut.model.Athlete;
+import com.ages.joinfut.model.Club;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,9 @@ public class AdressDTO {
 
     @ApiModelProperty(position = 2, notes = "Atleta")
     private Athlete athlete;
+
+    @ApiModelProperty(position = 3, notes = "Clube")
+    private Club club;
 
     @ApiModelProperty(position = 3, notes = "Informações do endereço")
     private String streetInfo;
@@ -31,6 +35,7 @@ public class AdressDTO {
     public AdressDTO (Adress adress) {
         this.idAdress = adress.getIdAdress();
         this.athlete = adress.getAthlete();
+        this.club = adress.getClub();
         this.streetInfo = adress.getStreetInfo();
         this.city = adress.getCity();
         this.state = adress.getState();

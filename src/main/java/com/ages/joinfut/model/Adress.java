@@ -62,6 +62,7 @@ public class Adress {
     public Adress(AdressDTO adressDTO) {
         this.idAdress = adressDTO.getIdAdress();
         this.athlete = adressDTO.getAthlete();
+        this.club = adressDTO.getClub();
         this.streetInfo = adressDTO.getStreetInfo();
         this.city = adressDTO.getCity();
         this.state = adressDTO.getState();
