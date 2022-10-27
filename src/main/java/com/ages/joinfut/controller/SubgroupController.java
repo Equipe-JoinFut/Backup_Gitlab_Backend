@@ -1,7 +1,9 @@
 package com.ages.joinfut.controller;
 
 import com.ages.joinfut.dto.SubgroupDTO;
+import com.ages.joinfut.model.Club;
 import com.ages.joinfut.model.Subgroup;
+import com.ages.joinfut.repository.ClubRepository;
 import com.ages.joinfut.repository.SubgroupRepository;
 import com.ages.joinfut.service.SubgroupService;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -37,14 +40,25 @@ public class SubgroupController {
     private SubgroupRepository subgroupRepository;
 
     @Autowired
+    private ClubRepository clubRepository;
+
+    @Autowired
     private SubgroupService subgroupService;
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiModelProperty("Busca em lista de todos os Subgrupos cadastrados")
-    public ResponseEntity<List<SubgroupDTO>> readAllSubgroups() {
-        List<Subgroup> subgroups = subgroupRepository.findAll();
-        List<SubgroupDTO> subgroupsDTO = subgroupService.convertList(subgroups);
-        return new ResponseEntity<>(subgroupsDTO, HttpStatus.OK);
+    @ApiModelProperty("Busca em lista de Subgrupos pelo Clube")
+    public ResponseEntity<List<SubgroupDTO>>readAllSubgroups(@RequestParam(value = "idClub", required = false) Long idClub) {
+
+        if (idClub != null) {
+            Club club = clubRepository.findByidClub(idClub);
+            List<Subgroup> subgroups = subgroupRepository.findByClub(club);
+            List<SubgroupDTO> subgroupsDTO = subgroupService.convertList(subgroups);
+            return new ResponseEntity<>(subgroupsDTO, HttpStatus.OK);
+        } else {
+            List<Subgroup> subgroups = subgroupRepository.findAll();
+            List<SubgroupDTO> subgroupsDTO = subgroupService.convertList(subgroups);
+            return new ResponseEntity<>(subgroupsDTO, HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
