@@ -1,13 +1,15 @@
 package com.ages.joinfut.dto;
 
 import com.ages.joinfut.Enum.StatusNda;
-import com.ages.joinfut.model.NdaContract;
+import com.ages.joinfut.model.Club;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NdaContractDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificação única do Termo de confidencialidade")
@@ -19,13 +21,10 @@ public class NdaContractDTO {
     @ApiModelProperty(position = 3, notes = "Tipo de aprovação")
     private StatusNda statusNda;
 
-    public NdaContractDTO() {}
+    @ApiModelProperty(position = 4, notes = "Club")
+    private Club club;
 
-    public NdaContractDTO (NdaContract ndaContract) {
-        this.idNdaContract = ndaContract.getIdNdaContract();
-        this.infoNda = ndaContract.getInfoNda();
-        this.statusNda = ndaContract.getStatusNda();
-    }
+    public NdaContractDTO() {}
 
     public Long getId() { return getIdNdaContract(); }
 

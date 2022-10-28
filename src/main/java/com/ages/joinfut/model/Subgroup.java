@@ -1,15 +1,14 @@
 package com.ages.joinfut.model;
-import com.ages.joinfut.Enum.StatusNda;
-import com.ages.joinfut.dto.NdaContractDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.ages.joinfut.dto.SubgroupDTO;
+import com.ages.joinfut.service.SubgroupService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,37 +17,40 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Getter
 @Setter
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "ndacontracts", schema = "informations")
-public class NdaContract {
+@JsonIgnoreProperties({"hibernateLazyInitializer" , "handler"})
+@Table(name = "subgroups", schema = "selections")
+public class Subgroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_nda_contracts")
-    private Long idNdaContract;
+    @Column(name = "id_subgroup")
+    private Long idSubgroup;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "info_nda")
-    private String infoNda;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "statusNda")
-    private StatusNda statusNda;
+    @Column(name = "subgroup_name")
+    private String subgroupName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     @JoinColumn(name = "id_club")
     private Club club;
 
-    public NdaContract() {}
+    public Subgroup(){}
 
-    public Long getId() { return getIdNdaContract(); }
+    public Long getId(){
+        return getIdSubgroup();
+    }
+
+
+
+
+
+
+
 
 }

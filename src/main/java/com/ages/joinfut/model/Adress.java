@@ -21,9 +21,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
-@Entity
+
 @Getter
 @Setter
+@Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "adresses", schema = "informations")
 public class Adress {
@@ -33,10 +34,10 @@ public class Adress {
     @Column(name = "id_adress")
     private Long idAdress;
 
-    @JoinColumn(name = "id_atlete")
+    @JoinColumn(name = "id_athlete")
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    private Atlete atlete;
+    private Athlete athlete;
 
     @JoinColumn(name = "id_club")
     @JsonIgnore
@@ -58,14 +59,6 @@ public class Adress {
     private State state;
 
     public Adress() {}
-
-    public Adress(AdressDTO adressDTO) {
-        this.idAdress = adressDTO.getIdAdress();
-        this.atlete = adressDTO.getAtlete();
-        this.streetInfo = adressDTO.getStreetInfo();
-        this.city = adressDTO.getCity();
-        this.state = adressDTO.getState();
-    }
 
     public Long getId() {
         return getIdAdress();
