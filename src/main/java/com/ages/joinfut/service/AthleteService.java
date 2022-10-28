@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,6 +46,8 @@ public class AthleteService{
         Athlete athlete = AthleteMapper.MAPPER.AthleteDTOToAthlete(athleteDTO);
 
         calculateImc(athlete);
+
+        calculateAge(athlete);
 
         athleteRepository.save(athlete);
 
@@ -141,6 +144,14 @@ public class AthleteService{
         return athletes.stream().map(athlete -> AthleteMapper.MAPPER.AthleteToAthleteDTO(athlete)).collect(Collectors.toList());
     }
 
-    public void calculateImc(Athlete athlete){ athlete.setAthleteImc(athlete.getAthleteWeight() / (Math.pow(athlete.getAthleteWeight(), 2))); }
+    public void calculateImc(Athlete athlete){ athlete.setAthleteImc(athlete.getAthleteWeight() / (Math.pow(athlete.getAthleteHeight(), 2))); }
+
+    public void calculateAge(Athlete athlete) {
+        Date dateNow = new Date();
+        Long timeBetween = dateNow.getTime() - athlete.getDateBirth().getTime();
+        Double yearsBetween = timeBetween / 3.15576e+10;
+        int age = (int) Math.floor(yearsBetween);
+        athlete.setAge(age);
+    }
 
 }

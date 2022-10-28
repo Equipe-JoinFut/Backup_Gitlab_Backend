@@ -2,6 +2,7 @@ package com.ages.joinfut.service;
 
 import com.ages.joinfut.config.mappers.SubgroupMapper;
 import com.ages.joinfut.dto.SubgroupDTO;
+import com.ages.joinfut.model.AthleteSubgroup;
 import com.ages.joinfut.model.Subgroup;
 import com.ages.joinfut.repository.SubgroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,11 @@ public class SubgroupService {
 
     public List<SubgroupDTO> convertList(List<Subgroup> subgroups) {
         return subgroups.stream().map(subgroup -> SubgroupMapper.MAPPER.SubgroupToSubgroupDTO(subgroup)).collect(Collectors.toList());
+    }
+
+    public void insertAthleteSubgroupToList(AthleteSubgroup athleteSubgroup) {
+        Optional<Subgroup> subgroupGetter = subgroupRepository.findById(athleteSubgroup.getSubgroup().getId());
+        Subgroup subgroup = subgroupGetter.get();
+        subgroup.getAthleteSubgroups().add(athleteSubgroup);
     }
 }
