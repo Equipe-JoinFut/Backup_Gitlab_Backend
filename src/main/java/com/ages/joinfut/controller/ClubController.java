@@ -1,5 +1,6 @@
 package com.ages.joinfut.controller;
 
+import com.ages.joinfut.config.mappers.ClubMapper;
 import com.ages.joinfut.dto.ClubDTO;
 import com.ages.joinfut.model.Club;
 import com.ages.joinfut.repository.ClubRepository;
@@ -32,12 +33,18 @@ public class ClubController {
 
     private static final String URL_PLURAL = "/clubs";
     private static final String URL_SINGULAR = "/club/{id}";
-    
-    @Autowired
+
     private ClubRepository clubRepository;
+    private ClubService clubService;
 
     @Autowired
-    private ClubService clubService;
+    public ClubController(
+            ClubRepository clubRepository,
+            ClubService clubService
+    ){
+        this.clubRepository = clubRepository;
+        this.clubService = clubService;
+    }
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Busca em lista de todos os Clubes cadastrados")
@@ -51,17 +58,16 @@ public class ClubController {
     @ApiModelProperty("Busca de um Clube pelo seu ID")
     public ResponseEntity<ClubDTO> readClubById(@PathVariable Long id) {
         Optional<Club> club = clubRepository.findById(id);
-        return club.map(value -> ResponseEntity.ok(new ClubDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
+        return club.map(value -> ResponseEntity.ok(ClubMapper.MAPPER.ClubToClubDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Cria um novo clube")
     @Transactional
     public ResponseEntity<ClubDTO> createClub(@RequestBody @Valid ClubDTO clubDTO, UriComponentsBuilder uriComponentsBuilder) {
-        Club club = clubService.desconvertObject(clubDTO);
-        clubService.save(club);
+        Club club = clubService.save(clubDTO);
         URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(club.getId()).toUri();
-        return ResponseEntity.created(uri).body(new ClubDTO(club));
+        return ResponseEntity.created(uri).body(ClubMapper.MAPPER.ClubToClubDTO(club));
     }
 
     @PutMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,9 +76,8 @@ public class ClubController {
     public ResponseEntity<ClubDTO> updateClub(@PathVariable Long id, @RequestBody @Valid ClubDTO clubDTO) {
         Optional<Club> verifyId = clubRepository.findById(id);
         if (verifyId.isPresent()) {
-            Club updatedClub = clubService.desconvertObject(clubDTO);
-            Club club = clubService.update(id, updatedClub, clubRepository);
-            return ResponseEntity.ok(new ClubDTO(club));
+            Club club = clubService.update(id, clubDTO, clubRepository);
+            return ResponseEntity.ok(ClubMapper.MAPPER.ClubToClubDTO(club));
         }
         return ResponseEntity.notFound().build();
     }

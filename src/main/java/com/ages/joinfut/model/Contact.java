@@ -1,6 +1,6 @@
 package com.ages.joinfut.model;
 
-import com.ages.joinfut.dto.ContactDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -34,9 +35,14 @@ public class Contact {
     private Long idContact;
 
     @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_athlete")
+    private Athlete athlete;
+
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_atlete")
-    private Atlete atlete;
+    @JoinColumn(name = "id_club")
+    private Club club;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
@@ -54,19 +60,10 @@ public class Contact {
     private String telephone;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "atlete", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "athlete", cascade = CascadeType.REMOVE)
     private List<Contact> responsibles;
 
     public Contact() {}
-
-    public Contact(ContactDTO contactDTO) {
-        this.idContact = contactDTO.getIdContact();
-        this.atlete = contactDTO.getAtlete();
-        this.contactName = contactDTO.getContactName();
-        this.email = contactDTO.getEmail();
-        this.telephone = contactDTO.getTelephone();
-        this.responsibles = contactDTO.getResponsibles();
-    }
 
     public Long getId() {return getIdContact();}
 

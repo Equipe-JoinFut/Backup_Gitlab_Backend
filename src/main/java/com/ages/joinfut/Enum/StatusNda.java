@@ -1,6 +1,10 @@
 package com.ages.joinfut.Enum;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public enum StatusNda {
 
@@ -13,6 +17,14 @@ public enum StatusNda {
     private final String chave;
 
     private final String descricao;
+
+    private static final Map<String, StatusNda> byDescription = new HashMap<>();
+
+    static{
+        for(StatusNda s : values()){
+            byDescription.put(s.chave, s);
+        }
+    }
 
     StatusNda(String chave, String descricao) {
         this.chave = chave;
@@ -29,8 +41,13 @@ public enum StatusNda {
             case A:
             case P:
             case R:
-                return getChave();
+                return valueOfDescription(getChave()).getDescricao();
         }
         return "Valor Inválido";
+    }
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static StatusNda valueOfDescription(String key){
+        return byDescription.get(key);
     }
 }
