@@ -39,10 +39,16 @@ public class UserController {
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Busca em lista de todos os usuários cadastrados")
-    public ResponseEntity<List<UserDTO>> readAllUsers() {
-        List<User> users = userRepository.findAll();
-        List<UserDTO> userDTO = userService.convertList(users);
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> readAllUsers(@RequestParam(value = "email", required = false) String email) {
+        if (email != null) {
+            List<User> users = userRepository.findByemail(email);
+            List<UserDTO> userDTO = userService.convertList(users);
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        } else {
+            List<User> users = userRepository.findAll();
+            List<UserDTO> userDTO = userService.convertList(users);
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
