@@ -5,6 +5,7 @@ import java.util.Date;
 import com.ages.joinfut.Enum.UserType;
 import com.ages.joinfut.model.AthleteSlim;
 import com.ages.joinfut.model.Club;
+import com.ages.joinfut.model.ClubSlim;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class UserDTO {
     private AthleteSlim athlete;
 
     @ApiModelProperty(position = 5, notes = "Usuário Clube")
-    private Club club;
+    private ClubSlim club;
 
     @ApiModelProperty(position = 6, notes = "Tipo de Usuario")
     private UserType userType;
