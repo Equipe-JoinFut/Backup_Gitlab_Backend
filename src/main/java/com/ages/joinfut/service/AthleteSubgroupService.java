@@ -17,13 +17,16 @@ public class AthleteSubgroupService {
     @Autowired
     private AthleteSubgroupRepository athleteSubgroupRepository;
 
+    @Autowired
+    private SubgroupService subgroupService;
+
     public AthleteSubgroupService() {}
 
     @Transactional
     public AthleteSubgroup save(AthleteSubgroupDTO athleteSubgroupDTO) {
         AthleteSubgroup athleteSubgroup = AthleteSubgroupMapper.MAPPER.AthleteSubgroupDTOToAthleteSubgroup(athleteSubgroupDTO);
         athleteSubgroupRepository.save(athleteSubgroup);
-
+        subgroupService.insertAthleteSubgroupToList(athleteSubgroup);
         return athleteSubgroup;
     }
 

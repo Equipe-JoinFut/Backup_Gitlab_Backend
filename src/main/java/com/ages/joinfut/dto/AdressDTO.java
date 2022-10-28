@@ -2,7 +2,6 @@ package com.ages.joinfut.dto;
 
 import com.ages.joinfut.Enum.State;
 import com.ages.joinfut.model.Athlete;
-import com.ages.joinfut.model.AthleteSlim;
 import com.ages.joinfut.model.Club;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;

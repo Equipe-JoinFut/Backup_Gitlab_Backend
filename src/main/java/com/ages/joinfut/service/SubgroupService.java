@@ -53,6 +53,6 @@ public class SubgroupService {
     public void insertAthleteSubgroupToList(AthleteSubgroup athleteSubgroup) {
         Optional<Subgroup> subgroupGetter = subgroupRepository.findById(athleteSubgroup.getSubgroup().getId());
         Subgroup subgroup = subgroupGetter.get();
-
+        subgroup.getAthleteSubgroups().add(athleteSubgroup);
     }
 }

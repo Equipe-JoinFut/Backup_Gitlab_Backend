@@ -44,9 +44,9 @@ public class Subgroup {
     @JoinColumn(name = "id_club")
     private Club club;
 
-    @JsonProperty("athleteSubgroup")
+    @JsonProperty("athleteSubgroups")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "subgroup", cascade = CascadeType.REMOVE)
-    private List<AthleteSubgroup> athleteSubgroup;
+    private List<AthleteSubgroup> athleteSubgroups;
 
     public Subgroup(){}
 

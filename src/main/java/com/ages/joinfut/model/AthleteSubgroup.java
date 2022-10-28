@@ -1,6 +1,6 @@
 package com.ages.joinfut.model;
 
-import com.ages.joinfut.dto.AthleteSubgroupDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +34,7 @@ public class AthleteSubgroup {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_subgroup")
+    @JsonIgnore
     private Subgroup subgroup;
 
     public AthleteSubgroup() {}

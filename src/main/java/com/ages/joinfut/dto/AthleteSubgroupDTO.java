@@ -17,10 +17,10 @@ public class AthleteSubgroupDTO {
     private Long idAthelteSubgroup;
 
     @ApiModelProperty(position = 2, notes = "Identificação única do Atleta")
-    private Athlete idAthlete;
+    private Athlete athlete;
 
     @ApiModelProperty(position = 3, notes = "Identificação única do Subgroup")
-    private Subgroup idSubgroup;
+    private Subgroup subgroup;
 
     public AthleteSubgroupDTO() {}
 

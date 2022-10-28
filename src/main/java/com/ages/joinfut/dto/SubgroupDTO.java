@@ -1,10 +1,14 @@
 package com.ages.joinfut.dto;
 
+import com.ages.joinfut.model.AthleteSubgroup;
 import com.ages.joinfut.model.Club;
+import com.ages.joinfut.model.ClubSlim;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,7 +22,10 @@ public class SubgroupDTO {
     private String subgroupName;
 
     @ApiModelProperty(position = 3, notes = "Identificacao do Clube que criou o Subgrupo")
-    private Club club;
+    private ClubSlim club;
+
+    @ApiModelProperty(position = 4, notes = "Lista com os Atletas do Subgrupo")
+    private List<AthleteSubgroup> athleteSubgroups;
 
     public SubgroupDTO(){}
 
