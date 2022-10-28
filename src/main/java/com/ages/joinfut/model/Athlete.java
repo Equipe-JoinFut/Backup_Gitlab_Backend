@@ -2,12 +2,8 @@ package com.ages.joinfut.model;
 
 import com.ages.joinfut.Enum.DominantLeg;
 import com.ages.joinfut.Enum.Position;
-import com.ages.joinfut.config.mappers.AthleteMapper;
-import com.ages.joinfut.dto.AthleteDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;

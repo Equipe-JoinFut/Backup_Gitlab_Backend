@@ -1,7 +1,9 @@
 package com.ages.joinfut.service;
 
+import com.ages.joinfut.config.mappers.AthleteSubgroupMapper;
 import com.ages.joinfut.dto.AthleteSubgroupDTO;
 import com.ages.joinfut.model.AthleteSubgroup;
+import com.ages.joinfut.repository.AthleteSubgroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,25 +15,19 @@ import java.util.stream.Collectors;
 public class AthleteSubgroupService {
 
     @Autowired
+    private AthleteSubgroupRepository athleteSubgroupRepository;
 
     public AthleteSubgroupService() {}
 
     @Transactional
-    public void save(AthleteSubgroup athleteSubgroup) {
+    public AthleteSubgroup save(AthleteSubgroupDTO athleteSubgroupDTO) {
+        AthleteSubgroup athleteSubgroup = AthleteSubgroupMapper.MAPPER.AthleteSubgroupDTOToAthleteSubgroup(athleteSubgroupDTO);
         athleteSubgroupRepository.save(athleteSubgroup);
+
+        return athleteSubgroup;
     }
 
     public List<AthleteSubgroupDTO> convertList(List<AthleteSubgroup> athleteSubgroups) {
-        return athleteSubgroups.stream().map(AthleteSubgroupDTO::new).collect(Collectors.toList());
+        return athleteSubgroups.stream().map(athleteSubgroup -> AthleteSubgroupMapper.MAPPER.AthleteSubgroupToAthleteSubgroupDTO(athleteSubgroup)).collect(Collectors.toList());
     }
-
-    public AthleteSubgroupDTO convertObject(AthleteSubgroup athleteSubgroup) { return new AthleteSubgroupDTO(athleteSubgroup);
-    }
-
-    public List<AthleteSubgroup> desconvertList(List<AthleteSubgroupDTO> athleteSubgroupDTOS) {
-        return athleteSubgroupDTOS.stream().map(AthleteSubgroup::new).collect(Collectors.toList());
-    }
-
-    public AthleteSubgroup desconvertObject(AthleteSubgroupDTO athleteSubgroupDTO) { return new AthleteSubgroup(athleteSubgroupDTO); }
-
 }
