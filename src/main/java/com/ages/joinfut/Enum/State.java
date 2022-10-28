@@ -1,6 +1,10 @@
 package com.ages.joinfut.Enum;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public enum State {
 
@@ -34,6 +38,14 @@ public enum State {
 
     private final String chave;
     private final String descricao;
+
+    private static final Map<String, State> byDescription = new HashMap<>();
+
+    static{
+        for(State s : values()){
+            byDescription.put(s.chave, s);
+        }
+    }
 
     State(String chave, String descricao) {
         this.chave = chave;
@@ -73,8 +85,13 @@ public enum State {
             case SE:
             case SP:
             case TO:
-                return getChave();
+                return valueOfDescription(getChave()).getDescricao();
         }
         return "Valor Inválido";
+    }
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static State valueOfDescription(String key){
+        return byDescription.get(key);
     }
 }
