@@ -38,10 +38,10 @@ public class UserController {
     }
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiModelProperty("Busca em lista de todos os usuários cadastrados")
-    public ResponseEntity<List<UserDTO>> readAllUsers(@RequestParam(value = "email", required = false) String email) {
-        if (email != null) {
-            List<User> users = userRepository.findByemail(email);
+    @ApiModelProperty("Busca em lista de todos os usuários cadastrados pelo Email e Senha")
+    public ResponseEntity<List<UserDTO>> readAllUsers(@RequestParam(value = "email", required = false) String email, @RequestParam(value = "password", required = false) String password) {
+        if (email != null && password != null) {
+            List<User> users = userRepository.findByEmailAndPassword(email, userService.hash(password));
             List<UserDTO> userDTO = userService.convertList(users);
             return new ResponseEntity<>(userDTO, HttpStatus.OK);
         } else {
