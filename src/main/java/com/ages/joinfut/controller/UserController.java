@@ -39,15 +39,16 @@ public class UserController {
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Busca em lista de todos os usuários cadastrados pelo Email e Senha")
-    public ResponseEntity<List<UserDTO>> readAllUsers(@RequestParam(value = "email", required = false) String email, @RequestParam(value = "password", required = false) String password) {
+    public ResponseEntity<?> readAllUsers(@RequestParam(value = "email", required = false) String email, @RequestParam(value = "password", required = false) String password) {
         if (email != null && password != null) {
             List<User> users = userRepository.findByEmailAndPassword(email, userService.hash(password));
             List<UserDTO> userDTO = userService.convertList(users);
-            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+            if(!users.isEmpty()) return new ResponseEntity<>(userDTO, HttpStatus.OK);
+            else return new ResponseEntity<String>("Usuário ou senha incorreto", HttpStatus.UNAUTHORIZED);
         } else {
             List<User> users = userRepository.findAll();
             List<UserDTO> userDTO = userService.convertList(users);
-            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+            return new ResponseEntity<>(userDTO, HttpStatus.UNAUTHORIZED);
         }
     }
 
