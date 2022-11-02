@@ -1,13 +1,18 @@
 package com.ages.joinfut.dto;
 
-import com.ages.joinfut.model.Subgroup;
-import com.ages.joinfut.service.SubgroupService;
+import com.ages.joinfut.model.AthleteSubgroup;
+import com.ages.joinfut.model.Club;
+import com.ages.joinfut.model.ClubSlim;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SubgroupDTO {
 
     @ApiModelProperty(position = 1, notes = "Identificacão Unica do Subgrupo")
@@ -17,17 +22,13 @@ public class SubgroupDTO {
     private String subgroupName;
 
     @ApiModelProperty(position = 3, notes = "Identificacao do Clube que criou o Subgrupo")
-    private ClubDTO club;
+    private ClubSlim club;
+
+    @ApiModelProperty(position = 4, notes = "Lista com os Atletas do Subgrupo")
+    private List<AthleteSubgroup> athleteSubgroups;
 
     public SubgroupDTO(){}
 
-    public SubgroupDTO(Subgroup subgroup){
-        SubgroupService subgroupService = new SubgroupService();
-        SubgroupDTO subgroupDTO = subgroupService.DTODataConverter(subgroup);
-        this.idSubgroup = subgroupDTO.idSubgroup;
-        this.subgroupName = subgroupDTO.subgroupName;
-        this.club = subgroupDTO.club;
-    }
     public Long getId(){
         return getIdSubgroup();
     }

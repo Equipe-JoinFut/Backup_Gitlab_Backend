@@ -3,10 +3,12 @@ package com.ages.joinfut.model;
 import com.ages.joinfut.dto.SubgroupDTO;
 import com.ages.joinfut.service.SubgroupService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +18,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 
 @Getter
@@ -40,15 +44,12 @@ public class Subgroup {
     @JoinColumn(name = "id_club")
     private Club club;
 
+    @JsonProperty("athleteSubgroups")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "subgroup", cascade = CascadeType.REMOVE)
+    private List<AthleteSubgroup> athleteSubgroups;
+
     public Subgroup(){}
 
-    public Subgroup(SubgroupDTO subgroupDTO){
-        SubgroupService subgroupService = new SubgroupService();
-        Subgroup subgroup = subgroupService.EntityDataConverter(subgroupDTO);
-        this.idSubgroup = subgroup.idSubgroup;
-        this.subgroupName = subgroup.subgroupName;
-        this.club = subgroup.club;
-    }
     public Long getId(){
         return getIdSubgroup();
     }

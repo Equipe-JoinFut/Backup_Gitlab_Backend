@@ -1,7 +1,5 @@
 package com.ages.joinfut.model;
 
-import com.ages.joinfut.dto.ClubDTO;
-import com.ages.joinfut.service.ClubService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
@@ -9,6 +7,7 @@ import lombok.Setter;
 
 import org.hibernate.annotations.Type;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,27 +45,15 @@ public class Club {
     @Column(name = "cnpj")
     private String cnpj;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_adress")
     private Adress adress;
 
-    // ndaContract ainda nao foi criado
-    // @Type(type = "org.hibernate.type.TextType")
-    // @Column(name = "nda_contract")
-    // private NdaContract ndaContract;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "nda_contract")
+    private NdaContract ndaContract;
 
     public Club() {}
-    
-    public Club(ClubDTO clubDTO) {
-        ClubService clubService = new ClubService();
-        Club club = clubService.EntityDataConverter(clubDTO);
-
-        this.idClub = club.idClub;
-        this.corporateName = club.corporateName;
-        this.fantasyName = club.fantasyName;
-        this.cnpj = club.cnpj;
-        this.adress = club.adress;
-    }
 
     public Long getId() {return getIdClub();}
 }
