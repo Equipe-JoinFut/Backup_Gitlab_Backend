@@ -21,7 +21,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/personas")
 public class UserController {
-
     private static final String URL_PLURAL = "/users";
     private static final String URL_SINGULAR = "/user/{id}";
 
