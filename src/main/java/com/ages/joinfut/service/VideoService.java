@@ -4,7 +4,6 @@ import com.ages.joinfut.config.mappers.AthleteMapper;
 import com.ages.joinfut.config.mappers.VideoMapper;
 import com.ages.joinfut.dto.VideoDTO;
 import com.ages.joinfut.model.Video;
-import com.ages.joinfut.repository.AthleteRepository;
 import com.ages.joinfut.repository.VideoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +59,7 @@ public class VideoService {
     }
 
     @Transactional
-    public Video update(Long id, VideoDTO videoDTO, AthleteRepository athleteRepository) {
+    public Video update(Long id, VideoDTO videoDTO, VideoRepository videoRepository) {
         Video updated = VideoMapper.MAPPER.VideoDTOToVideo(videoDTO);
 
         Video saved = videoRepository.findByidVideo(id);
