@@ -54,6 +54,21 @@ public class VideoService {
         return video;
     }
 
+    @Transactional
+    public void delete(@PathVariable Long id) {
+        Optional<Video> videoGetter = videoRepository.findById(id);
+        Video video = videoGetter.get();
 
-    
+        if (video.getAthlete() != null && video.getAthlete().getId() != null) {
+            athleteService.delete(video.getAthlete().getId());
+        }
+
+        videoRepository.delete(video);
+    }
+
+
+
+
+
+
 }
