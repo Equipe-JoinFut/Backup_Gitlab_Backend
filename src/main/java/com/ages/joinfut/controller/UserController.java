@@ -21,7 +21,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/personas")
 public class UserController {
-
     private static final String URL_PLURAL = "/users";
     private static final String URL_SINGULAR = "/user/{id}";
 
@@ -29,26 +28,20 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    public UserController(
-            UserRepository userRepository,
-            UserService userService
-    ){
+    public UserController(UserRepository userRepository, UserService userService){
         this.userRepository = userRepository;
         this.userService = userService;
     }
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiModelProperty("Busca em lista de todos os usuários cadastrados")
-    public ResponseEntity<List<UserDTO>> readAllUsers(@RequestParam(value = "email", required = false) String email) {
-        if (email != null) {
-            List<User> users = userRepository.findByemail(email);
+    @ApiModelProperty("Busca em lista de todos os usuários cadastrados pelo Email e Senha")
+    public ResponseEntity<?> readAllUsers(@RequestParam(value = "email", required = false) String email, @RequestParam(value = "password", required = false) String password) {
+        if (email != null && password != null) {
+            List<User> users = userRepository.findByEmailAndPassword(email, userService.hash(password));
             List<UserDTO> userDTO = userService.convertList(users);
-            return new ResponseEntity<>(userDTO, HttpStatus.OK);
-        } else {
-            List<User> users = userRepository.findAll();
-            List<UserDTO> userDTO = userService.convertList(users);
-            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+            if (!users.isEmpty()) return new ResponseEntity<>(userDTO, HttpStatus.OK);
         }
+        return new ResponseEntity<String>("Usuário ou senha incorreto", HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -80,7 +73,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiModelProperty("Remove um usuário salvo")
+    @ApiModelProperty("Remove um usuário pelo ID")
     @Transactional
     public ResponseEntity<Long> deleteUser(@PathVariable Long id) {
         Optional<User> verifyId = userRepository.findById(id);
