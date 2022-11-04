@@ -22,9 +22,6 @@ public class VideoService {
     private VideoRepository videoRepository;
 
 
-    private VideoService videoService = new VideoService();
-
-
     public VideoService() {}
 
     @Transactional
@@ -37,10 +34,6 @@ public class VideoService {
     public void delete(@PathVariable Long id) {
         Optional<Video> videoGetter = videoRepository.findById(id);
         Video video = videoGetter.get();
-
-        if (video.getAthlete() != null && video.getAthlete().getId() != null) {
-            videoService.delete(video.getAthlete().getId());
-        }
 
         videoRepository.delete(video);
     }
