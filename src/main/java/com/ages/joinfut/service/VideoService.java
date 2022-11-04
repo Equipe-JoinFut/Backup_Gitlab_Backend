@@ -51,10 +51,6 @@ public class VideoService {
 
         Video saved = videoRepository.findByidVideo(id);
 
-        if (updated.getAthlete() != null && !updated.getAthlete().equals(saved.getAthlete())) {
-            saved.setAthlete(updated.getAthlete());
-        }
-
         if (updated.getDescription() != null && !updated.getDescription().equals(saved.getDescription())) {
             saved.setDescription(updated.getDescription());
         }
