@@ -29,8 +29,9 @@ public class VideoService {
     public VideoService() {}
 
     @Transactional
-    public void save(Video video, VideoRepository videoRepository) {
+    public Video save(Video video, VideoRepository videoRepository) {
         videoRepository.save(video);
+        return video;
     }
 
     @Transactional
@@ -39,7 +40,7 @@ public class VideoService {
         Video video = videoGetter.get();
 
         if (video.getAthlete() != null && video.getAthlete().getId() != null) {
-            athleteService.delete(video.getAthlete().getId());
+            videoService.delete(video.getAthlete().getId());
         }
 
         videoRepository.delete(video);
