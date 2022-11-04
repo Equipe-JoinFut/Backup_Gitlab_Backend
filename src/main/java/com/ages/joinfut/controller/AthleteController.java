@@ -1,5 +1,7 @@
 package com.ages.joinfut.controller;
 
+import com.ages.joinfut.Enum.DominantLeg;
+import com.ages.joinfut.Enum.Position;
 import com.ages.joinfut.config.mappers.AthleteMapper;
 import com.ages.joinfut.dto.AthleteDTO;
 import com.ages.joinfut.model.Athlete;
@@ -10,14 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
@@ -48,10 +43,23 @@ public class AthleteController {
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Busca em lista de todos os Atletas cadastrados")
-    public ResponseEntity<List<AthleteDTO>> readAllAthletes() {
-        List<Athlete> athletes = athleteRepository.findAll();
-        List<AthleteDTO> athletesDTO = athleteService.convertList(athletes);
-        return new ResponseEntity<>(athletesDTO, HttpStatus.OK);
+    public ResponseEntity<List<AthleteDTO>> readAllAthletes(
+            @RequestParam(value = "dominantLeg", required = false) DominantLeg dominantLeg,
+            @RequestParam(value = "athleteHeight", required = false) Double athleteHeight,
+            @RequestParam(value = "age", required = false) Integer age,
+            @RequestParam(value = "athleteWeight", required = false) Double athleteWeight,
+            @RequestParam(value = "position", required = false) Position position)
+    {
+        if(dominantLeg != null || athleteHeight != null || age != null || athleteWeight != null || position != null) {
+            List<Athlete> athletes = athleteRepository.findByDominantLegOrAthleteHeightOrAgeOrAthleteWeightOrPosition
+                    (dominantLeg, athleteHeight, age, athleteWeight, position);
+            List<AthleteDTO> athletesDTO = athleteService.convertList(athletes);
+            return new ResponseEntity<>(athletesDTO, HttpStatus.OK);
+        } else {
+            List<Athlete> athletes = athleteRepository.findAll();
+            List<AthleteDTO> athletesDTO = athleteService.convertList(athletes);
+            return new ResponseEntity<>(athletesDTO, HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -93,4 +101,9 @@ public class AthleteController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    //Adress State
+
 }
+
+
