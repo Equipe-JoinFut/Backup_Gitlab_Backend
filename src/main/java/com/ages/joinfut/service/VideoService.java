@@ -1,6 +1,5 @@
 package com.ages.joinfut.service;
 
-import com.ages.joinfut.config.mappers.AthleteMapper;
 import com.ages.joinfut.config.mappers.VideoMapper;
 import com.ages.joinfut.dto.VideoDTO;
 import com.ages.joinfut.model.Video;
