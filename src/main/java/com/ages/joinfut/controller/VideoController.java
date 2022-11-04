@@ -68,7 +68,7 @@ public class VideoController {
     @ApiModelProperty("Cria um novo video")
     @Transactional
     public ResponseEntity<VideoDTO> createVideo(@RequestBody @Valid VideoDTO videoDTO, UriComponentsBuilder uriComponentsBuilder) {
-        Video video = videoService.save(videoDTO);
+        Video video = videoService.save(VideoMapper.MAPPER.VideoDTOToVideo(videoDTO), videoRepository);
         URI uri = uriComponentsBuilder.path(URL_SINGULAR).buildAndExpand(video.getId()).toUri();
         return ResponseEntity.created(uri).body(VideoMapper.MAPPER.VideoToVideoDTO(video));
     }
