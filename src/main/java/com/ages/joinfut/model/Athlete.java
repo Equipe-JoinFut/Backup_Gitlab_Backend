@@ -5,10 +5,7 @@ import com.ages.joinfut.Enum.Position;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
@@ -34,9 +31,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "athletes", schema = "personas")
@@ -105,7 +99,7 @@ public class Athlete {
     private User user;
 
 
-    //public Athlete() {}
+    public Athlete() {}
 
     public Long getId() {
         return getIdAthlete();

@@ -2,19 +2,13 @@ package com.ages.joinfut.controller;
 
 import com.ages.joinfut.Enum.DominantLeg;
 import com.ages.joinfut.Enum.Position;
-import com.ages.joinfut.Enum.State;
 import com.ages.joinfut.config.mappers.AthleteMapper;
-import com.ages.joinfut.dto.AdressDTO;
 import com.ages.joinfut.dto.AthleteDTO;
-import com.ages.joinfut.model.Adress;
 import com.ages.joinfut.model.Athlete;
 import com.ages.joinfut.repository.AthleteRepository;
-import com.ages.joinfut.repository.AdressRepository;
 import com.ages.joinfut.service.AthleteService;
-import com.ages.joinfut.service.AdressService;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,16 +50,16 @@ public class AthleteController {
             @RequestParam(value = "athleteWeight", required = false) Double athleteWeight,
             @RequestParam(value = "position", required = false) Position position)
     {
-        Athlete athlete = Athlete.builder()
-                .dominantLeg(dominantLeg)
-                .athleteHeight(athleteHeight)
-                .age(age)
-                .athleteWeight(athleteWeight)
-                .position(position)
-                .build();
-        List<Athlete> athletes = athleteRepository.findAll(Example.of(athlete));
-        List<AthleteDTO> athletesDTO = athleteService.convertList(athletes);
-        return new ResponseEntity<>(athletesDTO, HttpStatus.OK);
+        if(dominantLeg != null || athleteHeight != null || age != null || athleteWeight != null || position != null) {
+            List<Athlete> athletes = athleteRepository.findByDominantLegOrAthleteHeightOrAgeOrAthleteWeightOrPosition
+                    (dominantLeg, athleteHeight, age, athleteWeight, position);
+            List<AthleteDTO> athletesDTO = athleteService.convertList(athletes);
+            return new ResponseEntity<>(athletesDTO, HttpStatus.OK);
+        } else {
+            List<Athlete> athletes = athleteRepository.findAll();
+            List<AthleteDTO> athletesDTO = athleteService.convertList(athletes);
+            return new ResponseEntity<>(athletesDTO, HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = URL_SINGULAR, produces = MediaType.APPLICATION_JSON_VALUE)
