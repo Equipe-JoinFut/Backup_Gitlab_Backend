@@ -14,6 +14,7 @@ import com.ages.joinfut.service.AthleteService;
 import com.ages.joinfut.service.AdressService;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -48,8 +49,21 @@ public class AthleteController {
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Busca em lista de todos os Atletas cadastrados")
-    public ResponseEntity<List<AthleteDTO>> readAllAthletes() {
-        List<Athlete> athletes = athleteRepository.findAll();
+    public ResponseEntity<List<AthleteDTO>> readAllAthletes(
+            @RequestParam(value = "dominantLeg", required = false) DominantLeg dominantLeg,
+            @RequestParam(value = "athleteHeight", required = false) Double athleteHeight,
+            @RequestParam(value = "age", required = false) Integer age,
+            @RequestParam(value = "athleteWeight", required = false) Double athleteWeight,
+            @RequestParam(value = "position", required = false) Position position)
+    {
+        Athlete athlete = Athlete.builder()
+                .dominantLeg(dominantLeg)
+                .athleteHeight(athleteHeight)
+                .age(age)
+                .athleteWeight(athleteWeight)
+                .position(position)
+                .build();
+        List<Athlete> athletes = athleteRepository.findAll(Example.of(athlete));
         List<AthleteDTO> athletesDTO = athleteService.convertList(athletes);
         return new ResponseEntity<>(athletesDTO, HttpStatus.OK);
     }
@@ -92,81 +106,6 @@ public class AthleteController {
             return ResponseEntity.ok(id);
         }
         return ResponseEntity.notFound().build();
-    }
-
-    @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiModelProperty("Busca em lista as alturas dos atletas")
-    @Transactional
-    public ResponseEntity<List<AthleteDTO>> readAthleteByathleteHeight(@RequestParam(value = "athleteHeight", required = false) Double athleteHeight) {
-        if (athleteHeight != null) {
-            List<Athlete> athletes = athleteRepository.findByathleteHeight(athleteHeight);
-            List<AthleteDTO> athleteDTO = athleteService.convertList(athletes);
-            return new ResponseEntity<>(athleteDTO, HttpStatus.OK);
-        } else {
-            List<Athlete> athletes = athleteRepository.findAll();
-            List<AthleteDTO> athleteDTO = athleteService.convertList(athletes);
-            return new ResponseEntity<>(athleteDTO, HttpStatus.OK);
-        }
-    }
-
-    @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiModelProperty("Busca em lista as idades dos atletas")
-    @Transactional
-    public ResponseEntity<List<AthleteDTO>> readAthleteByage(@RequestParam(value = "age", required = false) Integer age) {
-        if (age != null) {
-            List<Athlete> athletes = athleteRepository.findByage(age);
-            List<AthleteDTO> athleteDTO = athleteService.convertList(athletes);
-            return new ResponseEntity<>(athleteDTO, HttpStatus.OK);
-        } else {
-            List<Athlete> athletes = athleteRepository.findAll();
-            List<AthleteDTO> athleteDTO = athleteService.convertList(athletes);
-            return new ResponseEntity<>(athleteDTO, HttpStatus.OK);
-        }
-    }
-
-    @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiModelProperty("Busca em lista os pesos dos atletas")
-    @Transactional
-    public ResponseEntity<List<AthleteDTO>> readAthelteByathleteWeight(@RequestParam(value = "athleteWeight", required = false) Double athleteWeight) {
-        if (athleteWeight != null) {
-            List<Athlete> athletes = athleteRepository.findByathleteWeight(athleteWeight);
-            List<AthleteDTO> athleteDTO = athleteService.convertList(athletes);
-            return new ResponseEntity<>(athleteDTO, HttpStatus.OK);
-        } else {
-            List<Athlete> athletes = athleteRepository.findAll();
-            List<AthleteDTO> athleteDTO = athleteService.convertList(athletes);
-            return new ResponseEntity<>(athleteDTO, HttpStatus.OK);
-        }
-    }
-
-    @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiModelProperty("Busca em lista as pernas dominantes dos atletas")
-    @Transactional
-    public ResponseEntity<List<AthleteDTO>> readAthleteBydominantLeg(@RequestParam(value = "dominantLeg", required = false) DominantLeg dominantLeg) {
-        if (dominantLeg != null) {
-            List<Athlete> athletes = athleteRepository.findBydominantLeg(dominantLeg);
-            List<AthleteDTO> athleteDTO = athleteService.convertList(athletes);
-            return new ResponseEntity<>(athleteDTO, HttpStatus.OK);
-        } else {
-            List<Athlete> athletes = athleteRepository.findAll();
-            List<AthleteDTO> athleteDTO = athleteService.convertList(athletes);
-            return new ResponseEntity<>(athleteDTO, HttpStatus.OK);
-        }
-    }
-
-    @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiModelProperty("Busca em lista as posições dos atletas")
-    @Transactional
-    public ResponseEntity<List<AthleteDTO>> readAthleteByposition(@RequestParam(value = "position", required = false) Position position) {
-        if (position != null) {
-            List<Athlete> athletes = athleteRepository.findByposition(position);
-            List<AthleteDTO> athleteDTO = athleteService.convertList(athletes);
-            return new ResponseEntity<>(athleteDTO, HttpStatus.OK);
-        } else {
-            List<Athlete> athletes = athleteRepository.findAll();
-            List<AthleteDTO> athleteDTO = athleteService.convertList(athletes);
-            return new ResponseEntity<>(athleteDTO, HttpStatus.OK);
-        }
     }
 
     //Adress State
