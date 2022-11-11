@@ -1,10 +1,13 @@
 package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.ClubSlim;
+import com.ages.joinfut.model.SubgroupSlim;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -13,9 +16,27 @@ public class SieveDTO {
     @ApiModelProperty(position = 1, notes = "Identificação única da peneira")
     private Long idSieve;
 
-    @ApiModelProperty(position = 2, notes = "Identificacao do Clube que criou a peneira")
+    @ApiModelProperty(position = 2, notes = "Nome da Peneira")
+    private String sieveName;
+
+    @ApiModelProperty(position = 3, notes = "Identificacao do Subgrupo em que a peneira foi criada")
+    private SubgroupSlim subgroup;
+
+    @ApiModelProperty(position = 4, notes = "Identificacao do Clube que criou a peneira")
     private ClubSlim club;
 
-    @ApiModelProperty(position = 3, notes = "local da peneira")
+    @ApiModelProperty(position = 5, notes = "local da peneira")
     private String local;
+
+    @ApiModelProperty(position = 6, notes = "Data da peneira")
+    private Date date;
+
+    @ApiModelProperty(position = 7, notes = "Status da peneira")
+    private Boolean status;
+
+    public SieveDTO () {}
+
+    public Long getId() {
+        return getIdSieve();
+    }
 }
