@@ -1,6 +1,7 @@
 package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.Athlete;
+import com.ages.joinfut.model.AthleteSlim;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -16,7 +17,7 @@ public class VideoDTO {
     private Long idVideo;
 
     @ApiModelProperty(position = 2, notes = "Atleta")
-    private Athlete athlete;
+    private AthleteSlim athlete;
 
     @ApiModelProperty(position = 3, notes = "Descrição do Vídeo")
     private String description;
