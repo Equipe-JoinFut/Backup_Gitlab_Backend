@@ -2,7 +2,9 @@ package com.ages.joinfut.controller;
 
 import com.ages.joinfut.config.mappers.SieveMapper;
 import com.ages.joinfut.dto.SieveDTO;
+import com.ages.joinfut.model.Club;
 import com.ages.joinfut.model.Sieve;
+import com.ages.joinfut.repository.ClubRepository;
 import com.ages.joinfut.repository.SieveRepository;
 import com.ages.joinfut.service.SieveService;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,15 +29,24 @@ public class SieveController {
     private SieveRepository sieveRepository;
     private SieveService sieveService;
 
-    public SieveController(SieveRepository sieveRepository, SieveService sieveService){
+    private ClubRepository clubRepository;
+    public SieveController(SieveRepository sieveRepository, SieveService sieveService, ClubRepository clubRepository){
         this.sieveRepository = sieveRepository;
         this.sieveService = sieveService;
+        this.clubRepository = clubRepository;
     }
 
     @GetMapping(value = URL_PLURAL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiModelProperty("Busca em lista de todos as Peneiras cadastradas")
-    public ResponseEntity<List<SieveDTO>> readAllSieves() {
-        List<Sieve> sieves = sieveRepository.findAll();
+    public ResponseEntity<List<SieveDTO>> readAllSieves(@RequestParam(value = "idClub", required = false) Long idClub) {
+        List<Sieve> sieves;
+        Club club = clubRepository.findByidClub(idClub);
+        if(idClub != null){
+            sieves = sieveRepository.findByIdClub(club);
+        }
+        else{
+            sieves = sieveRepository.findAll();
+        }
         List<SieveDTO> sievesDTO = sieveService.convertList(sieves);
         return new ResponseEntity<>(sievesDTO, HttpStatus.OK);
     }

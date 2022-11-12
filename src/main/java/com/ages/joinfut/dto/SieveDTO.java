@@ -1,7 +1,7 @@
 package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.ClubSlim;
-import com.ages.joinfut.model.SubgroupSlim;
+import com.ages.joinfut.model.Subgroup;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class SieveDTO {
     private String sieveName;
 
     @ApiModelProperty(position = 3, notes = "Identificacao do Subgrupo em que a peneira foi criada")
-    private SubgroupSlim subgroup;
+    private Subgroup subgroup;
 
     @ApiModelProperty(position = 4, notes = "Identificacao do Clube que criou a peneira")
     private ClubSlim club;
@@ -29,10 +29,10 @@ public class SieveDTO {
     private String local;
 
     @ApiModelProperty(position = 6, notes = "Data da peneira")
-    private Date date;
+    private String date;
 
-    @ApiModelProperty(position = 7, notes = "Status da peneira")
-    private Boolean status;
+    @ApiModelProperty(position = 7, notes = "Data da peneira")
+    private String time;
 
     public SieveDTO () {}
 

@@ -37,13 +37,15 @@ public class Sieve {
     @Column(name = "sieve_local")
     private String local;
 
-    @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @Column(name = "date_sieve")
-    private Date date;
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "date")
+    private String date;
 
-    @Column(name = "flag_status_club")
-    private Boolean status;
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "time")
+    private String time;
 
     public Sieve(){}
 
