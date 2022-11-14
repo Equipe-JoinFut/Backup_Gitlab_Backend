@@ -1,13 +1,9 @@
 package com.ages.joinfut.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
-import org.dom4j.util.AttributeHelper;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +29,7 @@ public class AthleteConfirmation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_athlete_confirmation")
-    private Long idAthelteConfirmation;
+    private Long idAthleteConfirmation;
 
     @JoinColumn(name = "id_athlete")
     @JsonIgnore
@@ -50,6 +46,6 @@ public class AthleteConfirmation {
 
     public AthleteConfirmation() {}
 
-    public Long getId() { return getIdAthelteConfirmation(); }
+    public Long getId() { return getIdAthleteConfirmation(); }
 
 }
