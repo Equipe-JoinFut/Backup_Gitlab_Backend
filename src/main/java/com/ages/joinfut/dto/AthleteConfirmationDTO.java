@@ -1,7 +1,7 @@
 package com.ages.joinfut.dto;
 
 import com.ages.joinfut.model.Athlete;
-import com.ages.joinfut.model.AthleteConfirmation;
+import com.ages.joinfut.model.Sieve;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -20,10 +20,10 @@ public class AthleteConfirmationDTO {
     private Athlete athlete;
 
     @ApiModelProperty(position = 3, notes = "Atleta vai comparecer na pré-seleção? (Sim/Não)")
-    private Boolean athlete_confirmed_reject;
+    private Boolean athleteConfirmedReject;
 
-    // @ApiModelProperty(position = 4, notes = "Pré seleção que engloba esse atleta")
-    // private Sieve sieve;
+    @ApiModelProperty(position = 4, notes = "peneira que engloba esse atleta")
+    private Sieve sieve;
 
     public AthleteConfirmationDTO() {}
 

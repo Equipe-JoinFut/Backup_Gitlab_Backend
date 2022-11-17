@@ -11,12 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
 
 
 @Getter
@@ -37,12 +33,11 @@ public class AthleteConfirmation {
     private Athlete athlete;
 
     @Column(name = "athlete_confirmed_reject")
-    private Boolean athlete_confirmed_reject;
+    private Boolean athleteConfirmedReject;
 
-    // @JoinColumn(name = "id_sieve")
-    // @JsonIgnore
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // private Sieve sieve;
+    @JoinColumn(name = "id_sieve")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Sieve sieve;
 
     public AthleteConfirmation() {}
 
