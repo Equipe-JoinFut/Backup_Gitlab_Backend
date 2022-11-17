@@ -1,6 +1,5 @@
 package com.ages.joinfut.service;
 
-import com.ages.joinfut.config.mappers.AthleteMapper;
 import com.ages.joinfut.config.mappers.UserMapper;
 import com.ages.joinfut.model.User;
 import com.ages.joinfut.dto.UserDTO;

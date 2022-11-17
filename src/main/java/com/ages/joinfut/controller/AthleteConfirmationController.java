@@ -1,31 +1,20 @@
 package com.ages.joinfut.controller;
 
-import com.ages.joinfut.Enum.DominantLeg;
-import com.ages.joinfut.Enum.Position;
 import com.ages.joinfut.config.mappers.AthleteConfirmationMapper;
-import com.ages.joinfut.config.mappers.AthleteMapper;
 import com.ages.joinfut.dto.AthleteConfirmationDTO;
-import com.ages.joinfut.model.Athlete;
 import com.ages.joinfut.model.AthleteConfirmation;
 import com.ages.joinfut.repository.AthleteConfirmationRepository;
-import com.ages.joinfut.repository.AthleteRepository;
 import com.ages.joinfut.service.AthleteConfirmationService;
-import com.ages.joinfut.service.AthleteService;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.print.attribute.standard.Media;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.net.PortUnreachableException;
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController

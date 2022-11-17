@@ -4,6 +4,8 @@ import com.ages.joinfut.config.mappers.AthleteConfirmationMapper;
 import com.ages.joinfut.dto.AthleteConfirmationDTO;
 import com.ages.joinfut.model.AthleteConfirmation;
 import com.ages.joinfut.repository.AthleteConfirmationRepository;
+import com.ages.joinfut.repository.AthleteRepository;
+import com.ages.joinfut.repository.SieveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,19 @@ public class AthleteConfirmationService {
     private AthleteConfirmationRepository athleteConfirmationRepository;
 
     @Autowired
+    private AthleteRepository athleteRepository;
+
+    @Autowired
+    private SieveRepository sieveRepository;
+
+    @Autowired
     public AthleteConfirmationService() {}
+
     @Transactional
     public AthleteConfirmation save(AthleteConfirmationDTO athleteConfirmationDTO) {
         AthleteConfirmation athleteConfirmation = AthleteConfirmationMapper.MAPPER.AthleteConfirmationDTOToAthleteConfirmation(athleteConfirmationDTO);
+        athleteConfirmation.setAthlete(athleteRepository.findById(athleteConfirmation.getAthlete().getId()).get());
+        athleteConfirmation.setSieve(sieveRepository.findById(athleteConfirmation.getSieve().getId()).get());
         athleteConfirmationRepository.save(athleteConfirmation);
         return athleteConfirmation;
     }
@@ -36,9 +47,9 @@ public class AthleteConfirmationService {
             saved.setAthlete(update.getAthlete());
 
         }
-        // if (update.getSieve() != null && !update.getSieve().equals(saved.getSieve())) {
-        //    saved.setSieve(update.getSieve());
-        // }
+        if (update.getSieve() != null && !update.getSieve().equals(saved.getSieve())) {
+            saved.setSieve(update.getSieve());
+        }
 
         return saved;
     }
