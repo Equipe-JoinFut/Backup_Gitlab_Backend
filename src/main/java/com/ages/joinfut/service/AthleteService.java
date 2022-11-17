@@ -144,7 +144,11 @@ public class AthleteService{
         return athletes.stream().map(athlete -> AthleteMapper.MAPPER.AthleteToAthleteDTO(athlete)).collect(Collectors.toList());
     }
 
-    public void calculateImc(Athlete athlete){ athlete.setAthleteImc(athlete.getAthleteWeight() / (Math.pow(athlete.getAthleteHeight(), 2))); }
+    public void calculateImc(Athlete athlete){
+        double imc = athlete.getAthleteWeight() / (Math.pow(athlete.getAthleteHeight(), 2));
+        double formattedImc = Math.floor(imc * 100) / 100;
+        athlete.setAthleteImc(formattedImc); 
+    }
 
     public void calculateAge(Athlete athlete) {
         Date dateNow = new Date();

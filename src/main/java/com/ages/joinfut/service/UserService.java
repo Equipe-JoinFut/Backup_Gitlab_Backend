@@ -64,7 +64,12 @@ public class UserService {
         if (updated.getUserType() != null && !updated.getUserType().equals(saved.getUserType())){
             saved.setUserType(updated.getUserType());
         }
-
+        if (updated.getAthlete() != null && updated.getAthlete().getId() != null && !updated.getAthlete().equals(saved.getAthlete())) {
+            saved.setAthlete(updated.getAthlete());
+        }
+        if (updated.getClub() != null && updated.getClub().getId() != null && !updated.getClub().equals(saved.getClub())) {
+            saved.setClub(updated.getClub());
+        }
         return saved;
     }
 
@@ -75,5 +80,7 @@ public class UserService {
         hashPass = Hashing.sha256().hashString(passwordRaw, StandardCharsets.UTF_8).toString();
         return hashPass;
     }
+
+
 
 }
