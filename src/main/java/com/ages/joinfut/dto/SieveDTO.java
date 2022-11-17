@@ -7,8 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)

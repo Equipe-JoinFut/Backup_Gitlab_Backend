@@ -1,12 +1,10 @@
 package com.ages.joinfut.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
-import java.util.Date;
 
 @Getter
 @Setter
