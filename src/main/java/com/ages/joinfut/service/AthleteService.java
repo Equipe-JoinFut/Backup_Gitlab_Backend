@@ -70,7 +70,7 @@ public class AthleteService{
     }
 
     @Transactional
-    public void delete( @PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         Optional<Athlete> athleteGetter = athleteRepository.findById(id);
         Athlete athlete = athleteGetter.get();
         if (athlete.getContact() != null && athlete.getContact().getId() != null) {
